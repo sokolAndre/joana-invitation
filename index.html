@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>A little invitation 🌷</title>
+  <style>
+    :root {
+      --bg1: #fff7f8;
+      --bg2: #fffdf8;
+      --card: rgba(255,255,255,.82);
+      --text: #2b2326;
+      --muted: #75676c;
+      --accent: #e85d75;
+      --accent-dark: #cf4963;
+      --border: rgba(84, 55, 64, .10);
+      --shadow: 0 24px 80px rgba(94, 55, 68, .15);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      min-height: 100%;
+      margin: 0;
+      font-family: Inter, ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255, 205, 214, .65), transparent 32%),
+        radial-gradient(circle at 85% 80%, rgba(255, 226, 185, .55), transparent 34%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+    }
+
+    body {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      overflow: hidden;
+    }
+
+    .card {
+      width: min(100%, 520px);
+      min-height: 450px;
+      padding: 38px 28px 30px;
+      border-radius: 28px;
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flower {
+      font-size: 46px;
+      line-height: 1;
+      margin-bottom: 18px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      50% { transform: translateY(-5px) rotate(2deg); }
+    }
+
+    h1 {
+      font-size: clamp(30px, 7vw, 44px);
+      line-height: 1.05;
+      margin: 0 0 16px;
+      letter-spacing: -0.035em;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .buttons-area {
+      position: relative;
+      min-height: 150px;
+      margin-top: 32px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      font: inherit;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .yes-btn,
+    .no-btn,
+    .option-btn {
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .yes-btn {
+      background: var(--accent);
+      color: white;
+      padding: 15px 24px;
+      box-shadow: 0 12px 28px rgba(232, 93, 117, .28);
+      min-width: 150px;
+      position: absolute;
+      left: 10%;
+      top: 35px;
+      z-index: 2;
+    }
+
+    .yes-btn:hover { transform: translateY(-2px) scale(1.02); }
+    .yes-btn:active { transform: scale(.98); }
+
+    .no-btn {
+      background: rgba(255,255,255,.92);
+      color: var(--text);
+      padding: 14px 22px;
+      border: 1px solid var(--border);
+      position: absolute;
+      right: 10%;
+      top: 35px;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    .screen {
+      display: none;
+      animation: appear .35s ease both;
+    }
+
+    .screen.active { display: block; }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(10px) scale(.985); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 16px 18px;
+      background: rgba(255,255,255,.9);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .option-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(55, 36, 42, .08);
+    }
+
+    .option-btn.selected {
+      background: #fff0f3;
+      border-color: rgba(232, 93, 117, .35);
+    }
+
+    .submit-btn {
+      margin-top: 18px;
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      font-weight: 800;
+      box-shadow: 0 12px 28px rgba(232, 93, 117, .24);
+      display: none;
+    }
+
+    .submit-btn.show { display: block; }
+
+    .tiny {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #9c8c91;
+      text-align: center;
+    }
+
+    .serious-no {
+      display: none;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #918287;
+      text-decoration: underline;
+      background: transparent;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .serious-no.show { display: block; }
+
+    .success-icon {
+      font-size: 54px;
+      margin-bottom: 16px;
+    }
+
+    .error {
+      margin-top: 12px;
+      color: #b33c53;
+      font-size: 14px;
+      display: none;
+    }
+
+    @media (max-width: 430px) {
+      .card {
+        min-height: 470px;
+        padding: 32px 20px 26px;
+      }
+      .yes-btn { left: 4%; }
+      .no-btn { right: 4%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section id="inviteScreen" class="screen active">
+      <div class="flower">🌷</div>
+      <h1>My dear Joana, will I see you today? ❤️</h1>
+      <p>I have a tiny question for you 😊</p>
+
+      <div id="buttonsArea" class="buttons-area">
+        <button id="yesBtn" class="yes-btn" type="button">Yes, of course 😊</button>
+        <button id="noBtn" class="no-btn" type="button">No 😌</button>
+      </div>
+
+      <button id="seriousNo" class="serious-no" type="button">Okay, seriously — no</button>
+    </section>
+
+    <section id="choiceScreen" class="screen">
+      <div class="flower">✨</div>
+      <h1>Great choice 😌</h1>
+      <p>What sounds best?</p>
+
+      <form id="dateForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="hidden" name="answer" value="YES" />
+        <input id="choiceInput" type="hidden" name="date_choice" value="" />
+        <input type="hidden" name="page" value="date-invitation" />
+
+        <div class="options">
+          <button class="option-btn" type="button" data-value="Sunset at Praia Formosa + a walk + dancing 🌅">🌅 Sunset at Praia Formosa + a walk + dancing</button>
+          <button class="option-btn" type="button" data-value="Caniço + a fish prego 🐟">🐟 Caniço + a fish prego</button>
+          <button class="option-btn" type="button" data-value="Wine Festival + a walk around the city centre 🍷">🍷 Wine Festival + a walk around the city centre</button>
+          <button id="ownIdeaBtn" class="option-btn" type="button" data-value="own">✨ Your own idea</button>
+          <input id="ownIdeaInput" type="text" placeholder="Tell me your idea 😊" style="display:none;width:100%;padding:15px 18px;border-radius:18px;border:1px solid var(--border);font:inherit;background:rgba(255,255,255,.9);outline:none;" />
+        </div>
+
+        <button id="submitBtn" class="submit-btn" type="submit">Choose this ❤️</button>
+        <div id="formError" class="error">Something went wrong. Please try once more.</div>
+      </form>
+    </section>
+
+    <section id="successScreen" class="screen">
+      <div class="success-icon">❤️</div>
+      <h1>Perfect.</h1>
+      <p>I’ll take care of the rest.</p>
+      <div class="tiny">Your answer has been delivered ✨</div>
+    </section>
+
+    <section id="noScreen" class="screen">
+      <div class="flower">🌿</div>
+      <h1>Fair enough :)</h1>
+      <p>No tricks this time. Thanks for answering honestly.</p>
+    </section>
+  </main>
+
+  <script>
+    const inviteScreen = document.getElementById('inviteScreen');
+    const choiceScreen = document.getElementById('choiceScreen');
+    const successScreen = document.getElementById('successScreen');
+    const noScreen = document.getElementById('noScreen');
+
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const seriousNo = document.getElementById('seriousNo');
+    const area = document.getElementById('buttonsArea');
+
+    let escapeCount = 0;
+
+    function showScreen(screen) {
+      [inviteScreen, choiceScreen, successScreen, noScreen].forEach(s => s.classList.remove('active'));
+      screen.classList.add('active');
+    }
+
+    function moveNoButton() {
+      escapeCount++;
+
+      const areaRect = area.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = Math.max(0, areaRect.width - btnRect.width);
+      const maxY = Math.max(0, areaRect.height - btnRect.height);
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.right = 'auto';
+      noBtn.style.top = `${y}px`;
+
+      const texts = [
+        'No 😌',
+        'Hmm...',
+        'Are you sure? 🤨',
+        'Nice try 😌',
+        'Still no? 😄'
+      ];
+      noBtn.textContent = texts[Math.min(escapeCount, texts.length - 1)];
+
+      if (escapeCount >= 4) seriousNo.classList.add('show');
+    }
+
+    // Pointer events work for mouse, touch and stylus.
+    noBtn.addEventListener('pointerenter', moveNoButton);
+    noBtn.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener('click', () => showScreen(choiceScreen));
+
+    seriousNo.addEventListener('click', async () => {
+      // Also record a genuine "no" through Formspree, if configured.
+      const endpoint = document.getElementById('dateForm').action;
+      if (!endpoint.includes('YOUR_FORM_ID')) {
+        try {
+          await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new URLSearchParams({
+              answer: 'NO',
+              date_choice: '',
+              page: 'date-invitation'
+            })
+          });
+        } catch (_) {}
+      }
+      showScreen(noScreen);
+    });
+
+    const choiceInput = document.getElementById('choiceInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const optionButtons = [...document.querySelectorAll('.option-btn')];
+
+    optionButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        optionButtons.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        if (btn.dataset.value === 'own') {
+          choiceInput.value = ownIdeaInput ? ownIdeaInput.value.trim() : '';
+          submitBtn.classList.toggle('show', !!choiceInput.value);
+        } else {
+          choiceInput.value = btn.dataset.value;
+          if (typeof ownIdeaInput !== 'undefined' && ownIdeaInput) ownIdeaInput.style.display = 'none';
+          submitBtn.classList.add('show');
+        }
+      });
+    });
+
+    const ownIdeaBtn = document.getElementById('ownIdeaBtn');
+    const ownIdeaInput = document.getElementById('ownIdeaInput');
+
+    ownIdeaBtn.addEventListener('click', () => {
+      ownIdeaInput.style.display = 'block';
+      ownIdeaInput.focus();
+      choiceInput.value = ownIdeaInput.value.trim();
+      submitBtn.classList.toggle('show', !!choiceInput.value);
+    });
+
+    ownIdeaInput.addEventListener('input', () => {
+      if (ownIdeaBtn.classList.contains('selected')) {
+        choiceInput.value = ownIdeaInput.value.trim();
+        submitBtn.classList.toggle('show', !!choiceInput.value);
+      }
+    });
+
+    const form = document.getElementById('dateForm');
+    const formError = document.getElementById('formError');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      formError.style.display = 'none';
+
+      if (!choiceInput.value) return;
+
+      if (form.action.includes('YOUR_FORM_ID')) {
+        formError.textContent = 'Formspree is not configured yet. Replace YOUR_FORM_ID in index.html.';
+        formError.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!response.ok) throw new Error('Submission failed');
+        showScreen(successScreen);
+      } catch (err) {
+        formError.textContent = 'Something went wrong. Please try once more.';
+        formError.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Choose this ❤️';
+      }
+    });
+  </script>
+</body>
+</html>
