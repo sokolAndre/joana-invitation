@@ -72,6 +72,30 @@
     .yes{color:#fff;background:#a6322a;box-shadow:0 10px 28px rgba(166,50,42,.25)}
     .later{color:#312824;background:#eee3d8}
     .status{min-height:22px;margin-top:10px;font-size:13px;color:#cabcae}
+    .result-card{
+      padding:22px 18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      animation:resultIn .35s ease both;
+    }
+    .result-card .result-icon{font-size:38px;margin-bottom:8px}
+    .result-card h2{
+      margin:0 0 8px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:28px;
+      color:#f2e4d6;
+    }
+    .result-card p{
+      margin:0;
+      color:#ddd1c6;
+      line-height:1.45;
+      font-size:15px;
+    }
+    @keyframes resultIn{
+      from{opacity:0;transform:translateY(8px) scale(.985)}
+      to{opacity:1;transform:none}
+    }
     .footer{margin-top:16px;font-size:12px;color:#8e8378}
     @media(max-width:430px){
       body{padding:14px}.scratch-card{border-radius:24px}.reveal{padding:26px 18px 22px}
@@ -135,12 +159,14 @@
     <div class="progress"><div id="bar"></div></div>
 
     <section class="after" id="after">
-      <p>So… what do you think? 😊</p>
-      <div class="buttons">
-        <button class="yes" id="yesBtn">Yes, absolutely 😌</button>
-        <button class="later" id="laterBtn">Maybe another evening</button>
+      <div id="answerPanel">
+        <p>So… what do you think? 😊</p>
+        <div class="buttons">
+          <button class="yes" id="yesBtn">Yes, absolutely 😌</button>
+          <button class="later" id="laterBtn">Maybe another evening</button>
+        </div>
+        <div class="status" id="status"></div>
       </div>
-      <div class="status" id="status"></div>
     </section>
 
     <div class="footer">A tiny invitation made especially for you ✨</div>
@@ -256,29 +282,77 @@
     setTimeout(()=>{canvas.style.display='none';after.classList.add('show')},420);
   }
 
-  async function sendAnswer(answer){
-    status.textContent='Sending…';
+  let answerSubmitted = false;
+
+  function showFinalAnswer(type){
+    const panel = document.getElementById('answerPanel');
+
+    if(type === 'yes'){
+      panel.innerHTML = `
+        <div class="result-card">
+          <div class="result-icon">❤️</div>
+          <h2>Perfect!</h2>
+          <p>See you tonight 😌<br>
+          I'm looking forward to our little Eastern European adventure.</p>
+        </div>`;
+    } else {
+      panel.innerHTML = `
+        <div class="result-card">
+          <div class="result-icon">🌿</div>
+          <h2>Another evening it is :)</h2>
+          <p>The borscht isn't going anywhere 😌</p>
+        </div>`;
+    }
+  }
+
+  async function sendAnswer(answer, type){
+    if(answerSubmitted) return;
+
+    const yesBtn = document.getElementById('yesBtn');
+    const laterBtn = document.getElementById('laterBtn');
+
+    yesBtn.disabled = true;
+    laterBtn.disabled = true;
+    yesBtn.style.opacity = '.55';
+    laterBtn.style.opacity = '.55';
+    status.textContent = 'Sending…';
+
     if(FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')){
       status.textContent='Formspree endpoint is not configured yet.';
+      yesBtn.disabled = false;
+      laterBtn.disabled = false;
+      yesBtn.style.opacity = '1';
+      laterBtn.style.opacity = '1';
       return;
     }
+
     try{
       const body=new FormData();
       body.append('answer',answer);
       body.append('invitation','Slavic dinner tonight');
       body.append('page','scratch-card');
+
       const res=await fetch(FORMSPREE_ENDPOINT,{
-        method:'POST', body, headers:{'Accept':'application/json'}
+        method:'POST',
+        body,
+        headers:{'Accept':'application/json'}
       });
+
       if(!res.ok) throw new Error('failed');
-      status.textContent=answer.startsWith('YES') ? 'Perfect ❤️' : 'Got it 🌿';
+
+      answerSubmitted = true;
+      showFinalAnswer(type);
     }catch(e){
       status.textContent='Could not send the answer. Please try again.';
+      yesBtn.disabled = false;
+      laterBtn.disabled = false;
+      yesBtn.style.opacity = '1';
+      laterBtn.style.opacity = '1';
     }
   }
 
-  document.getElementById('yesBtn').addEventListener('click',()=>sendAnswer('YES — tonight 😌'));
-  document.getElementById('laterBtn').addEventListener('click',()=>sendAnswer('MAYBE — another evening'));
+  document.getElementById('yesBtn').addEventListener('click',()=>sendAnswer('YES — tonight 😌','yes'));
+  document.getElementById('laterBtn').addEventListener('click',()=>sendAnswer('MAYBE — another evening','later'));
 
   canvas.addEventListener('pointerdown',start);
   canvas.addEventListener('pointermove',move);
