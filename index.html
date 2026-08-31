@@ -99,15 +99,22 @@
     .footer{margin-top:16px;font-size:12px;color:#8e8378}
 
     @media(max-width:430px){
-      .reveal > p:nth-of-type(1){margin-top:14px !important;}
-      .reveal > div[style*="width:54px"]{margin:14px auto 12px !important;}
-      .reveal > p:nth-of-type(2){font-size:18px !important;}
-      .reveal > p:nth-of-type(3){margin-top:10px !important;font-size:18px !important;}
-      .reveal .invite{margin-top:14px !important;font-size:29px !important;}
-    }
-    @media(max-width:430px){
+      html, body{
+        min-height:100%;
+        overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+      }
+
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar{
+        display:none;
+        width:0;
+        height:0;
+      }
       body{
-        padding:12px 14px 18px;
+        padding:8px 12px 18px;
         display:block;
       }
       .wrap{
@@ -115,68 +122,113 @@
         margin:0 auto;
       }
       .for{
-        margin-top:8px;
-        margin-bottom:8px;
-        font-size:38px;
+        margin-top:4px;
+        margin-bottom:4px;
+        font-size:34px;
       }
       .hint{
-        margin-bottom:14px;
-        font-size:12px;
-        line-height:1.45;
-        letter-spacing:.16em;
+        margin:0 0 10px;
+        font-size:10px;
+        line-height:1.35;
+        letter-spacing:.14em;
       }
       .scratch-card{
-        border-radius:24px;
-        aspect-ratio:4 / 5.65;
-        min-height:0;
+        width:92%;
+        margin:0 auto;
+        aspect-ratio:4 / 5;
+        border-radius:22px;
       }
       .reveal{
-        padding:22px 16px 18px;
+        padding:14px 12px 12px;
         justify-content:flex-start;
       }
       .tiny-heart{
-        font-size:24px;
-        margin-bottom:4px;
+        font-size:20px;
+        margin-bottom:2px;
       }
       .reveal .title{
-        font-size:34px !important;
+        font-size:29px !important;
         line-height:1.02 !important;
       }
-      .reveal p{
-        line-height:1.25 !important;
+      .reveal > p:nth-of-type(1){
+        margin-top:10px !important;
+        font-size:18px !important;
+        line-height:1.22 !important;
+      }
+      .reveal > div[style*="width:54px"]{
+        margin:10px auto 8px !important;
       }
       .food{
-        gap:8px !important;
-        margin-bottom:12px !important;
+        gap:6px !important;
+        margin-bottom:8px !important;
       }
       .dish{
-        width:78px !important;
-        font-size:40px;
+        width:68px !important;
+      }
+      .food > div > div:last-child{
+        font-size:10px !important;
+        margin-top:4px !important;
+      }
+      .reveal > p:nth-of-type(2){
+        font-size:15px !important;
+        line-height:1.24 !important;
+      }
+      .reveal > p:nth-of-type(3){
+        margin-top:7px !important;
+        font-size:16px !important;
+        line-height:1.22 !important;
+      }
+      .reveal .invite{
+        margin-top:10px !important;
+        font-size:25px !important;
+        line-height:1.05 !important;
+      }
+      .progress{
+        width:92%;
+        margin:8px auto 0;
+      }
+      .after{
+        width:92%;
+        margin:10px auto 0;
+        padding-bottom:6px;
+      }
+      .after p{
+        margin-bottom:8px;
+        font-size:14px;
       }
       .buttons{
         grid-template-columns:1fr;
+        gap:7px;
       }
-      .after{
-        margin-top:14px;
-        padding-bottom:8px;
+      button{
+        padding:12px 14px;
       }
       .footer{
-        margin-top:10px;
+        margin-top:8px;
+        padding-bottom:4px;
       }
     }
 
     @media(max-width:360px){
       .scratch-card{
-        aspect-ratio:4 / 5.9;
-      }
-      .reveal{
-        padding:18px 12px 16px;
+        width:94%;
+        aspect-ratio:4 / 5.05;
       }
       .reveal .title{
-        font-size:31px !important;
+        font-size:27px !important;
       }
       .dish{
-        width:72px !important;
+        width:62px !important;
+      }
+      .reveal > p:nth-of-type(1){
+        font-size:17px !important;
+      }
+      .reveal > p:nth-of-type(2),
+      .reveal > p:nth-of-type(3){
+        font-size:14px !important;
+      }
+      .reveal .invite{
+        font-size:23px !important;
       }
     }
   </style>
@@ -252,7 +304,7 @@
 
 <script>
 (() => {
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xwlkpqjg';
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
 
   const canvas = document.getElementById('scratch');
   const card = document.getElementById('scratchCard');
@@ -357,7 +409,12 @@
   function finishReveal(){
     finished=true; bar.style.width='100%';
     canvas.style.transition='opacity .55s ease'; canvas.style.opacity='0';
-    setTimeout(()=>{canvas.style.display='none';after.classList.add('show')},420);
+    setTimeout(()=>{
+      canvas.style.display='none';
+      card.style.touchAction='pan-y';
+      after.classList.add('show');
+      setTimeout(()=>after.scrollIntoView({behavior:'smooth', block:'nearest'}), 120);
+    },420);
   }
 
   let answerSubmitted = false;
