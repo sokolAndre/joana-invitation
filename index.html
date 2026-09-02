@@ -40,6 +40,31 @@ button:active{transform:scale(.98)}button:disabled{opacity:.55}
 .note{margin:14px 4px 0;text-align:center;color:#81746c;font-size:11px;line-height:1.45;font-style:italic}
 .final{display:none;margin-top:16px;padding:22px 18px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);text-align:center}.final.show{display:block}.final .big{font-size:36px;margin-bottom:7px}.final h3{margin:0 0 8px;font-family:Georgia,serif;font-size:26px;font-weight:500}.final p{margin:0;color:#cdbfb5;font-size:14px;line-height:1.5}.hidden{display:none!important}
 @media(max-width:430px){body{padding:16px 11px calc(18px + env(safe-area-inset-bottom))}.eyebrow{font-size:17px}h1{font-size:34px}.subtitle{margin-bottom:15px}.card{padding:17px 14px;border-radius:24px}.battery{width:145px;height:58px}.battery:after{top:16px;height:20px}.percent{font-size:29px;min-width:63px}.mode{padding:15px 13px}.mode h2{font-size:24px}.actions{grid-template-columns:1fr}}
+
+.mode.selected{
+  padding:24px 18px;
+  background:rgba(255,255,255,.055);
+}
+.mode.selected .icon{
+  font-size:44px;
+  margin-bottom:10px;
+}
+.mode.selected .kicker{
+  display:none;
+}
+.mode.selected h2{
+  margin:0 0 9px;
+  font-size:28px;
+}
+.mode.selected p{
+  font-size:14px;
+  line-height:1.55;
+}
+input[type=range]:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
 </style>
 </head>
 <body>
@@ -86,12 +111,6 @@ button:active{transform:scale(.98)}button:disabled{opacity:.55}
   </div>
 </div>
 
-<div class="final" id="final">
-  <div class="big" id="finalIcon">✨</div>
-  <h3>Tonight's plan selected</h3>
-  <p>Decision successfully transmitted to Andrei.<br>No further action required 😌</p>
-</div>
-
 <div class="note">Recommendations generated using highly sophisticated Joana-energy-analysis technology.</div>
 </section>
 </main>
@@ -100,7 +119,7 @@ button:active{transform:scale(.98)}button:disabled{opacity:.55}
 const FORM_ENDPOINT="https://formspree.io/f/xwlkpqjg";
 const energy=document.getElementById("energy"), percentage=document.getElementById("percentage"), batteryFill=document.getElementById("batteryFill");
 const mode=document.getElementById("mode"), modeIcon=document.getElementById("modeIcon"), modeKicker=document.getElementById("modeKicker"), modeTitle=document.getElementById("modeTitle"), modeText=document.getElementById("modeText");
-const acceptBtn=document.getElementById("acceptBtn"), chooseBtn=document.getElementById("chooseBtn"), manual=document.getElementById("manual"), actions=document.getElementById("actions"), final=document.getElementById("final"), finalIcon=document.getElementById("finalIcon"), otherInput=document.getElementById("otherInput"), otherBtn=document.getElementById("otherBtn");
+const acceptBtn=document.getElementById("acceptBtn"), chooseBtn=document.getElementById("chooseBtn"), manual=document.getElementById("manual"), actions=document.getElementById("actions"), otherInput=document.getElementById("otherInput"), otherBtn=document.getElementById("otherBtn");
 let currentChoice="";
 const modes={
  low:{icon:"🏡",kicker:"Recharge mode",title:"Cozy Family Evening",text:"Stay home, relax and spend some time with your family. No adventures required tonight 😌",choice:"🏡 Cozy family evening"},
@@ -109,6 +128,7 @@ const modes={
 };
 function getMode(v){return v<=32?modes.low:v<=66?modes.mid:modes.high}
 function render(){
+ if(energy.disabled) return;
  const v=Number(energy.value), data=getMode(v); currentChoice=data.choice;
  percentage.textContent=v+"%"; batteryFill.style.width=Math.max(v,3)+"%";
  batteryFill.style.background=v<=32?"linear-gradient(90deg,#a85c55,#c8776f)":v<=66?"linear-gradient(90deg,#c5a46f,#dfc28f)":"linear-gradient(90deg,#6f9a7b,#9ebf91)";
@@ -121,9 +141,21 @@ async function submitChoice(choice,source){
  try{
   const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({answer:choice,energy:energy.value+"%",invitation:"Tonight's Energy Check",source,page:"energy-selector"})});
   if(!r.ok) throw new Error();
-  actions.classList.add("hidden"); manual.classList.remove("show");
-  finalIcon.textContent=choice.startsWith("🏡")?"🏡":choice.startsWith("🌊")?"🌊":choice.startsWith("💃")?"💃":"✨";
-  final.classList.add("show");
+  actions.classList.add("hidden");
+  manual.classList.remove("show");
+  energy.disabled = true;
+
+  mode.classList.remove("bump");
+  mode.classList.add("selected");
+
+  const selectedIcon = choice.startsWith("🏡") ? "🏡" :
+                       choice.startsWith("🌊") ? "🌊" :
+                       choice.startsWith("💃") ? "💃" : "✨";
+
+  modeIcon.textContent = selectedIcon;
+  modeKicker.textContent = "";
+  modeTitle.textContent = "Tonight's plan selected";
+  modeText.innerHTML = "Decision successfully transmitted to Andrei.<br>No further action required 😌";
  }catch(e){document.querySelectorAll("button").forEach(b=>b.disabled=false);alert("Something went wrong sending the answer. Please try again.")}
 }
 energy.addEventListener("input",render);
