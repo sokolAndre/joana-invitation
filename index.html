@@ -3,168 +3,568 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tonight's Energy Check</title>
+<title>Good Morning, Joana</title>
 <style>
-:root{--bg:#12100f;--panel:#1c1816;--cream:#f5eee6;--muted:#b9aca2;--gold:#d7b47a;--red:#b95c55;--line:rgba(255,255,255,.10)}
+:root{
+  --cream:#fff8ec;
+  --gold:#f4c98e;
+  --sea1:#436e86;
+  --sea2:#2d5367;
+  --sun:#ffd76f;
+  --sun2:#ffb85d;
+}
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:radial-gradient(circle at 18% 0%,rgba(185,92,85,.16),transparent 34%),radial-gradient(circle at 85% 15%,rgba(215,180,122,.10),transparent 28%),linear-gradient(180deg,#151210,#100e0d);color:var(--cream);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-body{display:flex;justify-content:center;padding:24px 14px calc(26px + env(safe-area-inset-bottom))}
-.app{width:min(100%,520px);margin:auto}
-.eyebrow{text-align:center;color:var(--gold);font-family:Georgia,serif;font-style:italic;font-size:18px;margin-bottom:8px}
-h1{margin:0;text-align:center;font-family:Georgia,serif;font-weight:500;font-size:clamp(32px,8vw,48px);line-height:1.05}
-.subtitle{margin:12px auto 20px;max-width:390px;color:var(--muted);text-align:center;font-size:15px;line-height:1.5}
-.card{background:linear-gradient(180deg,rgba(39,32,28,.98),rgba(27,23,21,.98));border:1px solid var(--line);border-radius:28px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.42)}
-.battery-wrap{display:flex;align-items:center;justify-content:center;gap:15px;margin:2px 0 18px}
-.battery{position:relative;width:165px;height:64px;border:3px solid rgba(245,238,230,.82);border-radius:14px;padding:5px}
-.battery:after{content:"";position:absolute;right:-10px;top:18px;width:7px;height:22px;border-radius:0 5px 5px 0;background:rgba(245,238,230,.82)}
-.fill{height:100%;width:50%;border-radius:8px;background:linear-gradient(90deg,#c5a46f,#dfc28f);transition:.18s}
-.percent{min-width:72px;font-family:Georgia,serif;font-size:33px;text-align:right}
-.slider-label{text-align:center;margin-bottom:10px;color:#e4dbd4;font-size:14px}
-.slider-line{display:flex;align-items:center;gap:9px}.slider-line span{font-size:21px}
-input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:8px;border-radius:999px;background:linear-gradient(to right,var(--gold) 0%,var(--gold) 50%,rgba(255,255,255,.13) 50%,rgba(255,255,255,.13) 100%);outline:none}
-input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--cream);border:4px solid var(--gold);box-shadow:0 3px 12px rgba(0,0,0,.35)}
-.mode{margin-top:20px;padding:18px;border-radius:22px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);text-align:center;transition:.18s}
-.mode.bump{transform:scale(.985);opacity:.72}
-.icon{font-size:42px;line-height:1;margin-bottom:8px}
-.kicker{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:1.6px;font-weight:700}
-.mode h2{margin:7px 0 8px;font-family:Georgia,serif;font-size:27px;font-weight:500}
-.mode p{margin:0;color:#cfc3ba;font-size:14px;line-height:1.55}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-button{appearance:none;border:0;border-radius:16px;padding:14px 12px;min-height:50px;font:inherit;font-weight:700;cursor:pointer}
-button:active{transform:scale(.98)}button:disabled{opacity:.55}
-.primary{background:var(--red);color:#fff}.secondary{background:#efe5dc;color:#2a211d}
-.manual{display:none;margin-top:12px;padding-top:13px;border-top:1px solid var(--line)}.manual.show{display:block}
-.manual-title{text-align:center;color:var(--muted);font-size:13px;margin-bottom:10px}
-.choice-grid{display:grid;gap:8px}.choice{width:100%;text-align:left;background:rgba(255,255,255,.055);color:var(--cream);border:1px solid rgba(255,255,255,.08);min-height:48px}
-.other-wrap{display:flex;gap:8px;margin-top:8px}.other-wrap input{flex:1;min-width:0;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05);color:var(--cream);padding:12px 13px;outline:none;font:inherit}.other-wrap input::placeholder{color:#8f8178}.send-small{background:var(--gold);color:#2a211d}
-.note{margin:14px 4px 0;text-align:center;color:#81746c;font-size:11px;line-height:1.45;font-style:italic}
-.final{display:none;margin-top:16px;padding:22px 18px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);text-align:center}.final.show{display:block}.final .big{font-size:36px;margin-bottom:7px}.final h3{margin:0 0 8px;font-family:Georgia,serif;font-size:26px;font-weight:500}.final p{margin:0;color:#cdbfb5;font-size:14px;line-height:1.5}.hidden{display:none!important}
-@media(max-width:430px){body{padding:16px 11px calc(18px + env(safe-area-inset-bottom))}.eyebrow{font-size:17px}h1{font-size:34px}.subtitle{margin-bottom:15px}.card{padding:17px 14px;border-radius:24px}.battery{width:145px;height:58px}.battery:after{top:16px;height:20px}.percent{font-size:29px;min-width:63px}.mode{padding:15px 13px}.mode h2{font-size:24px}.actions{grid-template-columns:1fr}}
+html,body{
+  margin:0;
+  min-height:100%;
+  background:#11131a;
+  color:var(--cream);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+body{
+  display:flex;
+  justify-content:center;
+  padding:18px 12px calc(20px + env(safe-area-inset-bottom));
+}
+.page{width:min(100%,560px);margin:auto}
+.eyebrow{
+  text-align:center;
+  font-family:Georgia,serif;
+  font-style:italic;
+  color:var(--gold);
+  font-size:18px;
+  margin-bottom:6px
+}
+h1{
+  margin:0;
+  text-align:center;
+  font-family:Georgia,serif;
+  font-weight:500;
+  font-size:clamp(34px,8vw,50px);
+  line-height:1.05
+}
+.intro{
+  text-align:center;
+  color:rgba(255,248,236,.82);
+  margin:10px auto 16px;
+  font-size:15px;
+  line-height:1.5
+}
 
-.mode.selected{
-  padding:24px 18px;
-  background:rgba(255,255,255,.055);
+.scene{
+  position:relative;
+  height:560px;
+  overflow:hidden;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.14);
+  background:
+    linear-gradient(180deg,#1b1c2a 0%,#4e506d 28%,#b27772 58%,#e6a377 78%,#f0c88f 100%);
+  box-shadow:0 20px 60px rgba(0,0,0,.28);
+  transition:filter .2s linear;
+  user-select:none;
 }
-.mode.selected .icon{
-  font-size:44px;
-  margin-bottom:10px;
+
+.sky-light{
+  position:absolute;
+  inset:0 0 44% 0;
+  background:
+    linear-gradient(180deg,
+      rgba(255,239,187,0) 0%,
+      rgba(255,214,148,.06) 42%,
+      rgba(255,190,117,.18) 100%);
+  opacity:0;
+  pointer-events:none;
 }
-.mode.selected .kicker{
-  display:none;
+
+.stars{
+  position:absolute;
+  inset:0 0 44% 0;
+  background-image:
+    radial-gradient(circle at 15% 22%,rgba(255,255,255,.9) 0 1px,transparent 1.4px),
+    radial-gradient(circle at 32% 14%,rgba(255,255,255,.7) 0 1px,transparent 1.3px),
+    radial-gradient(circle at 71% 18%,rgba(255,255,255,.85) 0 1px,transparent 1.3px),
+    radial-gradient(circle at 85% 30%,rgba(255,255,255,.6) 0 1px,transparent 1.2px),
+    radial-gradient(circle at 52% 10%,rgba(255,255,255,.7) 0 1px,transparent 1.2px);
+  opacity:.85;
+  pointer-events:none;
 }
-.mode.selected h2{
+
+.instruction{
+  position:absolute;
+  left:50%;
+  top:17px;
+  transform:translateX(-50%);
+  width:calc(100% - 32px);
+  text-align:center;
+  font-size:13px;
+  text-shadow:0 1px 7px rgba(0,0,0,.35);
+  z-index:8;
+}
+.progress-wrap{
+  position:absolute;
+  left:50%;
+  top:48px;
+  width:min(70%,290px);
+  transform:translateX(-50%);
+  height:5px;
+  background:rgba(255,255,255,.16);
+  border-radius:999px;
+  overflow:hidden;
+  z-index:8;
+}
+.progress{
+  width:0%;
+  height:100%;
+  background:rgba(255,241,196,.95);
+  border-radius:inherit;
+}
+
+.horizon{
+  position:absolute;
+  left:0;right:0;
+  top:56%;
+  height:2px;
+  background:rgba(255,255,255,.42);
+  box-shadow:0 0 18px rgba(255,222,166,.42);
+  z-index:5;
+}
+.sea{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:44%;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.08),transparent 12%),
+    linear-gradient(180deg,var(--sea1),var(--sea2));
+  z-index:6;
+}
+.sea::before,.sea::after{
+  content:"";
+  position:absolute;
+  left:-10%;
+  width:120%;
+  height:24px;
+  border-top:2px solid rgba(255,255,255,.2);
+  border-radius:50%;
+}
+.sea::before{top:17%;transform:rotate(-1deg)}
+.sea::after{top:43%;transform:rotate(1deg);opacity:.7}
+
+.sun-track{
+  position:absolute;
+  left:50%;
+  top:10%;
+  bottom:36%;
+  width:130px;
+  transform:translateX(-50%);
+  z-index:4;
+  pointer-events:none;
+}
+.sun{
+  position:absolute;
+  left:50%;
+  bottom:-18px;
+  width:86px;
+  height:86px;
+  transform:translateX(-50%);
+  cursor:grab;
+  pointer-events:auto;
+  touch-action:none;
+}
+.sun:active{cursor:grabbing}
+
+.sun-core{
+  position:absolute;
+  inset:11px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 38% 30%,#fff8c7 0 16%,var(--sun) 40%,var(--sun2) 100%);
+  box-shadow:
+    0 0 24px rgba(255,205,102,.8),
+    0 0 65px rgba(255,180,85,.38);
+}
+.ray{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:12px;
+  height:25px;
+  border-radius:10px;
+  background:linear-gradient(180deg,#ffd979,#f6a952);
+  transform-origin:50% 43px;
+}
+.r1{transform:translate(-50%,-50%) rotate(0deg) translateY(-31px)}
+.r2{transform:translate(-50%,-50%) rotate(45deg) translateY(-31px)}
+.r3{transform:translate(-50%,-50%) rotate(90deg) translateY(-31px)}
+.r4{transform:translate(-50%,-50%) rotate(135deg) translateY(-31px)}
+.r5{transform:translate(-50%,-50%) rotate(180deg) translateY(-31px)}
+.r6{transform:translate(-50%,-50%) rotate(225deg) translateY(-31px)}
+.r7{transform:translate(-50%,-50%) rotate(270deg) translateY(-31px)}
+.r8{transform:translate(-50%,-50%) rotate(315deg) translateY(-31px)}
+
+.face{
+  position:absolute;
+  inset:25px;
+  z-index:2;
+}
+.eye{
+  position:absolute;
+  top:17px;
+  width:5px;height:7px;
+  border-radius:50%;
+  background:#7e573a;
+}
+.eye.left{left:8px}
+.eye.right{right:8px}
+.smile{
+  position:absolute;
+  left:50%;
+  top:29px;
+  width:18px;
+  height:9px;
+  border-bottom:2px solid #7e573a;
+  border-radius:0 0 18px 18px;
+  transform:translateX(-50%);
+}
+
+.message{
+  position:absolute;
+  left:50%;
+  bottom:24px;
+  width:calc(100% - 34px);
+  transform:translateX(-50%) translateY(12px);
+  background:rgba(30,30,38,.46);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-radius:24px;
+  padding:18px 17px;
+  text-align:center;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .25s ease, transform .25s ease, visibility .25s;
+  z-index:9;
+}
+.message.visible{
+  opacity:1;
+  visibility:visible;
+  transform:translateX(-50%) translateY(0);
+}
+.message h2{
   margin:0 0 9px;
-  font-size:28px;
+  font-family:Georgia,serif;
+  font-weight:500;
+  font-size:27px
 }
-.mode.selected p{
+.message p{
+  margin:0;
   font-size:14px;
   line-height:1.55;
+  color:rgba(255,248,236,.94)
 }
-input[type=range]:disabled{
-  opacity:.5;
-  cursor:not-allowed;
+.finish{
+  display:none;
+  width:100%;
+  min-height:48px;
+  margin-top:13px;
+  border:0;
+  border-radius:16px;
+  background:#f1c27e;
+  color:#31261f;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer
+}
+.finish.show{display:block}
+
+.final{
+  display:none;
+  margin-top:14px;
+  text-align:center;
+  padding:18px 16px;
+  border-radius:22px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.11)
+}
+.final.show{display:block}
+.final .big{font-size:34px;margin-bottom:7px}
+.final h3{
+  margin:0 0 7px;
+  font-family:Georgia,serif;
+  font-size:24px;
+  font-weight:500
+}
+.final p{
+  margin:0;
+  color:rgba(255,248,236,.82);
+  font-size:14px;
+  line-height:1.45
+}
+
+@media(max-width:430px){
+  body{padding:12px 10px calc(14px + env(safe-area-inset-bottom))}
+  .eyebrow{font-size:17px}
+  h1{font-size:36px}
+  .intro{font-size:14px;margin-bottom:14px}
+  .scene{height:510px;border-radius:24px}
+  .sun{width:80px;height:80px}
+  .message{bottom:17px;padding:16px 14px}
+  .message h2{font-size:24px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+
+.sun-reflection{
+  position:absolute;
+  left:50%;
+  top:57%;
+  width:86px;
+  height:120px;
+  transform:translateX(-50%);
+  background:linear-gradient(180deg,rgba(255,213,121,.35),rgba(255,213,121,0));
+  clip-path:polygon(42% 0,58% 0,74% 100%,26% 100%);
+  filter:blur(5px);
+  opacity:.45;
+  z-index:5;
+  pointer-events:none;
+}
+
+
+/* Clean sun: simple circle + soft halo */
+.sun{
+  width:86px;
+  height:86px;
+}
+.sun-core{
+  position:absolute;
+  inset:9px;
+  border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, #fff4b0 0%, #ffd66f 38%, #f7b552 100%);
+  box-shadow:
+    0 0 0 12px rgba(255,210,112,.10),
+    0 0 28px 10px rgba(255,204,101,.42),
+    0 0 62px 24px rgba(255,177,76,.20);
+}
+.ray,.face{display:none!important}
+
+
+/* Two unexpected morning guests */
+.guests-final{
+  padding:20px 16px 17px;
+  text-align:left;
+}
+.guest-intro{
+  text-align:center;
+  font-family:Georgia,serif;
+  font-style:italic;
+  font-size:18px;
+  color:#f4c98e;
+  margin-bottom:15px;
+}
+.guest-row{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:13px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+}
+.guest-row + .guest-row{margin-top:9px}
+.guest-avatar{
+  flex:0 0 52px;
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  font-size:30px;
+  background:rgba(255,255,255,.08);
+}
+.guest-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.guest-copy strong{
+  font-family:Georgia,serif;
+  font-size:17px;
+  font-weight:500;
+  color:#fff8ec;
+}
+.guest-copy span{
+  font-size:13px;
+  line-height:1.45;
+  color:rgba(255,248,236,.82);
+}
+.princess{
+  background:rgba(244,201,142,.07);
+}
+.guest-footer{
+  margin-top:14px;
+  text-align:center;
+  font-size:13px;
+  line-height:1.5;
+  color:rgba(255,248,236,.78);
+}
+.guest-footer small{
+  display:block;
+  margin-top:7px;
+  color:#f4c98e;
+  font-style:italic;
+  font-size:11px;
 }
 
 </style>
 </head>
 <body>
-<main class="app">
-<div class="eyebrow">For Joana ♡</div>
-<h1>Tonight's Energy Check ✨</h1>
-<p class="subtitle">How much energy is left in Joana's battery today?</p>
+<main class="page">
+  <div class="eyebrow">For Joana ♡</div>
+  <h1>Good morning ☀️</h1>
+  <p class="intro">The morning is almost ready. It just needs a little help from you.</p>
 
-<section class="card">
-<div class="battery-wrap">
-  <div class="battery"><div class="fill" id="batteryFill"></div></div>
-  <div class="percent" id="percentage">50%</div>
-</div>
+  <section class="scene" id="scene" aria-label="Interactive sunrise">
+    <div class="stars" id="stars"></div>
+    <div class="sky-light" id="skyLight"></div>
 
-<div class="slider-label">Move the slider to match today's energy level</div>
-<div class="slider-line">
-  <span>🪫</span>
-  <input id="energy" type="range" min="0" max="100" value="50">
-  <span>🔋</span>
-</div>
+    <div class="instruction">Drag the sun upward to start the morning ✨</div>
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
 
-<section class="mode" id="mode">
-  <div class="icon" id="modeIcon">🌊</div>
-  <div class="kicker" id="modeKicker">Gentle adventure mode</div>
-  <h2 id="modeTitle">Pico's Ocean Expedition</h2>
-  <p id="modeText">A peaceful walk along the promenade, ocean air, Pico, and some nice company 🐕🌊</p>
-</section>
+    <div class="horizon"></div>
+    <div class="sun-reflection"></div>
 
-<div class="actions" id="actions">
-  <button class="primary" id="acceptBtn">Sounds perfect ✓</button>
-  <button class="secondary" id="chooseBtn">I'd rather choose myself</button>
-</div>
+    <div class="sun-track" id="track">
+      <div class="sun" id="sun" role="slider" aria-label="Raise the sun" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+<div class="sun-core"></div>
+      </div>
+    </div>
 
-<div class="manual" id="manual">
-  <div class="manual-title">Human override activated 😌</div>
-  <div class="choice-grid">
-    <button class="choice" data-choice="🏡 Cozy family evening">🏡 Cozy family evening</button>
-    <button class="choice" data-choice="🌊 Pico + ocean promenade">🌊 Pico + ocean promenade</button>
-    <button class="choice" data-choice="💃 Dancing tonight">💃 Dancing tonight</button>
+    <div class="sea"></div>
+
+    <div class="message" id="message" aria-live="polite">
+      <h2>Good morning, my dear Joana 🌿</h2>
+      <p>
+        May this day be gentle and kind to you, and bring you at least one reason to smile for no particular reason.<br><br>
+        Wishing you a wonderful day ❤️
+      </p>
+      <button class="finish" id="finishBtn" type="button">Morning successfully started ✓</button>
+    </div>
+  </section>
+
+  <div class="final guests-final" id="final">
+    <div class="guest-intro">A message from two very special guests...</div>
+
+    <div class="guest-row gorilla">
+      <div class="guest-avatar">🦍</div>
+      <div class="guest-copy">
+        <strong>Albino Gorilla</strong>
+        <span>Be strong. Be fearless.<br>Dominate Friday. 😎</span>
+      </div>
+    </div>
+
+    <div class="guest-row princess">
+      <div class="guest-avatar">👸</div>
+      <div class="guest-copy">
+        <strong>My Little Princess</strong>
+        <span>Take good care of yourself today.<br>And have the sweetest day ❤️</span>
+      </div>
+    </div>
+
   </div>
-  <div class="other-wrap">
-    <input id="otherInput" type="text" placeholder="I have a better idea…" maxlength="180">
-    <button class="send-small" id="otherBtn">Send</button>
-  </div>
-</div>
-
-<div class="note">Recommendations generated using highly sophisticated Joana-energy-analysis technology.</div>
-</section>
 </main>
 
 <script>
-const FORM_ENDPOINT="https://formspree.io/f/xwlkpqjg";
-const energy=document.getElementById("energy"), percentage=document.getElementById("percentage"), batteryFill=document.getElementById("batteryFill");
-const mode=document.getElementById("mode"), modeIcon=document.getElementById("modeIcon"), modeKicker=document.getElementById("modeKicker"), modeTitle=document.getElementById("modeTitle"), modeText=document.getElementById("modeText");
-const acceptBtn=document.getElementById("acceptBtn"), chooseBtn=document.getElementById("chooseBtn"), manual=document.getElementById("manual"), actions=document.getElementById("actions"), otherInput=document.getElementById("otherInput"), otherBtn=document.getElementById("otherBtn");
-let currentChoice="";
-const modes={
- low:{icon:"🏡",kicker:"Recharge mode",title:"Cozy Family Evening",text:"Stay home, relax and spend some time with your family. No adventures required tonight 😌",choice:"🏡 Cozy family evening"},
- mid:{icon:"🌊",kicker:"Gentle adventure mode",title:"Pico's Ocean Expedition",text:"A peaceful walk along the promenade, ocean air, Pico, and some nice company 🐕🌊",choice:"🌊 Pico + ocean promenade"},
- high:{icon:"💃",kicker:"Dancing mode",title:"Let's Go Dancing",text:"Music, bachata and a little more energy before calling it a night ✨",choice:"💃 Dancing tonight"}
-};
-function getMode(v){return v<=32?modes.low:v<=66?modes.mid:modes.high}
-function render(){
- if(energy.disabled) return;
- const v=Number(energy.value), data=getMode(v); currentChoice=data.choice;
- percentage.textContent=v+"%"; batteryFill.style.width=Math.max(v,3)+"%";
- batteryFill.style.background=v<=32?"linear-gradient(90deg,#a85c55,#c8776f)":v<=66?"linear-gradient(90deg,#c5a46f,#dfc28f)":"linear-gradient(90deg,#6f9a7b,#9ebf91)";
- energy.style.background=`linear-gradient(to right,var(--gold) 0%,var(--gold) ${v}%,rgba(255,255,255,.13) ${v}%,rgba(255,255,255,.13) 100%)`;
- mode.classList.add("bump");
- setTimeout(()=>{modeIcon.textContent=data.icon;modeKicker.textContent=data.kicker;modeTitle.textContent=data.title;modeText.textContent=data.text;mode.classList.remove("bump")},90);
+const sun=document.getElementById("sun");
+const track=document.getElementById("track");
+const progress=document.getElementById("progress");
+const message=document.getElementById("message");
+const finishBtn=document.getElementById("finishBtn");
+const final=document.getElementById("final");
+const stars=document.getElementById("stars");
+const skyLight=document.getElementById("skyLight");
+const scene=document.getElementById("scene");
+
+let value=0;
+let dragging=false;
+
+function setValue(next){
+  value=Math.max(0,Math.min(100,next));
+
+  const trackHeight=track.clientHeight;
+  const sunHeight=sun.offsetHeight;
+  const startBottom=-18;
+  const travel=Math.max(0,trackHeight-sunHeight-startBottom);
+  const bottom=startBottom+(travel*value/100);
+  sun.style.bottom=bottom+"px";
+  sun.setAttribute("aria-valuenow",String(Math.round(value)));
+
+  progress.style.width=value+"%";
+  stars.style.opacity=String(Math.max(0,.85-value/110));
+  skyLight.style.opacity=String(value/100);
+
+  const brightness=1+(value/100)*0.18;
+  const saturation=1+(value/100)*0.08;
+  scene.style.filter=`brightness(${brightness}) saturate(${saturation})`;
+
+  if(value>=78){
+    message.classList.add("visible");
+  }else{
+    message.classList.remove("visible");
+  }
+
+  if(value>=94){
+    finishBtn.classList.add("show");
+  }else{
+    finishBtn.classList.remove("show");
+
+    // If the sun is pulled back down, hide the guests again.
+    if(final.classList.contains("show")){
+      final.classList.remove("show");
+      finishBtn.disabled=false;
+      finishBtn.textContent="Start the morning ☀️";
+    }
+  }
 }
-async function submitChoice(choice,source){
- document.querySelectorAll("button").forEach(b=>b.disabled=true);
- try{
-  const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({answer:choice,energy:energy.value+"%",invitation:"Tonight's Energy Check",source,page:"energy-selector"})});
-  if(!r.ok) throw new Error();
-  actions.classList.add("hidden");
-  manual.classList.remove("show");
-  energy.disabled = true;
 
-  mode.classList.remove("bump");
-  mode.classList.add("selected");
-
-  const selectedIcon = choice.startsWith("🏡") ? "🏡" :
-                       choice.startsWith("🌊") ? "🌊" :
-                       choice.startsWith("💃") ? "💃" : "✨";
-
-  modeIcon.textContent = selectedIcon;
-  modeKicker.textContent = "";
-  modeTitle.textContent = "Tonight's plan selected";
-  modeText.innerHTML = "Decision successfully transmitted to Andrei.<br>No further action required 😌";
- }catch(e){document.querySelectorAll("button").forEach(b=>b.disabled=false);alert("Something went wrong sending the answer. Please try again.")}
+function valueFromPointer(clientY){
+  const rect=track.getBoundingClientRect();
+  const clamped=Math.max(rect.top,Math.min(rect.bottom,clientY));
+  return 100-((clamped-rect.top)/(rect.bottom-rect.top)*100);
 }
-energy.addEventListener("input",render);
-acceptBtn.addEventListener("click",()=>submitChoice(currentChoice,"AI recommendation accepted"));
-chooseBtn.addEventListener("click",()=>{manual.classList.toggle("show");if(manual.classList.contains("show"))manual.scrollIntoView({behavior:"smooth",block:"nearest"})});
-document.querySelectorAll(".choice").forEach(b=>b.addEventListener("click",()=>submitChoice(b.dataset.choice,"Human override")));
-otherBtn.addEventListener("click",()=>{const v=otherInput.value.trim();if(!v){otherInput.focus();return}submitChoice("✨ "+v,"Custom idea")});
-otherInput.addEventListener("keydown",e=>{if(e.key==="Enter")otherBtn.click()});
-render();
+
+sun.addEventListener("pointerdown",e=>{
+  dragging=true;
+  sun.setPointerCapture(e.pointerId);
+  e.preventDefault();
+});
+sun.addEventListener("pointermove",e=>{
+  if(!dragging)return;
+  setValue(valueFromPointer(e.clientY));
+  e.preventDefault();
+});
+sun.addEventListener("pointerup",e=>{
+  dragging=false;
+  try{sun.releasePointerCapture(e.pointerId)}catch(_){}
+});
+sun.addEventListener("pointercancel",()=>dragging=false);
+
+sun.addEventListener("keydown",e=>{
+  if(e.key==="ArrowUp"||e.key==="ArrowRight"){e.preventDefault();setValue(value+5)}
+  if(e.key==="ArrowDown"||e.key==="ArrowLeft"){e.preventDefault();setValue(value-5)}
+  if(e.key==="Home"){e.preventDefault();setValue(0)}
+  if(e.key==="End"){e.preventDefault();setValue(100)}
+});
+
+finishBtn.addEventListener("click",()=>{
+  finishBtn.disabled=true;
+  finishBtn.textContent="Morning started ☀️";
+  final.classList.add("show");
+  final.scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+
+window.addEventListener("resize",()=>setValue(value));
+setValue(0);
 </script>
 </body>
 </html>
