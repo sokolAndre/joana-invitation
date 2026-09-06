@@ -609,19 +609,63 @@ function drawLines(){
   }
 }
 
-finish.addEventListener('click',()=>{
+finish.addEventListener('click',async()=>{
   if(sky.classList.contains('locked')) return;
+
   const picks=selection();
   if(!picks.length)return;
-  chosen.innerHTML=picks.map(x=>`<span class="pill">${escapeHtml(x)}</span>`).join('');
-  result.classList.add('show');
-  sky.classList.add('locked');
+
+  const originalText=finish.textContent;
   finish.disabled=true;
   finish.setAttribute('aria-disabled','true');
-  if(customInput) customInput.disabled=true;
-  if(customStar) customStar.disabled=true;
-  
-  result.scrollIntoView({behavior:'smooth',block:'nearest'});
+  finish.textContent='Sending...';
+
+  const customPicks=customStars
+    .filter(item=>item.selected)
+    .map(item=>item.label);
+
+  try{
+    const response=await fetch('https://formspree.io/f/xwlkpqjg',{
+      method:'POST',
+      headers:{
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        answer:picks.join(' | '),
+        choices:picks,
+        custom:customPicks.join(' | '),
+        invitation:"Today's Little Constellation",
+        page:'final-day',
+        source:'joana-invitation'
+      })
+    });
+
+    if(!response.ok){
+      throw new Error('Form submission failed');
+    }
+
+    chosen.innerHTML=picks.map(x=>`<span class="pill">${escapeHtml(x)}</span>`).join('');
+    result.classList.add('show');
+    sky.classList.add('locked');
+
+    finish.textContent=originalText;
+    finish.disabled=true;
+    finish.setAttribute('aria-disabled','true');
+
+    if(customInput) customInput.disabled=true;
+    if(customStar) customStar.disabled=true;
+
+    result.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(error){
+    console.error(error);
+    finish.disabled=false;
+    finish.removeAttribute('aria-disabled');
+    finish.textContent='Try again ♡';
+    finish.classList.add('ready');
+
+    alert("Hmm, the constellation didn't send. Please try again.");
+  }
 });
 
 window.addEventListener('resize',drawLines);
