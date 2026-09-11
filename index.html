@@ -3,282 +3,369 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>A little package for Joana</title>
+<title>Close the day</title>
 <style>
 :root{
-  --paper:#eee3cf; --paper2:#d7c5a6; --ink:#40372d; --muted:#75695b;
-  --box:#b7834f; --box2:#9d6c3e; --box3:#c9955e; --tape:#d9c092;
-  --desk:#d9c7aa; --desk2:#c5ae8c; --green:#60745d; --red:#9a5d52;
+  --ink:#4a403b; --muted:#786e68; --paper:#f6efe5; --desk:#c59a73; --desk2:#a97f60;
+  --purple:#71527d; --purple2:#8a6b96; --cream:#f3e6d4; --green:#70846d; --gold:#e7c78f;
 }
 *{box-sizing:border-box}
 body{
   margin:0; min-height:100vh; color:var(--ink);
   font-family:ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"Segoe UI",sans-serif;
   background:
-    radial-gradient(circle at 20% 10%,rgba(255,255,255,.48),transparent 25%),
-    repeating-linear-gradient(92deg,rgba(87,59,35,.035) 0 1px,transparent 1px 18px),
-    linear-gradient(135deg,var(--desk),var(--desk2));
+    radial-gradient(circle at 50% -10%,rgba(255,247,224,.85),transparent 34%),
+    linear-gradient(#d8c3ab,#b89478);
 }
-.page{width:min(680px,100%);margin:auto;padding:28px 16px 52px;text-align:center}
-.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6e6255;margin:3px 0 8px}
-h1{font:500 clamp(27px,7vw,40px)/1.1 Georgia,serif;margin:0 0 8px}
-.lead{margin:0 auto 24px;max-width:460px;color:#6e6255;line-height:1.5;font-size:15px}
+main{width:min(720px,100%);margin:auto;padding:28px 14px 54px;text-align:center}
+h1{font:500 clamp(34px,8vw,48px)/1.05 Georgia,serif;margin:0 0 8px}
+.intro{margin:0 auto 8px;max-width:470px;color:#6b625d;line-height:1.5}
+.hint{margin:0 auto 20px;font-size:13px;color:#8a7e77}
 
-.package-zone{position:relative;min-height:480px;display:flex;align-items:flex-start;justify-content:center;padding-top:35px}
-.package{
-  width:min(430px,91vw);height:300px;position:relative;perspective:900px;
-  filter:drop-shadow(0 22px 18px rgba(73,48,26,.22));
+.scene{
+  position:relative; width:min(660px,96vw); height:470px; margin:auto;
+  border-radius:26px; overflow:hidden;
+  background:linear-gradient(180deg,#e9d9c2 0 23%,#bd916e 23% 100%);
+  box-shadow:0 20px 42px rgba(79,55,40,.18);
+  border:1px solid rgba(96,68,48,.11);
 }
-.box-base{
-  position:absolute;left:4%;right:4%;top:62px;height:230px;border-radius:5px 5px 12px 12px;
-  background:
-    repeating-linear-gradient(88deg,rgba(74,46,23,.045) 0 2px,transparent 2px 14px),
-    linear-gradient(100deg,var(--box3),var(--box));
-  border:1px solid rgba(75,47,24,.25);
+.wall-line{position:absolute;left:0;right:0;top:23%;height:3px;background:rgba(120,88,63,.12)}
+.desk-grain{position:absolute;left:0;right:0;top:23%;bottom:0;background:repeating-linear-gradient(3deg,rgba(88,54,34,.035) 0 2px,transparent 2px 30px);pointer-events:none}
+.window{
+  position:absolute;left:24px;top:18px;width:135px;height:85px;border-radius:14px;
+  background:linear-gradient(#8996a0,#b8aa9e);border:7px solid #f0e5d5;box-shadow:0 4px 10px #6d504033;
+  overflow:hidden
 }
-.inside{
-  position:absolute;left:8%;right:8%;top:75px;height:180px;border-radius:5px 5px 10px 10px;
-  background:linear-gradient(#75502f,#8d6239);overflow:hidden;
-}
-.inside:after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse at center,transparent 30%,rgba(42,25,12,.22));
-}
-.bottom-message{
-  position:absolute;left:12%;right:12%;bottom:17px;padding:11px 8px;border:1px dashed rgba(245,226,193,.48);
-  color:#f4e7d1;font:italic 15px Georgia,serif;opacity:0;transition:.5s;z-index:2
-}
-.bottom-message.show{opacity:1}
+.window:before{content:"";position:absolute;left:0;right:0;bottom:0;height:30px;background:#657b72;clip-path:polygon(0 80%,20% 45%,40% 70%,60% 35%,82% 55%,100% 20%,100% 100%,0 100%)}
+.window:after{content:"";position:absolute;left:50%;top:0;bottom:0;width:4px;background:#efe3d3}
+.moon{position:absolute;right:18px;top:13px;width:19px;height:19px;border-radius:50%;background:#f6e8bd;box-shadow:0 0 18px rgba(246,232,189,.65)}
 
-.lid{
-  position:absolute;z-index:8;left:1%;right:1%;top:38px;height:210px;transform-origin:50% 8%;
-  transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.75,.25,1);
+.lamp{
+  position:absolute;right:34px;top:58px;width:120px;height:180px;pointer-events:none
 }
-.package.open .lid{transform:rotateX(112deg) translateY(-16px)}
-.lid-face{
-  position:absolute;inset:0;border-radius:8px;
-  background:
-    repeating-linear-gradient(92deg,rgba(78,49,24,.04) 0 2px,transparent 2px 17px),
-    linear-gradient(120deg,#c99862,#b47c47);
-  border:1px solid rgba(75,47,24,.28);
-  backface-visibility:hidden;
+.shade{position:absolute;left:25px;top:0;width:78px;height:58px;background:#e7c38c;clip-path:polygon(20% 0,80% 0,100% 100%,0 100%);border-radius:8px}
+.glow{position:absolute;left:-6px;top:24px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,239,190,.62),rgba(255,239,190,0) 68%);transition:.6s}
+.stem{position:absolute;left:61px;top:55px;width:7px;height:83px;background:#725b50;border-radius:6px}
+.base{position:absolute;left:34px;top:133px;width:63px;height:14px;border-radius:50%;background:#725b50}
+
+
+.lamp-button{
+  border:0;padding:0;margin:0;background:transparent;color:inherit;font:inherit;
+  cursor:default;appearance:none;-webkit-appearance:none;z-index:6;
+  pointer-events:auto;
 }
-.tape{position:absolute;left:45%;top:0;width:11%;height:100%;background:rgba(222,196,147,.78);box-shadow:inset 1px 0 rgba(255,255,255,.18)}
-.label{
-  position:absolute;left:8%;top:18px;width:67%;padding:14px 15px 13px;background:var(--paper);
-  text-align:left;transform:rotate(-1.2deg);box-shadow:0 2px 3px rgba(56,38,21,.14);
+.lamp-button.active{cursor:pointer;filter:drop-shadow(0 0 10px rgba(113,82,125,.38))}
+.lamp-button.active:after{
+  content:"tap";position:absolute;left:54%;bottom:3px;transform:translateX(-50%);
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#71527d;font-weight:800;
+  animation:pulse 1.4s infinite
 }
-.label-row{display:grid;grid-template-columns:64px 1fr;gap:6px;font-size:12px;line-height:1.35;margin:3px 0}
-.label-row b{font-size:10px;letter-spacing:.08em;color:#75695b}
-.label-row span{font-family:"Courier New",monospace;font-weight:700}
-.stamp{
-  position:absolute;right:5%;top:20px;width:92px;height:54px;border:2px solid var(--red);color:var(--red);
-  display:grid;place-items:center;text-align:center;font:bold 10px/1.05 "Courier New",monospace;
-  transform:rotate(8deg);border-radius:4px;opacity:.9
+.lamp-button .glow,
+.lamp-button .shade,
+.lamp-button .stem,
+.lamp-button .base{pointer-events:none}
+.lamp.off .glow{opacity:0}
+.lamp.off .shade{background:#8d7a68}
+.scene.night{
+  background:linear-gradient(180deg,#4f5363 0 23%,#7e6758 23% 100%);
+  transition:background 1s ease;
 }
-.fragile{
-  position:absolute;right:7%;bottom:19px;border:2px solid #5e755e;color:#526b52;
-  padding:7px 9px;font:bold 9px/1.1 "Courier New",monospace;transform:rotate(-3deg)
+.scene.night .wall-line{background:rgba(255,255,255,.06)}
+.scene.night .desk-grain{opacity:.45}
+.scene.night .window{filter:brightness(.72)}
+.scene.night .laptop,
+.scene.night .phone,
+.scene.night .stress,
+.scene.night .clock{filter:brightness(.72)}
+.goodnight-visual{
+  position:absolute;z-index:9;left:50%;top:52%;transform:translate(-50%,-50%);
+  width:min(430px,86%);padding:18px 18px 16px;border-radius:20px;
+  color:#fbf5ef;background:rgba(52,48,64,.48);backdrop-filter:blur(5px);
+  border:1px solid rgba(255,255,255,.12);opacity:0;pointer-events:none;
+  transition:opacity .9s ease,transform .9s ease;
+}
+.goodnight-visual.show{opacity:1;transform:translate(-50%,-54%)}
+.goodnight-visual .moonmark{font-size:30px;margin-bottom:3px}
+.goodnight-visual h2{font:500 29px Georgia,serif;margin:0 0 8px;color:#fff8f1}
+.goodnight-visual p{margin:5px 0;font:15px/1.55 Georgia,serif;color:#eee6e2}
+.goodnight-visual .affection{font:600 16px/1.5 Georgia,serif;color:#f6eaf8;margin-top:11px}
+.object{
+  position:absolute;z-index:5;cursor:pointer;transition:.25s ease;touch-action:manipulation;
+  appearance:none;-webkit-appearance:none;border:0;padding:0;margin:0;
+  background:transparent;color:inherit;font:inherit;text-align:inherit;
+  box-shadow:none;
+}
+.object[aria-disabled="true"]{cursor:default}
+.object.active{filter:drop-shadow(0 0 9px rgba(113,82,125,.48))}
+.object.active:after{
+  content:"tap";position:absolute;left:50%;bottom:-25px;transform:translateX(-50%);
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:800;
+  animation:pulse 1.4s infinite
+}
+@media(hover:hover){.object.active:hover{transform:translateY(-4px) scale(1.02)}}
+@media(hover:hover){
+  .switchbox.active:hover{
+    transform:translateX(-50%) translateY(-4px) scale(1.02);
+  }
 }
 
-.open-btn,.item-btn,.final-btn{
-  border:0;cursor:pointer;color:#fff;background:#65513e;border-radius:999px;
-  padding:12px 18px;font:600 14px inherit;box-shadow:0 5px 12px rgba(70,46,25,.16);
-}
-.open-btn{position:absolute;z-index:12;top:270px;left:50%;transform:translateX(-50%);white-space:nowrap;transition:.35s}
-.package.open .open-btn{opacity:0;pointer-events:none}
-.open-btn:focus-visible,.item-btn:focus-visible,.final-btn:focus-visible{outline:3px solid rgba(255,255,255,.8);outline-offset:3px}
+@keyframes pulse{50%{opacity:.35}}
 
-.items{position:absolute;z-index:5;left:11%;right:11%;top:92px;height:155px;pointer-events:none}
-.item{
-  position:absolute;width:72px;height:72px;display:grid;place-items:center;opacity:0;transform:translateY(40px) scale(.8);
-  transition:.55s cubic-bezier(.2,.8,.25,1);pointer-events:none;
+.laptop{left:50%;top:120px;transform:translateX(-50%);width:250px;height:158px}
+.laptop.active:hover{transform:translateX(-50%) translateY(-4px) scale(1.02)}
+.screen{
+  position:absolute;left:14px;right:14px;top:0;height:134px;border:9px solid #535154;border-radius:11px 11px 4px 4px;
+  background:linear-gradient(#4c555d,#3e464d);transform-origin:bottom;transition:.7s cubic-bezier(.2,.7,.2,1);
+  display:grid;place-items:center;color:#eef1f1
 }
-.package.open .item.available{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
-.item:nth-child(1){left:0;top:22px}
-.item:nth-child(2){left:20%;top:4px}
-.item:nth-child(3){left:40%;top:25px}
-.item:nth-child(4){right:20%;top:6px}
-.item:nth-child(5){right:0;top:22px}
-.item-btn{
-  width:64px;height:64px;padding:0;background:#eadfc9;color:#4e4336;border-radius:14px;font-size:29px;
-  border:1px solid rgba(70,45,24,.18);box-shadow:0 7px 12px rgba(45,27,13,.24);
-  transition:.2s;
-}
-.item-btn:hover{transform:translateY(-3px)}
-.item.used{opacity:0!important;transform:translateY(-38px) scale(.75)!important;pointer-events:none!important}
+.screen-inner{font:bold 14px "Courier New",monospace}.screen-inner small{display:block;font-size:10px;color:#c3cacc;margin-top:7px}
+.keyboard{position:absolute;left:0;right:0;bottom:5px;height:20px;background:#c8c2bc;clip-path:polygon(5% 0,95% 0,100% 100%,0 100%);border-radius:3px}
+.laptop.done .screen{transform:rotateX(-89deg);background:#2a2d30}.laptop.done .screen-inner{opacity:0}
 
+.tasks{left:34px;bottom:80px;width:145px;height:115px}
 .note{
-  display:none;position:absolute;z-index:20;left:50%;top:345px;width:min(400px,90vw);transform:translateX(-50%) rotate(-.5deg);
-  background:#f6eedf;padding:21px 20px 18px;text-align:left;border-radius:3px;
-  box-shadow:0 13px 26px rgba(67,43,22,.2);animation:noteIn .45s ease both
+  position:absolute;width:122px;height:76px;padding:13px 10px;text-align:left;border-radius:4px;
+  background:#f2eadc;box-shadow:0 5px 11px rgba(80,52,34,.16);font:bold 10px/1.35 "Courier New",monospace;
+  transition:.7s
 }
-.note.show{display:block}
-.note:before{content:"";position:absolute;inset:8px;border:1px solid rgba(91,72,51,.12);pointer-events:none}
-.note-title{font:500 21px Georgia,serif;margin:0 0 7px;position:relative}
-.note-copy{font-size:14px;line-height:1.55;color:#6e6255;position:relative}
-.note-close{display:block;margin:15px 0 0 auto;border:0;background:transparent;color:#65513e;font-weight:700;cursor:pointer;position:relative}
-@keyframes noteIn{from{opacity:0;transform:translateX(-50%) translateY(12px) rotate(-.5deg)}to{opacity:1;transform:translateX(-50%) rotate(-.5deg)}}
+.note:nth-child(1){left:4px;top:30px;transform:rotate(-7deg)}
+.note:nth-child(2){left:12px;top:15px;transform:rotate(5deg)}
+.note:nth-child(3){left:0;top:0;transform:rotate(-1deg)}
+.tasks.done{transform:translateX(-190px) rotate(-12deg);opacity:0}
 
-.final-letter{
-  display:none;margin:-15px auto 0;width:min(440px,94%);background:#f5ecdc;text-align:left;padding:28px 25px;
-  box-shadow:0 12px 28px rgba(72,47,25,.16);transform:rotate(.35deg);position:relative
+.stress{right:39px;bottom:82px;width:92px;height:92px}
+.ball{
+  width:82px;height:74px;display:grid;place-items:center;background:#eadfce;
+  clip-path:polygon(7% 12%,22% 2%,38% 13%,54% 0,72% 12%,95% 8%,88% 34%,100% 51%,87% 68%,95% 92%,70% 86%,53% 100%,34% 86%,8% 95%,15% 70%,0 52%,14% 34%);
+  font:bold 9px "Courier New",monospace;box-shadow:0 5px 12px rgba(74,48,31,.15);transition:.7s
 }
-.final-letter.show{display:block;animation:letterIn .65s ease both}
-.final-letter:before{content:"";position:absolute;inset:9px;border:1px solid rgba(90,69,48,.13)}
-.final-letter h2{font:500 25px Georgia,serif;margin:0 0 13px;position:relative}
-.final-letter p{font:15px/1.65 Georgia,serif;color:#5e5449;margin:0 0 16px;position:relative}
-.signature{font:italic 18px Georgia,serif;position:relative}
-.date{font:12px "Courier New",monospace;color:#817465;margin-top:5px;position:relative}
-.delivered{
-  display:inline-block;margin-top:22px;padding:8px 12px;border:2px solid var(--green);color:var(--green);
-  font:bold 12px "Courier New",monospace;transform:rotate(-3deg);position:relative
+.bin{position:absolute;right:-8px;bottom:-24px;width:46px;height:36px;border-radius:4px 4px 9px 9px;background:#6f655f;opacity:.8}
+.bin:before{content:"";position:absolute;left:-4px;top:-7px;width:54px;height:7px;border-radius:4px;background:#5e5652}
+.stress.done .ball{transform:translate(18px,57px) rotate(80deg) scale(.25);opacity:0}
+
+.switchbox{
+  left:50%;bottom:32px;transform:translateX(-50%);min-width:188px;padding:11px 14px;
+  display:flex;align-items:center;justify-content:center;gap:12px;background:#eee1cf;border-radius:16px;
+  box-shadow:0 5px 11px rgba(76,49,32,.14);font-size:11px;font-weight:800;opacity:.42
 }
-@keyframes letterIn{from{opacity:0;transform:translateY(20px) rotate(.35deg)}to{opacity:1;transform:rotate(.35deg)}}
+.switchbox.active{opacity:1}
+.toggle{width:46px;height:25px;border-radius:20px;background:#6f876b;padding:3px;transition:.45s}
+.knob{width:19px;height:19px;border-radius:50%;background:white;margin-left:21px;transition:.45s}
+.switchbox.done .toggle{background:#8c8580}.switchbox.done .knob{margin-left:0}
+.switchbox .state:after{content:"ON"}.switchbox.done .state:after{content:"OFF"}
+
+
+
+.phone{
+  left:35px;bottom:74px;width:86px;height:132px;
+}
+.phone-body{
+  position:absolute;inset:0;border-radius:17px;background:#4e4c50;border:4px solid #3f3d40;
+  box-shadow:0 6px 12px rgba(66,44,31,.18);padding:9px 6px 7px;
+}
+.phone-speaker{width:25px;height:3px;border-radius:3px;background:#777277;margin:0 auto 6px}
+.phone-screen{
+  height:100px;border-radius:10px;overflow:hidden;transition:.55s ease;
+}
+.inbox-screen{
+  background:#f1ece6;color:#544d49;padding:7px 6px;text-align:left;
+}
+.inbox-head{
+  font:bold 8px "Courier New",monospace;letter-spacing:.08em;color:#776d67;
+  margin-bottom:5px;text-align:center;
+}
+.msg-line{
+  display:flex;align-items:center;gap:5px;padding:4px 1px;border-top:1px solid rgba(90,75,65,.09);
+  font:7px/1.15 system-ui,sans-serif;
+}
+.msg-line:first-of-type{border-top:0}
+.msg-line b{display:block;font-size:7px}.msg-line small{display:block;font-size:6px;color:#91857e;white-space:nowrap}
+.avatar{
+  flex:0 0 17px;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;
+  background:#d6c8bc;color:#625954;font:bold 7px system-ui,sans-serif;
+}
+.phone.reels .phone-screen{
+  background:linear-gradient(155deg,#8b6f87,#c5968c);color:white;padding:0;text-align:center;
+}
+.reels-view{
+  height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font:700 10px/1.25 "Courier New",monospace;
+}
+.reels-view .big-heart{font-size:24px;margin-bottom:4px}
+.reels-view small{font-size:7px;opacity:.86;margin-top:4px}
+.phone.reels:before{
+  content:"BRAIN BREAK ✓";position:absolute;z-index:5;left:67px;top:36px;white-space:nowrap;
+  padding:6px 8px;border-radius:8px;background:#f2e6d5;color:#70537b;
+  font:bold 9px "Courier New",monospace;box-shadow:0 4px 9px rgba(70,45,30,.14);
+}
+.clock{
+  left:50%;bottom:30px;transform:translateX(-50%);width:100px;height:84px;
+}
+.clock.active:hover{transform:translateX(-50%) translateY(-4px) scale(1.02)!important}
+.clock-body{position:absolute;inset:0}
+.clock-face{
+  position:absolute;left:20px;top:0;width:62px;height:62px;border-radius:50%;
+  background:#eee2cf;border:5px solid #6d625c;box-shadow:0 5px 11px rgba(75,49,32,.15)
+}
+.clock-face:before{content:"12";position:absolute;left:50%;top:3px;transform:translateX(-50%);font:bold 7px Georgia,serif;color:#746a64}
+.clock-face:after{content:"6";position:absolute;left:50%;bottom:2px;transform:translateX(-50%);font:bold 7px Georgia,serif;color:#746a64}
+.hand{position:absolute;left:50%;bottom:50%;width:2px;background:#5f5550;transform-origin:bottom;border-radius:2px}
+.hand.hour{height:17px;transform:translateX(-50%) rotate(310deg)}
+.hand.minute{height:22px;transform:translateX(-50%) rotate(25deg)}
+.clock-dot{position:absolute;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:#70537b;transform:translate(-50%,-50%)}
+.clock-feet:before,.clock-feet:after{content:"";position:absolute;top:58px;width:17px;height:12px;border-bottom:5px solid #6d625c;border-radius:50%}
+.clock-feet:before{left:17px;transform:rotate(-25deg)}.clock-feet:after{right:15px;transform:rotate(25deg)}
+.clock.done .clock-face{background:#b4aaa0;filter:brightness(.82)}
+.clock.done .hand{opacity:.35}.clock.done .clock-dot{background:#777}
+
+.caption{
+  margin:18px auto 0;max-width:480px;min-height:74px;padding:16px 18px;border-radius:17px;
+  background:rgba(246,239,229,.72);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.38)
+}
+.caption h2{font:500 20px Georgia,serif;margin:0 0 5px}
+.caption p{margin:0;color:#6d645f;font-size:14px;line-height:1.45}
+.done-text{font-size:12px;font-weight:800;color:#5d735b;margin-top:7px}
+
+.envelope-area{display:none;margin:24px auto 0;max-width:470px}.envelope-area.show{display:block;animation:rise .55s ease both}
+.almost{font:500 22px Georgia,serif;margin-bottom:17px}
+.envelope{
+  width:220px;height:136px;margin:auto;position:relative;cursor:pointer;background:#eadbc5;border-radius:6px;
+  box-shadow:0 12px 24px rgba(78,52,34,.18)
+}
+.envelope:before{
+  content:"";position:absolute;inset:0;background:#d6c19f;clip-path:polygon(0 0,50% 56%,100% 0);
+  transform-origin:top;transition:.65s
+}
+.envelope.open:before{transform:rotateX(175deg)}
+.wax{position:absolute;z-index:2;left:50%;top:48%;transform:translate(-50%,-50%);width:47px;height:47px;border-radius:50%;background:var(--purple);display:grid;place-items:center;color:white;font-size:22px;box-shadow:0 3px 8px rgba(67,42,71,.25)}
+.letter{display:none;width:min(445px,95%);margin:19px auto 0;padding:26px 22px;background:#faf4e9;border-radius:5px;box-shadow:0 11px 24px rgba(75,49,33,.14)}
+.letter.show{display:block;animation:rise .5s ease both}.letter h3{font:500 23px Georgia,serif;margin:0 0 8px}.letter p{font:15px/1.55 Georgia,serif;color:#625954;margin:7px 0}
+.accept{margin-top:9px;border:0;border-radius:999px;background:var(--purple);color:white;padding:12px 18px;font-weight:700;cursor:pointer}
+.delivered{display:none;margin-top:12px;color:var(--purple);font:bold 12px "Courier New",monospace}.delivered.show{display:block}
+.final{display:none;max-width:450px;margin:26px auto 0}.final.show{display:block;animation:rise .65s ease both}
+.final h2{font:500 27px Georgia,serif;margin:0 0 10px}.final p{font:16px/1.65 Georgia,serif;color:#554d49;margin:0}.purple{font-size:24px;margin-top:10px}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 @media(max-width:520px){
-  .page{padding-top:22px}.package-zone{min-height:470px;padding-top:20px}
-  .package{height:285px}.box-base{top:58px;height:220px}.inside{top:70px}
-  .lid{top:34px;height:200px}.label{left:6%;width:70%;padding:11px 10px}
-  .label-row{grid-template-columns:52px 1fr;font-size:10px}.label-row b{font-size:8px}
-  .stamp{width:73px;height:45px;font-size:8px;right:3%;top:15px}
-  .fragile{right:5%;bottom:14px;font-size:7px;padding:5px}
-  .open-btn{top:252px}
-  .items{left:8%;right:8%;top:82px}.item{width:60px;height:60px}.item-btn{width:54px;height:54px;font-size:25px}
-  .item:nth-child(1){left:-2%;top:22px}
-  .item:nth-child(2){left:19%;top:3px}
-  .item:nth-child(3){left:40%;top:25px}
-  .item:nth-child(4){right:19%;top:4px}
-  .item:nth-child(5){right:-2%;top:22px}
-  .note{top:325px}
+  main{padding-top:24px}.scene{height:430px}
+  .window{left:14px;width:112px;height:72px}.lamp{right:4px;top:50px;transform:scale(.9)}
+  .laptop{width:208px;top:117px}.screen{height:113px}
+  .phone{left:20px;bottom:72px;transform:scale(.9);transform-origin:left bottom}
+  .stress{right:11px;bottom:76px;transform:scale(.9);transform-origin:right bottom}
+  .clock{bottom:18px;transform:translateX(-50%) scale(.92)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<main class="page">
-  <div class="kicker">Special morning delivery</div>
-  <h1>A little package for Joana 📦</h1>
-  <p class="lead">Apparently, a few things didn't make it into your luggage yesterday.</p>
+<main>
+  <h1>Close the day</h1>
+  <p class="intro">Before you go to sleep... it looks like a few pieces of today are still awake.</p>
+  <p class="hint">Tap the highlighted objects to put the day to rest.</p>
 
-  <section class="package-zone">
-    <div class="package" id="package">
-      <div class="box-base"></div>
-      <div class="inside">
-        <div class="bottom-message" id="bottomMessage">Oh. One more thing.</div>
-      </div>
+  <section class="scene" id="scene" aria-label="Cozy evening desk">
+    <div class="wall-line"></div><div class="desk-grain"></div>
+    <div class="window"><div class="moon"></div></div>
+    <button class="lamp lamp-button" id="lamp" type="button" aria-label="Turn off the lamp" aria-disabled="true">
+      <div class="glow"></div><div class="shade"></div><div class="stem"></div><div class="base"></div>
+    </button>
 
-      <div class="items">
-        <div class="item available"><button class="item-btn" type="button" data-i="0" aria-label="Open warm hug">🤗</button></div>
-        <div class="item"><button class="item-btn" type="button" data-i="1" aria-label="Open message">❤️</button></div>
-        <div class="item"><button class="item-btn" type="button" data-i="2" aria-label="Open anti-stress certificate">📜</button></div>
-        <div class="item"><button class="item-btn" type="button" data-i="3" aria-label="Open cheque">💶</button></div>
-        <div class="item"><button class="item-btn" type="button" data-i="4" aria-label="Open espada prego">🥪</button></div>
-      </div>
+    <button class="object laptop active" id="laptop" type="button" aria-label="Close the laptop">
+      <div class="screen"><div class="screen-inner">WORK MODE<small>still running...</small></div></div>
+      <div class="keyboard"></div>
+    </button>
 
-      <div class="lid">
-        <div class="lid-face">
-          <div class="tape"></div>
-          <div class="label">
-            <div class="label-row"><b>FROM</b><span>Madeira</span></div>
-            <div class="label-row"><b>TO</b><span>Joana · Lisbon</span></div>
-            <div class="label-row"><b>CONTENTS</b><span>Things accidentally left behind</span></div>
-            <div class="label-row"><b>DELIVERY</b><span>First day back</span></div>
-          </div>
-          <div class="stamp">PRIORITY<br>MORNING<br>DELIVERY</div>
-          <div class="fragile">FRAGILE<br>HANDLE WITH A SMILE</div>
+    <button class="object phone" id="phone" type="button" aria-label="Switch the phone from messages to reels" aria-disabled="true">
+      <div class="phone-body">
+        <div class="phone-speaker"></div>
+        <div class="phone-screen inbox-screen" id="phoneScreen">
+          <div class="inbox-head">MESSAGES</div>
+          <div class="msg-line"><span class="avatar">W</span><span><b>Work</b><small>Can you check...</small></span></div>
+          <div class="msg-line"><span class="avatar">✉</span><span><b>Inbox</b><small>7 unread</small></span></div>
+          <div class="msg-line"><span class="avatar">•</span><span><b>Tomorrow</b><small>something important</small></span></div>
         </div>
       </div>
+    </button>
 
-      <button class="open-btn" id="openBtn" type="button">Open the package ♡</button>
+    <button class="object stress" id="stress" type="button" aria-label="Throw stress away" aria-disabled="true">
+      <div class="ball">STRESS</div><div class="bin"></div>
+    </button>
+
+    <button class="object clock" id="clock" type="button" aria-label="Stop checking the time" aria-disabled="true">
+      <div class="clock-body">
+        <div class="clock-face"><span class="hand hour"></span><span class="hand minute"></span><span class="clock-dot"></span></div>
+        <div class="clock-feet"></div>
+      </div>
+    </button>
+
+    <div class="goodnight-visual" id="goodnightVisual" aria-live="polite">
+      <div class="moonmark">🌙</div>
+      <h2>Sweet dreams, my dear Joana</h2>
+      <p>May your mind finally become quiet, your body relax, and your sleep be deep and peaceful.</p>
+      <p class="affection">A very warm hug for the night 🤗<br>and lots of goodnight kisses 😘💜</p>
     </div>
-
-    <article class="note" id="note" aria-live="polite">
-      <div class="note-title" id="noteTitle"></div>
-      <div class="note-copy" id="noteCopy"></div>
-      <button class="note-close" id="noteClose" type="button">Let's see what's next →</button>
-    </article>
   </section>
 
-  <section class="final-letter" id="finalLetter">
-    <h2>One last thing 💜</h2>
-    <p>Even though there is an ocean between us again, I can still feel your warmth here, close to me. And I want you to know that I am here too - even if from a distance for now - and I will always do everything I can for you.</p>
-    <p>I would never want to be the reason for your sadness or to upset you. Quite the opposite - I want to add something good to your days: reasons to smile, warmth, calm, and lovely moments.</p>
-    <p>And today, I simply want to wish you a gentle and peaceful return to life in Lisbon. May your first day go smoothly and without too much fuss.</p>
-    <p><strong>Have a beautiful day, my dear Joana. 💜</strong></p>
-    <div class="signature">— Andrei</div>
-    <div class="date">Madeira · 08.09.2026</div>
-    <div class="delivered">✓ DELIVERED TO JOANA</div>
+  <section class="caption" id="caption" aria-live="polite">
+    <h2 id="captionTitle">First things first 💻</h2>
+    <p id="captionText">Close the laptop. That's enough work for today.</p>
+    <div class="done-text" id="doneText"></div>
   </section>
+
 </main>
 
 <script>
-(() => {
-  const pkg=document.getElementById('package');
-  const openBtn=document.getElementById('openBtn');
-  const items=[...document.querySelectorAll('.item')];
-  const note=document.getElementById('note');
-  const title=document.getElementById('noteTitle');
-  const copy=document.getElementById('noteCopy');
-  const close=document.getElementById('noteClose');
-  const bottom=document.getElementById('bottomMessage');
-  const finalLetter=document.getElementById('finalLetter');
-
-  const messages=[
-    ["🤗 One very warm hug","Saved especially for your first day back."],
-    ["❤️ Someone here thinking of you","And hoping your day is kind to you."],
-    ["📜 Official Anti-Stress Certificate","This document legally prohibits any unnecessary stress today."],
-    ["💶 €400 Cheque","For nutritional consultation services provided to a patient in desperate need. 😌"],
-    ["🥪 Espada Prego","Prepared according to the classic recipe - in separate little pieces."]
+(()=>{
+  const $=id=>document.getElementById(id);
+  const ids=["laptop","phone","stress","clock","lamp"];
+  const copy=[
+    ["First things first 💻","Close the laptop. That's enough work for today.","Laptop closed ✓"],
+    ["The phone is still in serious mode 📱","Enough messages and useful things for today. Time to let your brain rest for a bit. 😌","Reels mode activated ✓"],
+    ["This definitely doesn't need to come to bed 🗑️","Tap the crumpled stress and send it where it belongs.","Good riddance ✓"],
+    ["No more checking what time it is ⏰","Tap the clock. It can stop keeping track for tonight.","Time officially ignored ✓"],
+    ["And finally... the light 🌙","Turn off the lamp and let the day end properly.",""]
   ];
+  let index=0;
 
-  let current=-1, opened=0;
+  function setActive(i){
+    ids.forEach((id,j)=>{
+      const el=$(id);
+      el.classList.toggle("active",j===i);
+      el.setAttribute("aria-disabled",j===i ? "false" : "true");
+    });
+    $("captionTitle").textContent=copy[i][0];
+    $("captionText").textContent=copy[i][1];
+    $("doneText").textContent="";
+  }
 
-  openBtn.addEventListener('click',()=>{
-    pkg.classList.add('open');
-  });
+  ids.forEach((id,i)=>{
+    $(id).addEventListener("click",()=>{
+      if(i!==index) return;
 
-  document.querySelectorAll('.item-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const i=Number(btn.dataset.i);
-      if(i!==opened)return;
-      current=i;
-      title.innerHTML=messages[i][0];
-      copy.innerHTML=messages[i][1];
-      note.classList.add('show');
+      if(id==="lamp"){
+        $("lamp").classList.add("off");
+        $("lamp").classList.remove("active");
+        $("scene").classList.add("night");
+        $("caption").style.display="none";
+        setTimeout(()=>$("goodnightVisual").classList.add("show"),500);
+        return;
+      }
+
+      if(id==="phone"){
+        $("phone").classList.add("reels");
+        $("phoneScreen").innerHTML =
+          '<div class="reels-view"><span class="big-heart">♥</span><b>REELS</b><small>something completely unimportant 😌</small></div>';
+      } else {
+        $(id).classList.add("done");
+      }
+      $(id).classList.remove("active");
+      $("doneText").textContent=copy[i][2];
+      index++;
+      setTimeout(()=>setActive(index),750);
     });
   });
 
-  close.addEventListener('click',()=>{
-    if(current<0)return;
-    note.classList.remove('show');
-    items[current].classList.add('used');
-    opened++;
-    current=-1;
-
-    if(opened<items.length){
-      items[opened].classList.add('available');
-    }else{
-      bottom.classList.add('show');
-      setTimeout(()=>{
-        bottom.style.cursor='pointer';
-        bottom.setAttribute('role','button');
-        bottom.setAttribute('tabindex','0');
-      },250);
-    }
-  });
-
-  function revealFinal(){
-    if(opened!==items.length || finalLetter.classList.contains('show'))return;
-    finalLetter.classList.add('show');
-    bottom.textContent='✓ Found';
-    bottom.style.cursor='default';
-    finalLetter.scrollIntoView({behavior:'smooth',block:'center'});
-  }
-  bottom.addEventListener('click',revealFinal);
-  bottom.addEventListener('keydown',e=>{
-    if(e.key==='Enter'||e.key===' '){e.preventDefault();revealFinal();}
-  });
+  setActive(0);
 })();
 </script>
 </body>
