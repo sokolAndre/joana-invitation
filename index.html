@@ -4,15 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Close the day</title>
+
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Georgia,serif}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:Georgia,serif;
+}
+
 body{
   background:linear-gradient(#ead7b8,#c99d78);
   color:#51453f;
   text-align:center;
   overflow-x:hidden;
 }
+
 button{
   appearance:none;
   -webkit-appearance:none;
@@ -25,14 +33,17 @@ button{
   text-align:inherit;
   box-shadow:none;
 }
+
 header{
   padding:32px 20px 18px;
 }
+
 h1{
   margin:0 0 10px;
   font-size:clamp(42px,8vw,62px);
   font-weight:400;
 }
+
 .intro{
   margin:0 auto;
   max-width:620px;
@@ -41,6 +52,7 @@ h1{
   line-height:1.45;
   color:#70645e;
 }
+
 .hint{
   margin-top:12px;
   font-family:system-ui,sans-serif;
@@ -67,7 +79,10 @@ h1{
 .scene:after{
   content:"";
   position:absolute;
-  left:0;right:0;top:25%;bottom:0;
+  left:0;
+  right:0;
+  top:25%;
+  bottom:0;
   pointer-events:none;
   opacity:.12;
   background:
@@ -92,27 +107,36 @@ h1{
   background:linear-gradient(#8f9da5,#718c82);
   box-shadow:0 8px 16px rgba(75,50,35,.13);
 }
+
 .window:before{
   content:"";
   position:absolute;
-  width:34px;height:34px;
+  width:34px;
+  height:34px;
   border-radius:50%;
   background:#f4e2a4;
-  top:20px;right:30px;
+  top:20px;
+  right:30px;
   box-shadow:0 0 20px rgba(250,226,163,.35);
 }
+
 .window:after{
   content:"";
   position:absolute;
-  left:-5px;right:-5px;bottom:-1px;
+  left:-5px;
+  right:-5px;
+  bottom:-1px;
   height:55px;
   background:
     linear-gradient(30deg,transparent 0 22%,#617c72 23% 50%,transparent 51%),
     linear-gradient(-25deg,transparent 0 25%,#536f66 26% 62%,transparent 63%);
 }
+
 .window-bar{
   position:absolute;
-  left:50%;top:0;bottom:0;
+  left:50%;
+  top:0;
+  bottom:0;
   width:6px;
   background:#f4ead9;
   transform:translateX(-50%);
@@ -128,48 +152,72 @@ h1{
   height:190px;
   pointer-events:none;
 }
+
 .lamp-button{
   pointer-events:auto;
   z-index:6;
 }
+
 .lamp .glow{
   position:absolute;
-  width:180px;height:180px;
+  width:180px;
+  height:180px;
   border-radius:50%;
-  left:50%;top:7px;
+  left:50%;
+  top:7px;
   transform:translateX(-50%);
-  background:radial-gradient(circle,rgba(255,225,155,.42),rgba(255,225,155,0) 70%);
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,225,155,.42),
+      rgba(255,225,155,0) 70%
+    );
   transition:opacity 1s ease;
   pointer-events:none;
 }
+
 .lamp .shade{
   position:absolute;
-  top:18px;left:12px;
-  width:82px;height:74px;
+  top:18px;
+  left:12px;
+  width:82px;
+  height:74px;
   background:#e6bd7d;
   clip-path:polygon(18% 0,82% 0,100% 100%,0 100%);
   border-radius:7px;
   transition:filter .8s ease;
   pointer-events:none;
 }
+
 .lamp .stem{
   position:absolute;
-  width:8px;height:92px;
-  left:49px;top:86px;
+  width:8px;
+  height:92px;
+  left:49px;
+  top:86px;
   border-radius:8px;
   background:#71584c;
   pointer-events:none;
 }
+
 .lamp .base{
   position:absolute;
-  left:18px;bottom:0;
-  width:72px;height:17px;
+  left:18px;
+  bottom:0;
+  width:72px;
+  height:17px;
   border-radius:50%;
   background:#71584c;
   pointer-events:none;
 }
-.lamp.off .glow{opacity:0}
-.lamp.off .shade{filter:brightness(.55) saturate(.55)}
+
+.lamp.off .glow{
+  opacity:0;
+}
+
+.lamp.off .shade{
+  filter:brightness(.55) saturate(.55);
+}
 
 /* common interactive objects */
 .object{
@@ -181,10 +229,12 @@ h1{
     opacity .45s ease,
     filter .45s ease;
 }
+
 .object.active{
   cursor:pointer;
   filter:drop-shadow(0 0 8px rgba(118,78,126,.48));
 }
+
 .object.active:after{
   content:"TAP";
   position:absolute;
@@ -193,9 +243,11 @@ h1{
   letter-spacing:.12em;
   animation:pulse 1.2s infinite;
 }
+
 @keyframes pulse{
   50%{opacity:.35}
 }
+
 @media(hover:hover){
   .object.active:hover{
     transform:translateY(-4px) scale(1.02);
@@ -210,12 +262,16 @@ h1{
   height:208px;
   transform:translateX(-50%);
 }
+
 .laptop.active:hover{
   transform:translateX(-50%) translateY(-4px) scale(1.02);
 }
+
 .laptop .screen{
   position:absolute;
-  left:10px;right:10px;top:0;
+  left:10px;
+  right:10px;
+  top:0;
   height:174px;
   border:12px solid #515156;
   border-radius:16px 16px 5px 5px;
@@ -228,36 +284,45 @@ h1{
   color:#fff;
   font-family:"Courier New",monospace;
 }
+
 .laptop .screen b{
   font-size:18px;
   letter-spacing:.04em;
 }
+
 .laptop .screen small{
   margin-top:8px;
   font-size:11px;
   letter-spacing:.08em;
   opacity:.7;
 }
+
 .laptop .keyboard{
   position:absolute;
-  left:-18px;right:-18px;
+  left:-18px;
+  right:-18px;
   top:172px;
   height:26px;
   background:#ddd5ca;
   clip-path:polygon(8% 0,92% 0,100% 100%,0 100%);
   box-shadow:0 5px 8px rgba(62,42,32,.14);
 }
+
 .laptop.active:after{
   left:50%;
   top:210px;
   transform:translateX(-50%);
 }
+
 .laptop.done .screen{
   transform-origin:bottom;
   animation:closeLaptop .65s forwards;
 }
+
 @keyframes closeLaptop{
-  to{transform:perspective(350px) rotateX(-88deg)}
+  to{
+    transform:perspective(350px) rotateX(-88deg);
+  }
 }
 
 /* phone */
@@ -267,6 +332,7 @@ h1{
   width:86px;
   height:132px;
 }
+
 .phone-body{
   position:absolute;
   inset:0;
@@ -276,6 +342,7 @@ h1{
   box-shadow:0 6px 12px rgba(66,44,31,.18);
   padding:9px 6px 7px;
 }
+
 .phone-speaker{
   width:25px;
   height:3px;
@@ -283,18 +350,21 @@ h1{
   background:#777277;
   margin:0 auto 6px;
 }
+
 .phone-screen{
   height:100px;
   border-radius:10px;
   overflow:hidden;
   transition:.55s ease;
 }
+
 .inbox-screen{
   background:#f1ece6;
   color:#544d49;
   padding:7px 6px;
   text-align:left;
 }
+
 .inbox-head{
   font:bold 8px "Courier New",monospace;
   letter-spacing:.08em;
@@ -302,6 +372,7 @@ h1{
   margin-bottom:5px;
   text-align:center;
 }
+
 .msg-line{
   display:flex;
   align-items:center;
@@ -310,17 +381,23 @@ h1{
   border-top:1px solid rgba(90,75,65,.09);
   font:7px/1.15 system-ui,sans-serif;
 }
-.msg-line:first-of-type{border-top:0}
+
+.msg-line:first-of-type{
+  border-top:0;
+}
+
 .msg-line b{
   display:block;
   font-size:7px;
 }
+
 .msg-line small{
   display:block;
   font-size:6px;
   color:#91857e;
   white-space:nowrap;
 }
+
 .avatar{
   flex:0 0 17px;
   width:17px;
@@ -332,12 +409,14 @@ h1{
   color:#625954;
   font:bold 7px system-ui,sans-serif;
 }
+
 .phone.reels .phone-screen{
   background:linear-gradient(155deg,#8b6f87,#c5968c);
   color:white;
   padding:0;
   text-align:center;
 }
+
 .reels-view{
   height:100%;
   display:flex;
@@ -346,15 +425,18 @@ h1{
   justify-content:center;
   font:700 10px/1.25 "Courier New",monospace;
 }
+
 .reels-view .big-heart{
   font-size:24px;
   margin-bottom:4px;
 }
+
 .reels-view small{
   font-size:7px;
   opacity:.86;
   margin-top:4px;
 }
+
 .phone.reels:before{
   content:"BRAIN BREAK ✓";
   position:absolute;
@@ -377,6 +459,7 @@ h1{
   width:95px;
   height:95px;
 }
+
 .stress-paper{
   position:absolute;
   inset:0;
@@ -386,14 +469,30 @@ h1{
   color:#5d514a;
   font:bold 10px "Courier New",monospace;
   clip-path:polygon(
-    50% 0,63% 10%,78% 3%,84% 19%,100% 27%,
-    90% 43%,100% 58%,84% 68%,88% 87%,
-    68% 84%,55% 100%,42% 87%,23% 96%,
-    19% 77%,2% 68%,10% 51%,0 36%,
-    17% 27%,14% 10%,35% 14%
+    50% 0,
+    63% 10%,
+    78% 3%,
+    84% 19%,
+    100% 27%,
+    90% 43%,
+    100% 58%,
+    84% 68%,
+    88% 87%,
+    68% 84%,
+    55% 100%,
+    42% 87%,
+    23% 96%,
+    19% 77%,
+    2% 68%,
+    10% 51%,
+    0 36%,
+    17% 27%,
+    14% 10%,
+    35% 14%
   );
   box-shadow:0 5px 10px rgba(70,45,30,.14);
 }
+
 .bin{
   position:absolute;
   right:-1px;
@@ -404,6 +503,7 @@ h1{
   border-radius:6px 6px 13px 13px;
   opacity:.78;
 }
+
 .bin:before{
   content:"";
   position:absolute;
@@ -414,13 +514,16 @@ h1{
   border-radius:8px;
   background:#685b54;
 }
+
 .stress.active:after{
   left:20px;
   top:100px;
 }
+
 .stress.done .stress-paper{
   animation:trash .7s forwards;
 }
+
 @keyframes trash{
   to{
     transform:translate(47px,58px) rotate(35deg) scale(.2);
@@ -436,13 +539,19 @@ h1{
   width:100px;
   height:84px;
 }
+
 .clock.active:hover{
-  transform:translateX(-50%) translateY(-4px) scale(1.02)!important;
+  transform:
+    translateX(-50%)
+    translateY(-4px)
+    scale(1.02)!important;
 }
+
 .clock-body{
   position:absolute;
   inset:0;
 }
+
 .clock-face{
   position:absolute;
   left:20px;
@@ -454,6 +563,7 @@ h1{
   border:5px solid #6d625c;
   box-shadow:0 5px 11px rgba(75,49,32,.15);
 }
+
 .clock-face:before{
   content:"12";
   position:absolute;
@@ -463,6 +573,7 @@ h1{
   font:bold 7px Georgia,serif;
   color:#746a64;
 }
+
 .clock-face:after{
   content:"6";
   position:absolute;
@@ -472,6 +583,7 @@ h1{
   font:bold 7px Georgia,serif;
   color:#746a64;
 }
+
 .hand{
   position:absolute;
   left:50%;
@@ -481,14 +593,17 @@ h1{
   transform-origin:bottom;
   border-radius:2px;
 }
+
 .hand.hour{
   height:17px;
   transform:translateX(-50%) rotate(310deg);
 }
+
 .hand.minute{
   height:22px;
   transform:translateX(-50%) rotate(25deg);
 }
+
 .clock-dot{
   position:absolute;
   left:50%;
@@ -499,6 +614,7 @@ h1{
   background:#70537b;
   transform:translate(-50%,-50%);
 }
+
 .clock-feet:before,
 .clock-feet:after{
   content:"";
@@ -509,20 +625,29 @@ h1{
   border-bottom:5px solid #6d625c;
   border-radius:50%;
 }
+
 .clock-feet:before{
   left:17px;
   transform:rotate(-25deg);
 }
+
 .clock-feet:after{
   right:15px;
   transform:rotate(25deg);
 }
+
 .clock.done .clock-face{
   background:#b4aaa0;
   filter:brightness(.82);
 }
-.clock.done .hand{opacity:.35}
-.clock.done .clock-dot{background:#777}
+
+.clock.done .hand{
+  opacity:.35;
+}
+
+.clock.done .clock-dot{
+  background:#777;
+}
 
 /* caption */
 .caption{
@@ -533,11 +658,13 @@ h1{
   background:rgba(248,238,224,.85);
   box-shadow:0 12px 30px rgba(77,51,37,.1);
 }
+
 .caption h2{
   margin:0 0 8px;
   font-size:27px;
   font-weight:400;
 }
+
 .caption p{
   margin:0;
   font-family:system-ui,sans-serif;
@@ -545,6 +672,7 @@ h1{
   font-size:16px;
   line-height:1.5;
 }
+
 .done-text{
   margin-top:10px!important;
   min-height:24px;
@@ -557,6 +685,7 @@ h1{
   background:
     linear-gradient(to bottom,#5c5b64 0 25%,#655044 25% 100%);
 }
+
 .scene.night:before{
   content:"";
   position:absolute;
@@ -566,13 +695,16 @@ h1{
   pointer-events:none;
   animation:nightFade 1.2s both;
 }
+
 @keyframes nightFade{
   from{opacity:0}
   to{opacity:1}
 }
+
 .scene.night .window{
   filter:brightness(.75) saturate(.7);
 }
+
 .scene.night .laptop,
 .scene.night .phone,
 .scene.night .stress,
@@ -591,12 +723,16 @@ h1{
   opacity:0;
   pointer-events:none;
   transform:translateY(12px);
-  transition:opacity 1.2s ease,transform 1.2s ease;
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease;
 }
+
 .goodnight.show{
   opacity:1;
   transform:none;
 }
+
 .goodnight-inner{
   max-width:520px;
   padding:30px 25px;
@@ -606,15 +742,18 @@ h1{
   color:#f8efe6;
   box-shadow:0 15px 45px rgba(0,0,0,.2);
 }
+
 .goodnight .moon{
   font-size:42px;
   margin-bottom:8px;
 }
+
 .goodnight h2{
   margin:0 0 15px;
   font-size:32px;
   font-weight:400;
 }
+
 .goodnight p{
   font-family:system-ui,sans-serif;
   font-size:16px;
@@ -622,6 +761,7 @@ h1{
   margin:10px 0;
   color:#eee3dc;
 }
+
 .goodnight .love{
   margin-top:19px;
   font-size:17px;
@@ -629,19 +769,24 @@ h1{
 
 /* mobile */
 @media(max-width:600px){
+
   header{
     padding:25px 16px 12px;
   }
+
   h1{
     font-size:42px;
   }
+
   .intro{
     font-size:16px;
   }
+
   .scene{
     height:590px;
     border-radius:30px;
   }
+
   .window{
     width:130px;
     height:98px;
@@ -649,49 +794,58 @@ h1{
     top:28px;
     border-width:9px;
   }
+
   .lamp{
     right:14px;
     top:65px;
     transform:scale(.82);
     transform-origin:top right;
   }
+
   .phone{
     left:20px;
     bottom:72px;
     transform:scale(.9);
     transform-origin:left bottom;
   }
+
   .stress{
     right:18px;
     bottom:80px;
     transform:scale(.9);
     transform-origin:right bottom;
   }
+
   .clock{
     bottom:18px;
     transform:translateX(-50%) scale(.92);
   }
+
   .goodnight h2{
     font-size:27px;
   }
+
   .goodnight-inner{
     padding:25px 19px;
   }
 }
 
-/* Mobile laptop fix: compact screen + keyboard kept together */
-@media (max-width:600px){
+/* mobile laptop */
+@media(max-width:600px){
+
   .laptop{
     left:50%!important;
-    top:117px!important;
+    top:165px!important;
     bottom:auto!important;
     width:208px!important;
     height:135px!important;
     transform:translateX(-50%)!important;
   }
+
   .laptop.active:hover{
     transform:translateX(-50%)!important;
   }
+
   .laptop .screen{
     left:10px!important;
     right:10px!important;
@@ -699,6 +853,7 @@ h1{
     width:auto!important;
     height:113px!important;
   }
+
   .laptop .keyboard{
     left:0!important;
     right:0!important;
@@ -706,6 +861,10 @@ h1{
     bottom:auto!important;
     width:auto!important;
     height:19px!important;
+  }
+
+  .laptop.active:after{
+    top:145px!important;
   }
 }
 </style>
@@ -715,52 +874,75 @@ h1{
 
 <header>
   <h1>Close the day</h1>
+
   <p class="intro">
-    Before you go to sleep... it looks like a few pieces of today are still awake.
+    Before you go to sleep... it looks like a few pieces
+    of today are still awake.
   </p>
-  <div class="hint">Tap the highlighted objects to put the day to rest.</div>
+
+  <div class="hint">
+    Tap the highlighted objects to put the day to rest.
+  </div>
 </header>
 
 <main>
+
   <div class="scene" id="scene">
 
     <div class="window">
       <div class="window-bar"></div>
     </div>
 
-    <button class="object lamp lamp-button" id="lamp"
-            type="button"
-            aria-label="Turn off the lamp"
-            aria-disabled="true">
+    <button
+      class="object lamp lamp-button"
+      id="lamp"
+      type="button"
+      aria-label="Turn off the lamp"
+      aria-disabled="true"
+    >
       <div class="glow"></div>
       <div class="shade"></div>
       <div class="stem"></div>
       <div class="base"></div>
     </button>
 
-    <button class="object laptop" id="laptop"
-            type="button"
-            aria-label="Close the laptop"
-            aria-disabled="false">
+    <button
+      class="object laptop"
+      id="laptop"
+      type="button"
+      aria-label="Close the laptop"
+      aria-disabled="false"
+    >
       <div class="screen">
         <b>WORK MODE</b>
         <small>still running...</small>
       </div>
+
       <div class="keyboard"></div>
     </button>
 
-    <button class="object phone" id="phone"
-            type="button"
-            aria-label="Switch the phone from messages to reels"
-            aria-disabled="true">
+    <button
+      class="object phone"
+      id="phone"
+      type="button"
+      aria-label="Switch the phone from messages to reels"
+      aria-disabled="true"
+    >
       <div class="phone-body">
+
         <div class="phone-speaker"></div>
 
-        <div class="phone-screen inbox-screen" id="phoneScreen">
-          <div class="inbox-head">MESSAGES</div>
+        <div
+          class="phone-screen inbox-screen"
+          id="phoneScreen"
+        >
+          <div class="inbox-head">
+            MESSAGES
+          </div>
 
           <div class="msg-line">
             <span class="avatar">W</span>
+
             <span>
               <b>Work</b>
               <small>Can you check...</small>
@@ -769,6 +951,7 @@ h1{
 
           <div class="msg-line">
             <span class="avatar">✉</span>
+
             <span>
               <b>Inbox</b>
               <small>7 unread</small>
@@ -777,62 +960,98 @@ h1{
 
           <div class="msg-line">
             <span class="avatar">•</span>
+
             <span>
               <b>Tomorrow</b>
               <small>something important</small>
             </span>
           </div>
+
         </div>
       </div>
     </button>
 
-    <button class="object stress" id="stress"
-            type="button"
-            aria-label="Throw away stress"
-            aria-disabled="true">
-      <div class="stress-paper">STRESS</div>
+    <button
+      class="object stress"
+      id="stress"
+      type="button"
+      aria-label="Throw away stress"
+      aria-disabled="true"
+    >
+      <div class="stress-paper">
+        STRESS
+      </div>
+
       <div class="bin"></div>
     </button>
 
-    <button class="object clock" id="clock"
-            type="button"
-            aria-label="Stop checking the time"
-            aria-disabled="true">
+    <button
+      class="object clock"
+      id="clock"
+      type="button"
+      aria-label="Stop checking the time"
+      aria-disabled="true"
+    >
       <div class="clock-body">
+
         <div class="clock-face">
           <span class="hand hour"></span>
           <span class="hand minute"></span>
           <span class="clock-dot"></span>
         </div>
+
         <div class="clock-feet"></div>
+
       </div>
     </button>
 
-    <div class="goodnight" id="goodnightVisual">
+    <div
+      class="goodnight"
+      id="goodnightVisual"
+    >
       <div class="goodnight-inner">
-        <div class="moon">🌙</div>
 
-        <h2>Sweet dreams, my dear Joana</h2>
+        <div class="moon">
+          🌙
+        </div>
+
+        <h2>
+          Sweet dreams, my dear Joana
+        </h2>
 
         <p>
-          May your mind finally become quiet, your body relax,
+          May your mind finally become quiet,
+          your body relax,
           and your sleep be deep and peaceful.
         </p>
 
         <p class="love">
-          A very warm hug for the night 🤗<br>
+          A very warm hug for the night 🤗
+          <br>
           and lots of goodnight kisses 😘💜
         </p>
+
       </div>
     </div>
 
   </div>
 
-  <section class="caption" id="caption">
+  <section
+    class="caption"
+    id="caption"
+  >
+
     <h2 id="captionTitle"></h2>
+
     <p id="captionText"></p>
-    <p class="done-text" id="doneText"></p>
+
+    <p
+      class="done-text"
+      id="doneText"
+    ></p>
+
   </section>
+
 </main>
 
 <script>
@@ -848,99 +1067,138 @@ h1{
   ];
 
   const copy = [
+
     [
       "First things first 💻",
       "Close the laptop. That's enough work for today.",
       "Laptop closed ✓"
     ],
+
     [
       "The phone is still in serious mode 📱",
       "Enough messages and useful things for today. Time to let your brain rest for a bit. 😌",
       "Reels mode activated ✓"
     ],
+
     [
       "This definitely doesn't need to come to bed 🗑️",
       "Tap the crumpled stress and send it where it belongs.",
       "Good riddance ✓"
     ],
+
     [
       "No more checking what time it is ⏰",
       "Tap the clock. It can stop keeping track for tonight.",
       "Time officially ignored ✓"
     ],
+
     [
       "And finally... the light 🌙",
       "Turn off the lamp and let the day end properly.",
       ""
     ]
+
   ];
 
   let index = 0;
 
   function setActive(i){
+
     ids.forEach((id,j)=>{
+
       const el = $(id);
 
-      el.classList.toggle("active",j === i);
+      el.classList.toggle(
+        "active",
+        j === i
+      );
+
       el.setAttribute(
         "aria-disabled",
         j === i ? "false" : "true"
       );
+
     });
 
-    $("captionTitle").textContent = copy[i][0];
-    $("captionText").textContent = copy[i][1];
+    $("captionTitle").textContent =
+      copy[i][0];
+
+    $("captionText").textContent =
+      copy[i][1];
+
     $("doneText").textContent = "";
   }
 
   ids.forEach((id,i)=>{
-    $(id).addEventListener("click",()=>{
 
-      if(i !== index) return;
+    $(id).addEventListener(
+      "click",
+      ()=>{
 
-      if(id === "lamp"){
-        $("lamp").classList.add("off");
-        $("lamp").classList.remove("active");
+        if(i !== index){
+          return;
+        }
 
-        $("scene").classList.add("night");
-        $("caption").style.display = "none";
+        if(id === "lamp"){
+
+          $("lamp").classList.add("off");
+
+          $("lamp").classList.remove("active");
+
+          $("scene").classList.add("night");
+
+          $("caption").style.display = "none";
+
+          setTimeout(()=>{
+
+            $("goodnightVisual")
+              .classList.add("show");
+
+          },500);
+
+          return;
+        }
+
+        if(id === "phone"){
+
+          $("phone")
+            .classList.add("reels");
+
+          $("phoneScreen").innerHTML =
+            '<div class="reels-view">' +
+            '<span class="big-heart">♥</span>' +
+            '<b>REELS</b>' +
+            '<small>something completely unimportant 😌</small>' +
+            '</div>';
+
+        }else{
+
+          $(id)
+            .classList.add("done");
+
+        }
+
+        $(id)
+          .classList.remove("active");
+
+        $("doneText").textContent =
+          copy[i][2];
+
+        index++;
 
         setTimeout(()=>{
-          $("goodnightVisual").classList.add("show");
-        },500);
 
-        return;
+          setActive(index);
+
+        },750);
       }
-
-      if(id === "phone"){
-        $("phone").classList.add("reels");
-
-        $("phoneScreen").innerHTML =
-          '<div class="reels-view">' +
-          '<span class="big-heart">♥</span>' +
-          '<b>REELS</b>' +
-          '<small>something completely unimportant 😌</small>' +
-          '</div>';
-
-      }else{
-        $(id).classList.add("done");
-      }
-
-      $(id).classList.remove("active");
-
-      $("doneText").textContent = copy[i][2];
-
-      index++;
-
-      setTimeout(()=>{
-        setActive(index);
-      },750);
-    });
+    );
   });
 
   setActive(0);
+
 })();
 </script>
 
 </body>
-</html>
+  </html>
