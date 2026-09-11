@@ -6,72 +6,72 @@
 <title>Close the day</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-html, body {
-  margin: 0;
-  min-height: 100%;
+html,body{
+  margin:0;
+  min-height:100%;
 }
 
-body {
-  font-family: Georgia, serif;
-  background: linear-gradient(#ead7b8, #c99d78);
-  color: #51453f;
-  text-align: center;
-  overflow-x: hidden;
+body{
+  font-family:Georgia,serif;
+  background:linear-gradient(#ead7b8,#c99d78);
+  color:#51453f;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-button {
-  appearance: none;
-  -webkit-appearance: none;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  box-shadow: none;
+button{
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  padding:0;
+  margin:0;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  box-shadow:none;
 }
 
 /* HEADER */
 
-header {
-  padding: 30px 18px 18px;
+header{
+  padding:30px 18px 18px;
 }
 
-h1 {
-  margin: 0 0 12px;
-  font-size: clamp(42px, 8vw, 62px);
-  font-weight: 400;
+h1{
+  margin:0 0 12px;
+  font-size:clamp(42px,8vw,62px);
+  font-weight:400;
 }
 
-.intro {
-  max-width: 620px;
-  margin: 0 auto;
-  font-family: system-ui, sans-serif;
-  font-size: 18px;
-  line-height: 1.45;
-  color: #70645e;
+.intro{
+  max-width:620px;
+  margin:0 auto;
+  font-family:system-ui,sans-serif;
+  font-size:18px;
+  line-height:1.45;
+  color:#70645e;
 }
 
-.hint {
-  margin-top: 14px;
-  font-family: system-ui, sans-serif;
-  font-size: 14px;
-  color: #8b7770;
+.hint{
+  margin-top:14px;
+  font-family:system-ui,sans-serif;
+  font-size:14px;
+  color:#8b7770;
 }
 
 /* SCENE */
 
-.scene {
-  position: relative;
-  width: min(94vw, 760px);
-  height: 670px;
-  margin: 12px auto 28px;
-  overflow: hidden;
-  border-radius: 38px;
+.scene{
+  position:relative;
+  width:min(94vw,760px);
+  height:670px;
+  margin:12px auto 28px;
+  overflow:hidden;
+  border-radius:38px;
 
   background:
     linear-gradient(
@@ -84,19 +84,19 @@ h1 {
     inset 0 0 0 1px rgba(105,71,50,.12),
     0 18px 45px rgba(85,55,38,.13);
 
-  transition: background 1s ease;
+  transition:
+    background 1s ease;
 }
 
 /* wood texture */
 
-.scene::after {
-  content: "";
-  position: absolute;
-  inset: 25% 0 0 0;
-  z-index: 1;
-  pointer-events: none;
-
-  opacity: .11;
+.scene::after{
+  content:"";
+  position:absolute;
+  inset:25% 0 0 0;
+  z-index:1;
+  pointer-events:none;
+  opacity:.11;
 
   background:
     repeating-linear-gradient(
@@ -109,51 +109,53 @@ h1 {
 
 /* WINDOW */
 
-.window {
-  position: absolute;
-  z-index: 2;
+.window{
+  position:absolute;
+  z-index:2;
 
-  left: 28px;
-  top: 28px;
+  left:28px;
+  top:28px;
 
-  width: 180px;
-  height: 126px;
+  width:180px;
+  height:126px;
 
-  overflow: hidden;
+  overflow:hidden;
 
-  border: 12px solid #f4ead9;
-  border-radius: 22px;
+  border:12px solid #f4ead9;
+  border-radius:22px;
 
-  background: linear-gradient(#8f9da5, #718c82);
+  background:linear-gradient(#8f9da5,#718c82);
 
-  box-shadow: 0 8px 16px rgba(75,50,35,.13);
+  box-shadow:
+    0 8px 16px rgba(75,50,35,.13);
 }
 
-.window::before {
-  content: "";
-  position: absolute;
+.window::before{
+  content:"";
+  position:absolute;
 
-  width: 34px;
-  height: 34px;
+  width:34px;
+  height:34px;
 
-  right: 30px;
-  top: 20px;
+  right:30px;
+  top:20px;
 
-  border-radius: 50%;
-  background: #f4e2a4;
+  border-radius:50%;
+  background:#f4e2a4;
 
-  box-shadow: 0 0 20px rgba(250,226,163,.35);
+  box-shadow:
+    0 0 20px rgba(250,226,163,.35);
 }
 
-.window::after {
-  content: "";
-  position: absolute;
+.window::after{
+  content:"";
+  position:absolute;
 
-  left: -5px;
-  right: -5px;
-  bottom: -1px;
+  left:-5px;
+  right:-5px;
+  bottom:-1px;
 
-  height: 55px;
+  height:55px;
 
   background:
     linear-gradient(
@@ -170,28 +172,28 @@ h1 {
     );
 }
 
-.window-bar {
-  position: absolute;
-  z-index: 3;
+.window-bar{
+  position:absolute;
+  z-index:3;
 
-  left: 50%;
-  top: 0;
-  bottom: 0;
+  left:50%;
+  top:0;
+  bottom:0;
 
-  width: 6px;
+  width:6px;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 
-  background: #f4ead9;
+  background:#f4ead9;
 }
 
 /* OBJECTS */
 
-.object {
-  position: absolute;
-  z-index: 5;
+.object{
+  position:absolute;
+  z-index:5;
 
-  cursor: default;
+  cursor:default;
 
   transition:
     transform .4s ease,
@@ -199,8 +201,8 @@ h1 {
     opacity .4s ease;
 }
 
-.object.active {
-  cursor: pointer;
+.object.active{
+  cursor:pointer;
 
   filter:
     drop-shadow(
@@ -208,56 +210,57 @@ h1 {
     );
 }
 
-.object.active::after {
-  content: "TAP";
-  position: absolute;
+.object.active::after{
+  content:"TAP";
+  position:absolute;
 
-  color: #9b668f;
+  color:#9b668f;
 
   font:
     700 11px
     system-ui,
     sans-serif;
 
-  letter-spacing: .12em;
+  letter-spacing:.12em;
 
-  animation: pulse 1.1s infinite;
+  animation:
+    pulse 1.1s infinite;
 }
 
-@keyframes pulse {
-  50% {
-    opacity: .3;
+@keyframes pulse{
+  50%{
+    opacity:.3;
   }
 }
 
 /* LAPTOP */
 
-.laptop {
-  left: 50%;
-  top: 170px;
+.laptop{
+  left:50%;
+  top:170px;
 
-  width: 300px;
-  height: 205px;
+  width:300px;
+  height:205px;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 }
 
-.laptop-screen {
-  position: absolute;
+.laptop-screen{
+  position:absolute;
 
-  left: 10px;
-  right: 10px;
-  top: 0;
+  left:10px;
+  right:10px;
+  top:0;
 
-  height: 174px;
+  height:174px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 
-  border: 12px solid #515156;
-  border-radius: 16px 16px 5px 5px;
+  border:12px solid #515156;
+  border-radius:16px 16px 5px 5px;
 
   background:
     linear-gradient(
@@ -266,38 +269,36 @@ h1 {
       #2f3e43
     );
 
-  color: white;
+  color:white;
 
   box-shadow:
     0 8px 16px rgba(62,42,32,.2);
 
-  font-family: "Courier New", monospace;
+  font-family:"Courier New",monospace;
 }
 
-.laptop-screen strong {
-  font-size: 18px;
-  letter-spacing: .05em;
+.laptop-screen strong{
+  font-size:18px;
+  letter-spacing:.05em;
 }
 
-.laptop-screen span {
-  margin-top: 9px;
-
-  font-size: 11px;
-  letter-spacing: .1em;
-
-  opacity: .7;
+.laptop-screen span{
+  margin-top:9px;
+  font-size:11px;
+  letter-spacing:.1em;
+  opacity:.7;
 }
 
-.keyboard {
-  position: absolute;
+.keyboard{
+  position:absolute;
 
-  left: -18px;
-  right: -18px;
-  top: 172px;
+  left:-18px;
+  right:-18px;
+  top:172px;
 
-  height: 26px;
+  height:26px;
 
-  background: #ddd5ca;
+  background:#ddd5ca;
 
   clip-path:
     polygon(
@@ -308,22 +309,22 @@ h1 {
     );
 }
 
-.laptop.active::after {
-  left: 50%;
-  top: 212px;
+.laptop.active::after{
+  left:50%;
+  top:212px;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 }
 
-.laptop.closed .laptop-screen {
-  transform-origin: bottom;
+.laptop.closed .laptop-screen{
+  transform-origin:bottom;
 
   animation:
     closeLaptop .65s forwards;
 }
 
-@keyframes closeLaptop {
-  to {
+@keyframes closeLaptop{
+  to{
     transform:
       perspective(350px)
       rotateX(-88deg);
@@ -332,76 +333,76 @@ h1 {
 
 /* PHONE */
 
-.phone {
-  left: 35px;
-  bottom: 120px;
+.phone{
+  left:35px;
+  bottom:120px;
 
-  width: 86px;
-  height: 132px;
+  width:86px;
+  height:132px;
 }
 
-.phone-body {
-  position: absolute;
-  inset: 0;
+.phone-body{
+  position:absolute;
+  inset:0;
 
-  padding: 9px 6px 7px;
+  padding:9px 6px 7px;
 
-  border: 4px solid #3f3d40;
-  border-radius: 17px;
+  border:4px solid #3f3d40;
+  border-radius:17px;
 
-  background: #4e4c50;
+  background:#4e4c50;
 
   box-shadow:
     0 6px 12px rgba(66,44,31,.18);
 }
 
-.phone-speaker {
-  width: 25px;
-  height: 3px;
+.phone-speaker{
+  width:25px;
+  height:3px;
 
-  margin: 0 auto 6px;
+  margin:0 auto 6px;
 
-  border-radius: 3px;
+  border-radius:3px;
 
-  background: #777277;
+  background:#777277;
 }
 
-.phone-screen {
-  height: 100px;
-  overflow: hidden;
+.phone-screen{
+  height:100px;
+  overflow:hidden;
 
-  border-radius: 10px;
+  border-radius:10px;
 
-  background: #f1ece6;
-  color: #544d49;
+  background:#f1ece6;
+  color:#544d49;
 
-  padding: 7px 6px;
+  padding:7px 6px;
 
-  text-align: left;
+  text-align:left;
 }
 
-.inbox-title {
-  margin-bottom: 5px;
+.inbox-title{
+  margin-bottom:5px;
 
-  text-align: center;
+  text-align:center;
 
-  color: #776d67;
+  color:#776d67;
 
   font:
     700 8px
     "Courier New",
     monospace;
 
-  letter-spacing: .08em;
+  letter-spacing:.08em;
 }
 
-.message {
-  display: flex;
-  align-items: center;
+.message{
+  display:flex;
+  align-items:center;
 
-  gap: 5px;
+  gap:5px;
 
-  padding: 4px 1px;
+  padding:4px 1px;
 
   border-top:
     1px solid rgba(90,75,65,.09);
@@ -412,52 +413,52 @@ h1 {
     sans-serif;
 }
 
-.message:first-of-type {
-  border-top: 0;
+.message:first-of-type{
+  border-top:0;
 }
 
-.avatar {
-  width: 17px;
-  height: 17px;
+.avatar{
+  width:17px;
+  height:17px;
 
-  flex: 0 0 17px;
+  flex:0 0 17px;
 
-  display: grid;
-  place-items: center;
+  display:grid;
+  place-items:center;
 
-  border-radius: 50%;
+  border-radius:50%;
 
-  background: #d6c8bc;
+  background:#d6c8bc;
 
-  font-size: 7px;
+  font-size:7px;
 }
 
-.message strong {
-  display: block;
-  font-size: 7px;
+.message strong{
+  display:block;
+  font-size:7px;
 }
 
-.message small {
-  display: block;
+.message small{
+  display:block;
 
-  font-size: 6px;
+  font-size:6px;
 
-  color: #91857e;
+  color:#91857e;
 
-  white-space: nowrap;
+  white-space:nowrap;
 }
 
-.phone.active::after {
-  left: 102px;
-  top: 48px;
+.phone.active::after{
+  left:102px;
+  top:48px;
 
-  white-space: nowrap;
+  white-space:nowrap;
 }
 
 /* REELS */
 
-.phone.reels .phone-screen {
-  padding: 0;
+.phone.reels .phone-screen{
+  padding:0;
 
   background:
     linear-gradient(
@@ -466,18 +467,18 @@ h1 {
       #c5968c
     );
 
-  color: white;
+  color:white;
 
-  text-align: center;
+  text-align:center;
 }
 
-.reels-content {
-  height: 100%;
+.reels-content{
+  height:100%;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 
   font:
     700 10px/1.25
@@ -485,37 +486,34 @@ h1 {
     monospace;
 }
 
-.reels-heart {
-  font-size: 25px;
-
-  margin-bottom: 4px;
+.reels-heart{
+  font-size:25px;
+  margin-bottom:4px;
 }
 
-.reels-content small {
-  margin-top: 5px;
-
-  font-size: 7px;
-
-  opacity: .85;
+.reels-content small{
+  margin-top:5px;
+  font-size:7px;
+  opacity:.85;
 }
 
-.phone.reels::before {
-  content: "BRAIN BREAK ✓";
+.phone.reels::before{
+  content:"BRAIN BREAK ✓";
 
-  position: absolute;
-  z-index: 10;
+  position:absolute;
+  z-index:10;
 
-  left: 67px;
-  top: 36px;
+  left:67px;
+  top:36px;
 
-  padding: 6px 8px;
+  padding:6px 8px;
 
-  white-space: nowrap;
+  white-space:nowrap;
 
-  border-radius: 8px;
+  border-radius:8px;
 
-  background: #f2e6d5;
-  color: #70537b;
+  background:#f2e6d5;
+  color:#70537b;
 
   box-shadow:
     0 4px 9px rgba(70,45,30,.14);
@@ -528,23 +526,23 @@ h1 {
 
 /* STRESS */
 
-.stress {
-  right: 34px;
-  bottom: 130px;
+.stress{
+  right:34px;
+  bottom:130px;
 
-  width: 95px;
-  height: 95px;
+  width:95px;
+  height:95px;
 }
 
-.stress-paper {
-  position: absolute;
-  inset: 0;
+.stress-paper{
+  position:absolute;
+  inset:0;
 
-  display: grid;
-  place-items: center;
+  display:grid;
+  place-items:center;
 
-  background: #efe6da;
-  color: #5d514a;
+  background:#efe6da;
+  color:#5d514a;
 
   font:
     700 10px
@@ -576,233 +574,229 @@ h1 {
     );
 }
 
-.bin {
-  position: absolute;
+.bin{
+  position:absolute;
 
-  right: -1px;
-  bottom: -37px;
+  right:-1px;
+  bottom:-37px;
 
-  width: 55px;
-  height: 54px;
+  width:55px;
+  height:54px;
 
   border-radius:
     6px 6px 13px 13px;
 
-  background: #75665d;
+  background:#75665d;
 
-  opacity: .78;
+  opacity:.78;
 }
 
-.bin::before {
-  content: "";
-  position: absolute;
+.bin::before{
+  content:"";
 
-  left: -8px;
-  top: -6px;
+  position:absolute;
 
-  width: 70px;
-  height: 8px;
+  left:-8px;
+  top:-6px;
 
-  border-radius: 8px;
+  width:70px;
+  height:8px;
 
-  background: #685b54;
+  border-radius:8px;
+
+  background:#685b54;
 }
 
-.stress.active::after {
-  right: 108px;
-  top: 36px;
+.stress.active::after{
+  right:108px;
+  top:36px;
 
-  white-space: nowrap;
+  white-space:nowrap;
 }
 
-.stress.thrown .stress-paper {
+.stress.thrown .stress-paper{
   animation:
     throwStress .7s forwards;
 }
 
-@keyframes throwStress {
-  to {
+@keyframes throwStress{
+  to{
     transform:
       translate(47px,58px)
       rotate(35deg)
       scale(.2);
 
-    opacity: 0;
+    opacity:0;
   }
 }
 
 /* CLOCK */
 
-.clock {
-  left: 50%;
-  bottom: 72px;
+.clock{
+  left:50%;
+  bottom:72px;
 
-  width: 100px;
-  height: 84px;
+  width:100px;
+  height:84px;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 }
 
-.clock-face {
-  position: absolute;
+.clock-face{
+  position:absolute;
 
-  left: 20px;
-  top: 0;
+  left:20px;
+  top:0;
 
-  width: 62px;
-  height: 62px;
+  width:62px;
+  height:62px;
 
-  border: 5px solid #6d625c;
-  border-radius: 50%;
+  border:5px solid #6d625c;
+  border-radius:50%;
 
-  background: #eee2cf;
+  background:#eee2cf;
 
   box-shadow:
     0 5px 11px rgba(75,49,32,.15);
 }
 
-.clock-face::before {
-  content: "12";
+.clock-face::before{
+  content:"12";
 
-  position: absolute;
+  position:absolute;
 
-  top: 3px;
-  left: 50%;
+  top:3px;
+  left:50%;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 
-  font-size: 7px;
+  font-size:7px;
 }
 
-.clock-face::after {
-  content: "6";
+.clock-face::after{
+  content:"6";
 
-  position: absolute;
+  position:absolute;
 
-  bottom: 2px;
-  left: 50%;
+  bottom:2px;
+  left:50%;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 
-  font-size: 7px;
+  font-size:7px;
 }
 
-.hand {
-  position: absolute;
+.hand{
+  position:absolute;
 
-  left: 50%;
-  bottom: 50%;
+  left:50%;
+  bottom:50%;
 
-  width: 2px;
+  width:2px;
 
-  transform-origin: bottom;
+  transform-origin:bottom;
 
-  background: #5f5550;
+  background:#5f5550;
 }
 
-.hand.hour {
-  height: 17px;
+.hand.hour{
+  height:17px;
 
   transform:
     translateX(-50%)
     rotate(310deg);
 }
 
-.hand.minute {
-  height: 22px;
+.hand.minute{
+  height:22px;
 
   transform:
     translateX(-50%)
     rotate(25deg);
 }
 
-.clock-dot {
-  position: absolute;
+.clock-dot{
+  position:absolute;
 
-  left: 50%;
-  top: 50%;
+  left:50%;
+  top:50%;
 
-  width: 6px;
-  height: 6px;
+  width:6px;
+  height:6px;
 
   transform:
     translate(-50%,-50%);
 
-  border-radius: 50%;
+  border-radius:50%;
 
-  background: #70537b;
+  background:#70537b;
 }
 
 .clock-foot-left,
-.clock-foot-right {
-  position: absolute;
+.clock-foot-right{
+  position:absolute;
 
-  top: 58px;
+  top:58px;
 
-  width: 17px;
-  height: 12px;
+  width:17px;
+  height:12px;
 
   border-bottom:
     5px solid #6d625c;
 
-  border-radius: 50%;
+  border-radius:50%;
 }
 
-.clock-foot-left {
-  left: 17px;
-
-  transform:
-    rotate(-25deg);
+.clock-foot-left{
+  left:17px;
+  transform:rotate(-25deg);
 }
 
-.clock-foot-right {
-  right: 15px;
-
-  transform:
-    rotate(25deg);
+.clock-foot-right{
+  right:15px;
+  transform:rotate(25deg);
 }
 
-.clock.active::after {
-  left: 50%;
-  top: -29px;
+.clock.active::after{
+  left:50%;
+  top:-29px;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 
-  white-space: nowrap;
+  white-space:nowrap;
 }
 
-.clock.stopped .clock-face {
-  background: #b4aaa0;
-
-  filter: brightness(.82);
+.clock.stopped .clock-face{
+  background:#b4aaa0;
+  filter:brightness(.82);
 }
 
-.clock.stopped .hand {
-  opacity: .3;
+.clock.stopped .hand{
+  opacity:.3;
 }
 
 /* LAMP */
 
-.lamp {
-  right: 44px;
-  top: 58px;
+.lamp{
+  right:44px;
+  top:58px;
 
-  width: 105px;
-  height: 190px;
+  width:105px;
+  height:190px;
 }
 
-.lamp-glow {
-  position: absolute;
+.lamp-glow{
+  position:absolute;
 
-  left: 50%;
-  top: 7px;
+  left:50%;
+  top:7px;
 
-  width: 180px;
-  height: 180px;
+  width:180px;
+  height:180px;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 
-  border-radius: 50%;
+  border-radius:50%;
 
   background:
     radial-gradient(
@@ -811,22 +805,22 @@ h1 {
       rgba(255,225,155,0) 70%
     );
 
-  pointer-events: none;
+  pointer-events:none;
 
   transition:
     opacity 1s ease;
 }
 
-.lamp-shade {
-  position: absolute;
+.lamp-shade{
+  position:absolute;
 
-  top: 18px;
-  left: 12px;
+  top:18px;
+  left:12px;
 
-  width: 82px;
-  height: 74px;
+  width:82px;
+  height:74px;
 
-  background: #e6bd7d;
+  background:#e6bd7d;
 
   clip-path:
     polygon(
@@ -836,89 +830,89 @@ h1 {
       0 100%
     );
 
-  pointer-events: none;
+  pointer-events:none;
 }
 
-.lamp-stem {
-  position: absolute;
+.lamp-stem{
+  position:absolute;
 
-  left: 49px;
-  top: 86px;
+  left:49px;
+  top:86px;
 
-  width: 8px;
-  height: 92px;
+  width:8px;
+  height:92px;
 
-  border-radius: 8px;
+  border-radius:8px;
 
-  background: #71584c;
+  background:#71584c;
 
-  pointer-events: none;
+  pointer-events:none;
 }
 
-.lamp-base {
-  position: absolute;
+.lamp-base{
+  position:absolute;
 
-  left: 18px;
-  bottom: 0;
+  left:18px;
+  bottom:0;
 
-  width: 72px;
-  height: 17px;
+  width:72px;
+  height:17px;
 
-  border-radius: 50%;
+  border-radius:50%;
 
-  background: #71584c;
+  background:#71584c;
 
-  pointer-events: none;
+  pointer-events:none;
 }
 
-.lamp.active::after {
-  right: 108px;
-  top: 72px;
+.lamp.active::after{
+  right:108px;
+  top:72px;
 
-  white-space: nowrap;
+  white-space:nowrap;
 }
 
-.lamp.off .lamp-glow {
-  opacity: 0;
+.lamp.off .lamp-glow{
+  opacity:0;
 }
 
-.lamp.off .lamp-shade {
+.lamp.off .lamp-shade{
   filter:
     brightness(.55)
     saturate(.55);
 }
 
-/* INFO BOX */
+/* CAPTION */
 
-.caption {
-  width: min(92vw,720px);
+.caption{
+  width:min(92vw,720px);
 
-  min-height: 145px;
+  min-height:145px;
 
-  margin: 0 auto 40px;
+  margin:0 auto 40px;
 
-  padding: 22px 20px;
+  padding:22px 20px;
 
-  border-radius: 25px;
+  border-radius:25px;
 
   background:
-    rgba(248,238,224,.88);
+    rgba(248,238,224,.94);
 
   box-shadow:
-    0 12px 30px rgba(77,51,37,.1);
+    0 12px 30px rgba(77,51,37,.14);
 }
 
-.caption h2 {
-  margin: 0 0 8px;
+.caption h2{
+  margin:0 0 8px;
 
-  font-size: 27px;
-  font-weight: 400;
+  font-size:27px;
+  font-weight:400;
 }
 
-.caption p {
-  margin: 0;
+.caption p{
+  margin:0;
 
-  color: #6f625c;
+  color:#6f625c;
 
   font:
     16px/1.5
@@ -926,19 +920,19 @@ h1 {
     sans-serif;
 }
 
-.done-text {
-  min-height: 25px;
+.done-text{
+  min-height:25px;
 
-  margin-top: 10px !important;
+  margin-top:10px !important;
 
-  color: #775b79 !important;
+  color:#775b79 !important;
 
-  font-weight: 600 !important;
+  font-weight:600 !important;
 }
 
-/* FINAL NIGHT */
+/* NIGHT */
 
-.scene.night {
+.scene.night{
   background:
     linear-gradient(
       to bottom,
@@ -947,15 +941,15 @@ h1 {
     );
 }
 
-.scene.night::before {
-  content: "";
+.scene.night::before{
+  content:"";
 
-  position: absolute;
-  inset: 0;
+  position:absolute;
+  inset:0;
 
-  z-index: 20;
+  z-index:20;
 
-  pointer-events: none;
+  pointer-events:none;
 
   background:
     rgba(30,29,38,.34);
@@ -964,31 +958,33 @@ h1 {
     nightFade 1s forwards;
 }
 
-@keyframes nightFade {
-  from {
-    opacity: 0;
+@keyframes nightFade{
+  from{
+    opacity:0;
   }
 
-  to {
-    opacity: 1;
+  to{
+    opacity:1;
   }
 }
 
-.goodnight {
-  position: absolute;
-  inset: 0;
+/* GOODNIGHT */
 
-  z-index: 30;
+.goodnight{
+  position:absolute;
+  inset:0;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index:30;
 
-  padding: 28px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
-  opacity: 0;
+  padding:28px;
 
-  pointer-events: none;
+  opacity:0;
+
+  pointer-events:none;
 
   transform:
     translateY(12px);
@@ -998,42 +994,39 @@ h1 {
     transform 1s ease;
 }
 
-.goodnight.show {
-  opacity: 1;
-
-  transform: none;
+.goodnight.show{
+  opacity:1;
+  transform:none;
 }
 
-.goodnight-card {
-  max-width: 520px;
+.goodnight-card{
+  max-width:520px;
 
-  padding: 30px 25px;
+  padding:30px 25px;
 
-  border-radius: 28px;
+  border-radius:28px;
 
   background:
     rgba(42,38,47,.8);
 
-  color: #f8efe6;
+  color:#f8efe6;
 
   box-shadow:
     0 15px 45px rgba(0,0,0,.2);
 }
 
-.goodnight-card .moon {
-  font-size: 42px;
+.goodnight-card .moon{
+  font-size:42px;
 }
 
-.goodnight-card h2 {
-  margin:
-    8px 0 15px;
-
-  font-size: 32px;
-  font-weight: 400;
+.goodnight-card h2{
+  margin:8px 0 15px;
+  font-size:32px;
+  font-weight:400;
 }
 
-.goodnight-card p {
-  color: #eee3dc;
+.goodnight-card p{
+  color:#eee3dc;
 
   font:
     16px/1.55
@@ -1041,135 +1034,215 @@ h1 {
     sans-serif;
 }
 
-.goodnight-card .love {
-  margin-top: 18px;
+.goodnight-card .love{
+  margin-top:18px;
 }
 
 /* MOBILE */
 
-@media(max-width:600px) {
+@media(max-width:600px){
 
-  header {
-    padding:
-      25px 16px 12px;
+  body{
+    padding-bottom:125px;
   }
 
-  h1 {
-    font-size: 42px;
+  header{
+    padding:25px 16px 12px;
   }
 
-  .intro {
-    font-size: 16px;
+  h1{
+    font-size:42px;
   }
 
-  .scene {
-    height: 590px;
-    border-radius: 30px;
+  .intro{
+    font-size:16px;
   }
 
-  .window {
-    left: 20px;
-    top: 28px;
+  .scene{
+    height:590px;
+    border-radius:30px;
 
-    width: 130px;
-    height: 98px;
-
-    border-width: 9px;
+    margin-bottom:25px;
   }
 
-  /* compact laptop */
+  .window{
+    left:20px;
+    top:28px;
 
-  .laptop {
-    top: 165px;
+    width:130px;
+    height:98px;
 
-    width: 208px;
-    height: 135px;
+    border-width:9px;
   }
 
-  .laptop-screen {
-    left: 10px;
-    right: 10px;
+  /* laptop */
 
-    height: 113px;
+  .laptop{
+    top:165px;
 
-    border-width: 9px;
+    width:208px;
+    height:135px;
   }
 
-  .laptop-screen strong {
-    font-size: 14px;
+  .laptop-screen{
+    left:10px;
+    right:10px;
+
+    height:113px;
+
+    border-width:9px;
   }
 
-  .laptop-screen span {
-    font-size: 8px;
+  .laptop-screen strong{
+    font-size:14px;
   }
 
-  .keyboard {
-    left: 0;
-    right: 0;
-    top: 111px;
-
-    height: 19px;
+  .laptop-screen span{
+    font-size:8px;
   }
 
-  .laptop.active::after {
-    top: 145px;
+  .keyboard{
+    left:0;
+    right:0;
+    top:111px;
+
+    height:19px;
   }
 
-  /* bottom objects higher */
-
-  .phone {
-    left: 20px;
-    bottom: 125px;
-
-    transform: scale(.9);
-    transform-origin: left bottom;
+  .laptop.active::after{
+    top:145px;
   }
 
-  .stress {
-    right: 18px;
-    bottom: 130px;
+  /* bottom objects */
 
-    transform: scale(.9);
-    transform-origin: right bottom;
+  .phone{
+    left:20px;
+    bottom:125px;
+
+    transform:scale(.9);
+    transform-origin:left bottom;
   }
 
-  .clock {
-    bottom: 75px;
+  .stress{
+    right:18px;
+    bottom:130px;
+
+    transform:scale(.9);
+    transform-origin:right bottom;
+  }
+
+  .clock{
+    bottom:75px;
 
     transform:
       translateX(-50%)
       scale(.92);
   }
 
-  .lamp {
-    right: 14px;
-    top: 65px;
+  .lamp{
+    right:14px;
+    top:65px;
 
-    transform: scale(.82);
-    transform-origin: top right;
+    transform:scale(.82);
+    transform-origin:top right;
   }
 
-  .phone.active::after {
-    left: 106px;
-    top: 45px;
+  .phone.active::after{
+    left:106px;
+    top:45px;
   }
 
-  .stress.active::after {
-    right: 108px;
-    top: 35px;
+  .stress.active::after{
+    right:108px;
+    top:35px;
   }
 
-  .clock.active::after {
-    top: -32px;
+  .clock.active::after{
+    top:-32px;
   }
 
-  .lamp.active::after {
-    right: 112px;
-    top: 70px;
+  .lamp.active::after{
+    right:112px;
+    top:70px;
   }
 
-  .goodnight-card h2 {
-    font-size: 27px;
+  /* FLOATING CAPTION */
+
+  .caption{
+    position:fixed;
+
+    z-index:100;
+
+    left:50%;
+    bottom:
+      max(
+        10px,
+        env(safe-area-inset-bottom)
+      );
+
+    transform:
+      translateX(-50%);
+
+    width:calc(100vw - 26px);
+
+    min-height:0;
+
+    margin:0;
+
+    padding:
+      13px 16px 12px;
+
+    border-radius:20px;
+
+    background:
+      rgba(248,238,224,.97);
+
+    box-shadow:
+      0 7px 30px rgba(60,38,26,.25);
+
+    backdrop-filter:
+      blur(8px);
+
+    -webkit-backdrop-filter:
+      blur(8px);
+  }
+
+  .caption h2{
+    margin:
+      0 0 4px;
+
+    font-size:19px;
+
+    line-height:1.15;
+  }
+
+  .caption p{
+    font-size:13px;
+
+    line-height:1.3;
+  }
+
+  .done-text{
+    min-height:0;
+
+    margin-top:4px !important;
+
+    font-size:12px !important;
+  }
+
+  .done-text:empty{
+    display:none;
+  }
+
+  /* goodnight */
+
+  .goodnight-card{
+    padding:
+      25px 19px;
+  }
+
+  .goodnight-card h2{
+    font-size:27px;
   }
 
 }
@@ -1180,7 +1253,10 @@ h1 {
 <body>
 
 <header>
-  <h1>Close the day</h1>
+
+  <h1>
+    Close the day
+  </h1>
 
   <p class="intro">
     Before you go to sleep... it looks like a few pieces
@@ -1190,22 +1266,34 @@ h1 {
   <div class="hint">
     Tap the highlighted objects to put the day to rest.
   </div>
+
 </header>
+
 
 <main>
 
-<div class="scene" id="scene">
+<div
+  class="scene"
+  id="scene"
+>
+
+  <!-- WINDOW -->
 
   <div class="window">
+
     <div class="window-bar"></div>
+
   </div>
 
+
+  <!-- LAPTOP -->
 
   <button
     class="object laptop"
     id="laptop"
     type="button"
   >
+
     <div class="laptop-screen">
 
       <strong>
@@ -1219,8 +1307,11 @@ h1 {
     </div>
 
     <div class="keyboard"></div>
+
   </button>
 
+
+  <!-- PHONE -->
 
   <button
     class="object phone"
@@ -1232,11 +1323,15 @@ h1 {
 
       <div class="phone-speaker"></div>
 
-      <div class="phone-screen" id="phoneScreen">
+      <div
+        class="phone-screen"
+        id="phoneScreen"
+      >
 
         <div class="inbox-title">
           MESSAGES
         </div>
+
 
         <div class="message">
 
@@ -1307,6 +1402,8 @@ h1 {
   </button>
 
 
+  <!-- STRESS -->
+
   <button
     class="object stress"
     id="stress"
@@ -1321,6 +1418,8 @@ h1 {
 
   </button>
 
+
+  <!-- CLOCK -->
 
   <button
     class="object clock"
@@ -1345,6 +1444,8 @@ h1 {
   </button>
 
 
+  <!-- LAMP -->
+
   <button
     class="object lamp"
     id="lamp"
@@ -1361,6 +1462,8 @@ h1 {
 
   </button>
 
+
+  <!-- GOODNIGHT -->
 
   <div
     class="goodnight"
@@ -1396,7 +1499,10 @@ h1 {
 </div>
 
 
-<section class="caption" id="caption">
+<section
+  class="caption"
+  id="caption"
+>
 
   <h2 id="captionTitle"></h2>
 
@@ -1414,290 +1520,293 @@ h1 {
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
 
-  const laptop =
-    document.getElementById("laptop");
+    const laptop =
+      document.getElementById("laptop");
 
-  const phone =
-    document.getElementById("phone");
+    const phone =
+      document.getElementById("phone");
 
-  const stress =
-    document.getElementById("stress");
+    const stress =
+      document.getElementById("stress");
 
-  const clock =
-    document.getElementById("clock");
+    const clock =
+      document.getElementById("clock");
 
-  const lamp =
-    document.getElementById("lamp");
+    const lamp =
+      document.getElementById("lamp");
 
-  const scene =
-    document.getElementById("scene");
+    const scene =
+      document.getElementById("scene");
 
-  const goodnight =
-    document.getElementById("goodnight");
+    const goodnight =
+      document.getElementById("goodnight");
 
-  const caption =
-    document.getElementById("caption");
+    const caption =
+      document.getElementById("caption");
 
-  const captionTitle =
-    document.getElementById("captionTitle");
+    const captionTitle =
+      document.getElementById("captionTitle");
 
-  const captionText =
-    document.getElementById("captionText");
+    const captionText =
+      document.getElementById("captionText");
 
-  const doneText =
-    document.getElementById("doneText");
+    const doneText =
+      document.getElementById("doneText");
 
-  const phoneScreen =
-    document.getElementById("phoneScreen");
-
-
-  const steps = [
-
-    {
-      element: laptop,
-
-      title:
-        "First things first 💻",
-
-      text:
-        "Close the laptop. That's enough work for today.",
-
-      done:
-        "Laptop closed ✓",
-
-      action: function () {
-
-        laptop
-          .classList
-          .add("closed");
-
-      }
-    },
+    const phoneScreen =
+      document.getElementById("phoneScreen");
 
 
-    {
-      element: phone,
+    const steps = [
 
-      title:
-        "The phone is still in serious mode 📱",
+      {
+        element:laptop,
 
-      text:
-        "Enough messages and useful things for today. Time to let your brain rest for a bit. 😌",
+        title:
+          "First things first 💻",
 
-      done:
-        "Reels mode activated ✓",
+        text:
+          "Close the laptop. That's enough work for today.",
 
-      action: function () {
+        done:
+          "Laptop closed ✓",
 
-        phone
-          .classList
-          .add("reels");
+        action:function(){
+
+          laptop
+            .classList
+            .add("closed");
+
+        }
+      },
 
 
-        phoneScreen.innerHTML =
-          `
-          <div class="reels-content">
+      {
+        element:phone,
 
-            <div class="reels-heart">
-              ♥
+        title:
+          "The phone is still in serious mode 📱",
+
+        text:
+          "Enough messages and useful things for today. Time to let your brain rest for a bit. 😌",
+
+        done:
+          "Reels mode activated ✓",
+
+        action:function(){
+
+          phone
+            .classList
+            .add("reels");
+
+
+          phoneScreen.innerHTML =
+            `
+            <div class="reels-content">
+
+              <div class="reels-heart">
+                ♥
+              </div>
+
+              <strong>
+                REELS
+              </strong>
+
+              <small>
+                something completely unimportant 😌
+              </small>
+
             </div>
+            `;
 
-            <strong>
-              REELS
-            </strong>
+        }
+      },
 
-            <small>
-              something completely unimportant 😌
-            </small>
 
-          </div>
-          `;
+      {
+        element:stress,
 
+        title:
+          "This definitely doesn't need to come to bed 🗑️",
+
+        text:
+          "Tap the crumpled stress and send it where it belongs.",
+
+        done:
+          "Good riddance ✓",
+
+        action:function(){
+
+          stress
+            .classList
+            .add("thrown");
+
+        }
+      },
+
+
+      {
+        element:clock,
+
+        title:
+          "No more checking what time it is ⏰",
+
+        text:
+          "Tap the clock. It can stop keeping track for tonight.",
+
+        done:
+          "Time officially ignored ✓",
+
+        action:function(){
+
+          clock
+            .classList
+            .add("stopped");
+
+        }
+      },
+
+
+      {
+        element:lamp,
+
+        title:
+          "And finally... the light 🌙",
+
+        text:
+          "Turn off the lamp and let the day end properly.",
+
+        done:
+          "",
+
+        action:function(){
+
+          lamp
+            .classList
+            .add("off");
+
+
+          scene
+            .classList
+            .add("night");
+
+
+          caption.style.display =
+            "none";
+
+
+          setTimeout(
+            function(){
+
+              goodnight
+                .classList
+                .add("show");
+
+            },
+            500
+          );
+
+        }
       }
-    },
+
+    ];
 
 
-    {
-      element: stress,
-
-      title:
-        "This definitely doesn't need to come to bed 🗑️",
-
-      text:
-        "Tap the crumpled stress and send it where it belongs.",
-
-      done:
-        "Good riddance ✓",
-
-      action: function () {
-
-        stress
-          .classList
-          .add("thrown");
-
-      }
-    },
+    let currentStep = 0;
 
 
-    {
-      element: clock,
+    function showStep(){
 
-      title:
-        "No more checking what time it is ⏰",
+      steps.forEach(
+        function(step,index){
 
-      text:
-        "Tap the clock. It can stop keeping track for tonight.",
+          step.element
+            .classList
+            .toggle(
+              "active",
+              index === currentStep
+            );
 
-      done:
-        "Time officially ignored ✓",
-
-      action: function () {
-
-        clock
-          .classList
-          .add("stopped");
-
-      }
-    },
+        }
+      );
 
 
-    {
-      element: lamp,
-
-      title:
-        "And finally... the light 🌙",
-
-      text:
-        "Turn off the lamp and let the day end properly.",
-
-      done:
-        "",
-
-      action: function () {
-
-        lamp
-          .classList
-          .add("off");
+      const step =
+        steps[currentStep];
 
 
-        scene
-          .classList
-          .add("night");
+      captionTitle.textContent =
+        step.title;
 
 
-        caption.style.display =
-          "none";
+      captionText.textContent =
+        step.text;
 
 
-        setTimeout(
-          function () {
+      doneText.textContent =
+        "";
 
-            goodnight
-              .classList
-              .add("show");
-
-          },
-          500
-        );
-
-      }
     }
 
-  ];
-
-
-  let currentStep = 0;
-
-
-  function showStep() {
 
     steps.forEach(
-      function (step, index) {
+      function(step,index){
 
         step.element
-          .classList
-          .toggle(
-            "active",
-            index === currentStep
+          .addEventListener(
+            "click",
+            function(){
+
+              if(
+                index !== currentStep
+              ){
+                return;
+              }
+
+
+              step.element
+                .classList
+                .remove("active");
+
+
+              step.action();
+
+
+              doneText.textContent =
+                step.done;
+
+
+              if(
+                currentStep ===
+                steps.length - 1
+              ){
+                return;
+              }
+
+
+              currentStep++;
+
+
+              setTimeout(
+                showStep,
+                700
+              );
+
+            }
           );
 
       }
     );
 
 
-    const step =
-      steps[currentStep];
-
-
-    captionTitle.textContent =
-      step.title;
-
-
-    captionText.textContent =
-      step.text;
-
-
-    doneText.textContent =
-      "";
+    showStep();
 
   }
-
-
-  steps.forEach(
-    function (step, index) {
-
-      step.element
-        .addEventListener(
-          "click",
-          function () {
-
-            if (
-              index !== currentStep
-            ) {
-              return;
-            }
-
-
-            step.element
-              .classList
-              .remove("active");
-
-
-            step.action();
-
-
-            doneText.textContent =
-              step.done;
-
-
-            if (
-              currentStep ===
-              steps.length - 1
-            ) {
-              return;
-            }
-
-
-            currentStep++;
-
-
-            setTimeout(
-              showStep,
-              700
-            );
-
-          }
-        );
-
-    }
-  );
-
-
-  showStep();
-
-});
+);
 
 </script>
 
