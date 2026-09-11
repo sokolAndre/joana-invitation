@@ -255,6 +255,35 @@ h1{font:500 clamp(34px,8vw,48px)/1.05 Georgia,serif;margin:0 0 8px}
   .clock{bottom:18px;transform:translateX(-50%) scale(.92)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Mobile laptop fix: keep screen and keyboard as one object */
+@media (max-width: 600px){
+  .laptop{
+    left:50% !important;
+    top:auto !important;
+    bottom:245px !important;
+    width:282px !important;
+    height:202px !important;
+    transform:translateX(-50%) !important;
+    transform-origin:center bottom !important;
+  }
+  .laptop.active:hover{
+    transform:translateX(-50%) !important;
+  }
+  .laptop .screen{
+    left:0 !important;
+    top:0 !important;
+    width:282px !important;
+    height:178px !important;
+  }
+  .laptop .keyboard{
+    left:-19px !important;
+    top:176px !important;
+    bottom:auto !important;
+    width:320px !important;
+  }
+}
+
 </style>
 </head>
 <body>
