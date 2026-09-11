@@ -1,401 +1,946 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Close the day</title>
 <style>
-:root{
-  --ink:#4a403b; --muted:#786e68; --paper:#f6efe5; --desk:#c59a73; --desk2:#a97f60;
-  --purple:#71527d; --purple2:#8a6b96; --cream:#f3e6d4; --green:#70846d; --gold:#e7c78f;
-}
 *{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Georgia,serif}
 body{
-  margin:0; min-height:100vh; color:var(--ink);
-  font-family:ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"Segoe UI",sans-serif;
-  background:
-    radial-gradient(circle at 50% -10%,rgba(255,247,224,.85),transparent 34%),
-    linear-gradient(#d8c3ab,#b89478);
+  background:linear-gradient(#ead7b8,#c99d78);
+  color:#51453f;
+  text-align:center;
+  overflow-x:hidden;
 }
-main{width:min(720px,100%);margin:auto;padding:28px 14px 54px;text-align:center}
-h1{font:500 clamp(34px,8vw,48px)/1.05 Georgia,serif;margin:0 0 8px}
-.intro{margin:0 auto 8px;max-width:470px;color:#6b625d;line-height:1.5}
-.hint{margin:0 auto 20px;font-size:13px;color:#8a7e77}
-
-.scene{
-  position:relative; width:min(660px,96vw); height:470px; margin:auto;
-  border-radius:26px; overflow:hidden;
-  background:linear-gradient(180deg,#e9d9c2 0 23%,#bd916e 23% 100%);
-  box-shadow:0 20px 42px rgba(79,55,40,.18);
-  border:1px solid rgba(96,68,48,.11);
-}
-.wall-line{position:absolute;left:0;right:0;top:23%;height:3px;background:rgba(120,88,63,.12)}
-.desk-grain{position:absolute;left:0;right:0;top:23%;bottom:0;background:repeating-linear-gradient(3deg,rgba(88,54,34,.035) 0 2px,transparent 2px 30px);pointer-events:none}
-.window{
-  position:absolute;left:24px;top:18px;width:135px;height:85px;border-radius:14px;
-  background:linear-gradient(#8996a0,#b8aa9e);border:7px solid #f0e5d5;box-shadow:0 4px 10px #6d504033;
-  overflow:hidden
-}
-.window:before{content:"";position:absolute;left:0;right:0;bottom:0;height:30px;background:#657b72;clip-path:polygon(0 80%,20% 45%,40% 70%,60% 35%,82% 55%,100% 20%,100% 100%,0 100%)}
-.window:after{content:"";position:absolute;left:50%;top:0;bottom:0;width:4px;background:#efe3d3}
-.moon{position:absolute;right:18px;top:13px;width:19px;height:19px;border-radius:50%;background:#f6e8bd;box-shadow:0 0 18px rgba(246,232,189,.65)}
-
-.lamp{
-  position:absolute;right:34px;top:58px;width:120px;height:180px;pointer-events:none
-}
-.shade{position:absolute;left:25px;top:0;width:78px;height:58px;background:#e7c38c;clip-path:polygon(20% 0,80% 0,100% 100%,0 100%);border-radius:8px}
-.glow{position:absolute;left:-6px;top:24px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,239,190,.62),rgba(255,239,190,0) 68%);transition:.6s}
-.stem{position:absolute;left:61px;top:55px;width:7px;height:83px;background:#725b50;border-radius:6px}
-.base{position:absolute;left:34px;top:133px;width:63px;height:14px;border-radius:50%;background:#725b50}
-
-
-.lamp-button{
-  border:0;padding:0;margin:0;background:transparent;color:inherit;font:inherit;
-  cursor:default;appearance:none;-webkit-appearance:none;z-index:6;
-  pointer-events:auto;
-}
-.lamp-button.active{cursor:pointer;filter:drop-shadow(0 0 10px rgba(113,82,125,.38))}
-.lamp-button.active:after{
-  content:"tap";position:absolute;left:54%;bottom:3px;transform:translateX(-50%);
-  font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#71527d;font-weight:800;
-  animation:pulse 1.4s infinite
-}
-.lamp-button .glow,
-.lamp-button .shade,
-.lamp-button .stem,
-.lamp-button .base{pointer-events:none}
-.lamp.off .glow{opacity:0}
-.lamp.off .shade{background:#8d7a68}
-.scene.night{
-  background:linear-gradient(180deg,#4f5363 0 23%,#7e6758 23% 100%);
-  transition:background 1s ease;
-}
-.scene.night .wall-line{background:rgba(255,255,255,.06)}
-.scene.night .desk-grain{opacity:.45}
-.scene.night .window{filter:brightness(.72)}
-.scene.night .laptop,
-.scene.night .phone,
-.scene.night .stress,
-.scene.night .clock{filter:brightness(.72)}
-.goodnight-visual{
-  position:absolute;z-index:9;left:50%;top:52%;transform:translate(-50%,-50%);
-  width:min(430px,86%);padding:18px 18px 16px;border-radius:20px;
-  color:#fbf5ef;background:rgba(52,48,64,.48);backdrop-filter:blur(5px);
-  border:1px solid rgba(255,255,255,.12);opacity:0;pointer-events:none;
-  transition:opacity .9s ease,transform .9s ease;
-}
-.goodnight-visual.show{opacity:1;transform:translate(-50%,-54%)}
-.goodnight-visual .moonmark{font-size:30px;margin-bottom:3px}
-.goodnight-visual h2{font:500 29px Georgia,serif;margin:0 0 8px;color:#fff8f1}
-.goodnight-visual p{margin:5px 0;font:15px/1.55 Georgia,serif;color:#eee6e2}
-.goodnight-visual .affection{font:600 16px/1.5 Georgia,serif;color:#f6eaf8;margin-top:11px}
-.object{
-  position:absolute;z-index:5;cursor:pointer;transition:.25s ease;touch-action:manipulation;
-  appearance:none;-webkit-appearance:none;border:0;padding:0;margin:0;
-  background:transparent;color:inherit;font:inherit;text-align:inherit;
+button{
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  padding:0;
+  margin:0;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  text-align:inherit;
   box-shadow:none;
 }
-.object[aria-disabled="true"]{cursor:default}
-.object.active{filter:drop-shadow(0 0 9px rgba(113,82,125,.48))}
-.object.active:after{
-  content:"tap";position:absolute;left:50%;bottom:-25px;transform:translateX(-50%);
-  font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:800;
-  animation:pulse 1.4s infinite
+header{
+  padding:32px 20px 18px;
 }
-@media(hover:hover){.object.active:hover{transform:translateY(-4px) scale(1.02)}}
+h1{
+  margin:0 0 10px;
+  font-size:clamp(42px,8vw,62px);
+  font-weight:400;
+}
+.intro{
+  margin:0 auto;
+  max-width:620px;
+  font-family:system-ui,sans-serif;
+  font-size:18px;
+  line-height:1.45;
+  color:#70645e;
+}
+.hint{
+  margin-top:12px;
+  font-family:system-ui,sans-serif;
+  font-size:14px;
+  color:#8b7770;
+}
+
+.scene{
+  position:relative;
+  width:min(94vw,760px);
+  height:670px;
+  margin:12px auto 28px;
+  border-radius:38px;
+  overflow:hidden;
+  background:
+    linear-gradient(to bottom,#efe1c8 0 25%,#bd8b68 25% 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(105,71,50,.12),
+    0 18px 45px rgba(85,55,38,.13);
+  transition:background 1.2s ease,filter 1.2s ease;
+}
+
+/* desk grain */
+.scene:after{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:25%;bottom:0;
+  pointer-events:none;
+  opacity:.12;
+  background:
+    repeating-linear-gradient(
+      4deg,
+      transparent 0 38px,
+      rgba(86,54,38,.35) 39px,
+      transparent 41px
+    );
+}
+
+/* window */
+.window{
+  position:absolute;
+  left:28px;
+  top:28px;
+  width:180px;
+  height:126px;
+  border:12px solid #f4ead9;
+  border-radius:22px;
+  overflow:hidden;
+  background:linear-gradient(#8f9da5,#718c82);
+  box-shadow:0 8px 16px rgba(75,50,35,.13);
+}
+.window:before{
+  content:"";
+  position:absolute;
+  width:34px;height:34px;
+  border-radius:50%;
+  background:#f4e2a4;
+  top:20px;right:30px;
+  box-shadow:0 0 20px rgba(250,226,163,.35);
+}
+.window:after{
+  content:"";
+  position:absolute;
+  left:-5px;right:-5px;bottom:-1px;
+  height:55px;
+  background:
+    linear-gradient(30deg,transparent 0 22%,#617c72 23% 50%,transparent 51%),
+    linear-gradient(-25deg,transparent 0 25%,#536f66 26% 62%,transparent 63%);
+}
+.window-bar{
+  position:absolute;
+  left:50%;top:0;bottom:0;
+  width:6px;
+  background:#f4ead9;
+  transform:translateX(-50%);
+  z-index:2;
+}
+
+/* lamp */
+.lamp{
+  position:absolute;
+  right:44px;
+  top:58px;
+  width:105px;
+  height:190px;
+  pointer-events:none;
+}
+.lamp-button{
+  pointer-events:auto;
+  z-index:6;
+}
+.lamp .glow{
+  position:absolute;
+  width:180px;height:180px;
+  border-radius:50%;
+  left:50%;top:7px;
+  transform:translateX(-50%);
+  background:radial-gradient(circle,rgba(255,225,155,.42),rgba(255,225,155,0) 70%);
+  transition:opacity 1s ease;
+  pointer-events:none;
+}
+.lamp .shade{
+  position:absolute;
+  top:18px;left:12px;
+  width:82px;height:74px;
+  background:#e6bd7d;
+  clip-path:polygon(18% 0,82% 0,100% 100%,0 100%);
+  border-radius:7px;
+  transition:filter .8s ease;
+  pointer-events:none;
+}
+.lamp .stem{
+  position:absolute;
+  width:8px;height:92px;
+  left:49px;top:86px;
+  border-radius:8px;
+  background:#71584c;
+  pointer-events:none;
+}
+.lamp .base{
+  position:absolute;
+  left:18px;bottom:0;
+  width:72px;height:17px;
+  border-radius:50%;
+  background:#71584c;
+  pointer-events:none;
+}
+.lamp.off .glow{opacity:0}
+.lamp.off .shade{filter:brightness(.55) saturate(.55)}
+
+/* common interactive objects */
+.object{
+  position:absolute;
+  z-index:4;
+  cursor:default;
+  transition:
+    transform .45s ease,
+    opacity .45s ease,
+    filter .45s ease;
+}
+.object.active{
+  cursor:pointer;
+  filter:drop-shadow(0 0 8px rgba(118,78,126,.48));
+}
+.object.active:after{
+  content:"TAP";
+  position:absolute;
+  color:#9b668f;
+  font:bold 11px system-ui,sans-serif;
+  letter-spacing:.12em;
+  animation:pulse 1.2s infinite;
+}
+@keyframes pulse{
+  50%{opacity:.35}
+}
 @media(hover:hover){
-  .switchbox.active:hover{
-    transform:translateX(-50%) translateY(-4px) scale(1.02);
+  .object.active:hover{
+    transform:translateY(-4px) scale(1.02);
   }
 }
 
-@keyframes pulse{50%{opacity:.35}}
-
-.laptop{left:50%;top:120px;transform:translateX(-50%);width:250px;height:158px}
-.laptop.active:hover{transform:translateX(-50%) translateY(-4px) scale(1.02)}
-.screen{
-  position:absolute;left:14px;right:14px;top:0;height:134px;border:9px solid #535154;border-radius:11px 11px 4px 4px;
-  background:linear-gradient(#4c555d,#3e464d);transform-origin:bottom;transition:.7s cubic-bezier(.2,.7,.2,1);
-  display:grid;place-items:center;color:#eef1f1
+/* laptop */
+.laptop{
+  left:50%;
+  top:164px;
+  width:300px;
+  height:208px;
+  transform:translateX(-50%);
 }
-.screen-inner{font:bold 14px "Courier New",monospace}.screen-inner small{display:block;font-size:10px;color:#c3cacc;margin-top:7px}
-.keyboard{position:absolute;left:0;right:0;bottom:5px;height:20px;background:#c8c2bc;clip-path:polygon(5% 0,95% 0,100% 100%,0 100%);border-radius:3px}
-.laptop.done .screen{transform:rotateX(-89deg);background:#2a2d30}.laptop.done .screen-inner{opacity:0}
-
-.tasks{left:34px;bottom:80px;width:145px;height:115px}
-.note{
-  position:absolute;width:122px;height:76px;padding:13px 10px;text-align:left;border-radius:4px;
-  background:#f2eadc;box-shadow:0 5px 11px rgba(80,52,34,.16);font:bold 10px/1.35 "Courier New",monospace;
-  transition:.7s
+.laptop.active:hover{
+  transform:translateX(-50%) translateY(-4px) scale(1.02);
 }
-.note:nth-child(1){left:4px;top:30px;transform:rotate(-7deg)}
-.note:nth-child(2){left:12px;top:15px;transform:rotate(5deg)}
-.note:nth-child(3){left:0;top:0;transform:rotate(-1deg)}
-.tasks.done{transform:translateX(-190px) rotate(-12deg);opacity:0}
-
-.stress{right:39px;bottom:82px;width:92px;height:92px}
-.ball{
-  width:82px;height:74px;display:grid;place-items:center;background:#eadfce;
-  clip-path:polygon(7% 12%,22% 2%,38% 13%,54% 0,72% 12%,95% 8%,88% 34%,100% 51%,87% 68%,95% 92%,70% 86%,53% 100%,34% 86%,8% 95%,15% 70%,0 52%,14% 34%);
-  font:bold 9px "Courier New",monospace;box-shadow:0 5px 12px rgba(74,48,31,.15);transition:.7s
+.laptop .screen{
+  position:absolute;
+  left:10px;right:10px;top:0;
+  height:174px;
+  border:12px solid #515156;
+  border-radius:16px 16px 5px 5px;
+  background:linear-gradient(145deg,#4a5960,#2f3e43);
+  box-shadow:0 8px 16px rgba(62,42,32,.2);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-family:"Courier New",monospace;
 }
-.bin{position:absolute;right:-8px;bottom:-24px;width:46px;height:36px;border-radius:4px 4px 9px 9px;background:#6f655f;opacity:.8}
-.bin:before{content:"";position:absolute;left:-4px;top:-7px;width:54px;height:7px;border-radius:4px;background:#5e5652}
-.stress.done .ball{transform:translate(18px,57px) rotate(80deg) scale(.25);opacity:0}
-
-.switchbox{
-  left:50%;bottom:32px;transform:translateX(-50%);min-width:188px;padding:11px 14px;
-  display:flex;align-items:center;justify-content:center;gap:12px;background:#eee1cf;border-radius:16px;
-  box-shadow:0 5px 11px rgba(76,49,32,.14);font-size:11px;font-weight:800;opacity:.42
+.laptop .screen b{
+  font-size:18px;
+  letter-spacing:.04em;
 }
-.switchbox.active{opacity:1}
-.toggle{width:46px;height:25px;border-radius:20px;background:#6f876b;padding:3px;transition:.45s}
-.knob{width:19px;height:19px;border-radius:50%;background:white;margin-left:21px;transition:.45s}
-.switchbox.done .toggle{background:#8c8580}.switchbox.done .knob{margin-left:0}
-.switchbox .state:after{content:"ON"}.switchbox.done .state:after{content:"OFF"}
+.laptop .screen small{
+  margin-top:8px;
+  font-size:11px;
+  letter-spacing:.08em;
+  opacity:.7;
+}
+.laptop .keyboard{
+  position:absolute;
+  left:-18px;right:-18px;
+  top:172px;
+  height:26px;
+  background:#ddd5ca;
+  clip-path:polygon(8% 0,92% 0,100% 100%,0 100%);
+  box-shadow:0 5px 8px rgba(62,42,32,.14);
+}
+.laptop.active:after{
+  left:50%;
+  top:210px;
+  transform:translateX(-50%);
+}
+.laptop.done .screen{
+  transform-origin:bottom;
+  animation:closeLaptop .65s forwards;
+}
+@keyframes closeLaptop{
+  to{transform:perspective(350px) rotateX(-88deg)}
+}
 
-
-
+/* phone */
 .phone{
-  left:35px;bottom:74px;width:86px;height:132px;
+  left:35px;
+  bottom:74px;
+  width:86px;
+  height:132px;
 }
 .phone-body{
-  position:absolute;inset:0;border-radius:17px;background:#4e4c50;border:4px solid #3f3d40;
-  box-shadow:0 6px 12px rgba(66,44,31,.18);padding:9px 6px 7px;
+  position:absolute;
+  inset:0;
+  border-radius:17px;
+  background:#4e4c50;
+  border:4px solid #3f3d40;
+  box-shadow:0 6px 12px rgba(66,44,31,.18);
+  padding:9px 6px 7px;
 }
-.phone-speaker{width:25px;height:3px;border-radius:3px;background:#777277;margin:0 auto 6px}
+.phone-speaker{
+  width:25px;
+  height:3px;
+  border-radius:3px;
+  background:#777277;
+  margin:0 auto 6px;
+}
 .phone-screen{
-  height:100px;border-radius:10px;overflow:hidden;transition:.55s ease;
+  height:100px;
+  border-radius:10px;
+  overflow:hidden;
+  transition:.55s ease;
 }
 .inbox-screen{
-  background:#f1ece6;color:#544d49;padding:7px 6px;text-align:left;
+  background:#f1ece6;
+  color:#544d49;
+  padding:7px 6px;
+  text-align:left;
 }
 .inbox-head{
-  font:bold 8px "Courier New",monospace;letter-spacing:.08em;color:#776d67;
-  margin-bottom:5px;text-align:center;
+  font:bold 8px "Courier New",monospace;
+  letter-spacing:.08em;
+  color:#776d67;
+  margin-bottom:5px;
+  text-align:center;
 }
 .msg-line{
-  display:flex;align-items:center;gap:5px;padding:4px 1px;border-top:1px solid rgba(90,75,65,.09);
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:4px 1px;
+  border-top:1px solid rgba(90,75,65,.09);
   font:7px/1.15 system-ui,sans-serif;
 }
 .msg-line:first-of-type{border-top:0}
-.msg-line b{display:block;font-size:7px}.msg-line small{display:block;font-size:6px;color:#91857e;white-space:nowrap}
+.msg-line b{
+  display:block;
+  font-size:7px;
+}
+.msg-line small{
+  display:block;
+  font-size:6px;
+  color:#91857e;
+  white-space:nowrap;
+}
 .avatar{
-  flex:0 0 17px;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;
-  background:#d6c8bc;color:#625954;font:bold 7px system-ui,sans-serif;
+  flex:0 0 17px;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#d6c8bc;
+  color:#625954;
+  font:bold 7px system-ui,sans-serif;
 }
 .phone.reels .phone-screen{
-  background:linear-gradient(155deg,#8b6f87,#c5968c);color:white;padding:0;text-align:center;
+  background:linear-gradient(155deg,#8b6f87,#c5968c);
+  color:white;
+  padding:0;
+  text-align:center;
 }
 .reels-view{
-  height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   font:700 10px/1.25 "Courier New",monospace;
 }
-.reels-view .big-heart{font-size:24px;margin-bottom:4px}
-.reels-view small{font-size:7px;opacity:.86;margin-top:4px}
+.reels-view .big-heart{
+  font-size:24px;
+  margin-bottom:4px;
+}
+.reels-view small{
+  font-size:7px;
+  opacity:.86;
+  margin-top:4px;
+}
 .phone.reels:before{
-  content:"BRAIN BREAK ✓";position:absolute;z-index:5;left:67px;top:36px;white-space:nowrap;
-  padding:6px 8px;border-radius:8px;background:#f2e6d5;color:#70537b;
-  font:bold 9px "Courier New",monospace;box-shadow:0 4px 9px rgba(70,45,30,.14);
+  content:"BRAIN BREAK ✓";
+  position:absolute;
+  z-index:5;
+  left:67px;
+  top:36px;
+  white-space:nowrap;
+  padding:6px 8px;
+  border-radius:8px;
+  background:#f2e6d5;
+  color:#70537b;
+  font:bold 9px "Courier New",monospace;
+  box-shadow:0 4px 9px rgba(70,45,30,.14);
 }
+
+/* stress */
+.stress{
+  right:34px;
+  bottom:92px;
+  width:95px;
+  height:95px;
+}
+.stress-paper{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  background:#efe6da;
+  color:#5d514a;
+  font:bold 10px "Courier New",monospace;
+  clip-path:polygon(
+    50% 0,63% 10%,78% 3%,84% 19%,100% 27%,
+    90% 43%,100% 58%,84% 68%,88% 87%,
+    68% 84%,55% 100%,42% 87%,23% 96%,
+    19% 77%,2% 68%,10% 51%,0 36%,
+    17% 27%,14% 10%,35% 14%
+  );
+  box-shadow:0 5px 10px rgba(70,45,30,.14);
+}
+.bin{
+  position:absolute;
+  right:-1px;
+  bottom:-37px;
+  width:55px;
+  height:54px;
+  background:#75665d;
+  border-radius:6px 6px 13px 13px;
+  opacity:.78;
+}
+.bin:before{
+  content:"";
+  position:absolute;
+  left:-8px;
+  top:-6px;
+  width:70px;
+  height:8px;
+  border-radius:8px;
+  background:#685b54;
+}
+.stress.active:after{
+  left:20px;
+  top:100px;
+}
+.stress.done .stress-paper{
+  animation:trash .7s forwards;
+}
+@keyframes trash{
+  to{
+    transform:translate(47px,58px) rotate(35deg) scale(.2);
+    opacity:0;
+  }
+}
+
+/* clock */
 .clock{
-  left:50%;bottom:30px;transform:translateX(-50%);width:100px;height:84px;
+  left:50%;
+  bottom:30px;
+  transform:translateX(-50%);
+  width:100px;
+  height:84px;
 }
-.clock.active:hover{transform:translateX(-50%) translateY(-4px) scale(1.02)!important}
-.clock-body{position:absolute;inset:0}
+.clock.active:hover{
+  transform:translateX(-50%) translateY(-4px) scale(1.02)!important;
+}
+.clock-body{
+  position:absolute;
+  inset:0;
+}
 .clock-face{
-  position:absolute;left:20px;top:0;width:62px;height:62px;border-radius:50%;
-  background:#eee2cf;border:5px solid #6d625c;box-shadow:0 5px 11px rgba(75,49,32,.15)
+  position:absolute;
+  left:20px;
+  top:0;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:#eee2cf;
+  border:5px solid #6d625c;
+  box-shadow:0 5px 11px rgba(75,49,32,.15);
 }
-.clock-face:before{content:"12";position:absolute;left:50%;top:3px;transform:translateX(-50%);font:bold 7px Georgia,serif;color:#746a64}
-.clock-face:after{content:"6";position:absolute;left:50%;bottom:2px;transform:translateX(-50%);font:bold 7px Georgia,serif;color:#746a64}
-.hand{position:absolute;left:50%;bottom:50%;width:2px;background:#5f5550;transform-origin:bottom;border-radius:2px}
-.hand.hour{height:17px;transform:translateX(-50%) rotate(310deg)}
-.hand.minute{height:22px;transform:translateX(-50%) rotate(25deg)}
-.clock-dot{position:absolute;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:#70537b;transform:translate(-50%,-50%)}
-.clock-feet:before,.clock-feet:after{content:"";position:absolute;top:58px;width:17px;height:12px;border-bottom:5px solid #6d625c;border-radius:50%}
-.clock-feet:before{left:17px;transform:rotate(-25deg)}.clock-feet:after{right:15px;transform:rotate(25deg)}
-.clock.done .clock-face{background:#b4aaa0;filter:brightness(.82)}
-.clock.done .hand{opacity:.35}.clock.done .clock-dot{background:#777}
+.clock-face:before{
+  content:"12";
+  position:absolute;
+  left:50%;
+  top:3px;
+  transform:translateX(-50%);
+  font:bold 7px Georgia,serif;
+  color:#746a64;
+}
+.clock-face:after{
+  content:"6";
+  position:absolute;
+  left:50%;
+  bottom:2px;
+  transform:translateX(-50%);
+  font:bold 7px Georgia,serif;
+  color:#746a64;
+}
+.hand{
+  position:absolute;
+  left:50%;
+  bottom:50%;
+  width:2px;
+  background:#5f5550;
+  transform-origin:bottom;
+  border-radius:2px;
+}
+.hand.hour{
+  height:17px;
+  transform:translateX(-50%) rotate(310deg);
+}
+.hand.minute{
+  height:22px;
+  transform:translateX(-50%) rotate(25deg);
+}
+.clock-dot{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#70537b;
+  transform:translate(-50%,-50%);
+}
+.clock-feet:before,
+.clock-feet:after{
+  content:"";
+  position:absolute;
+  top:58px;
+  width:17px;
+  height:12px;
+  border-bottom:5px solid #6d625c;
+  border-radius:50%;
+}
+.clock-feet:before{
+  left:17px;
+  transform:rotate(-25deg);
+}
+.clock-feet:after{
+  right:15px;
+  transform:rotate(25deg);
+}
+.clock.done .clock-face{
+  background:#b4aaa0;
+  filter:brightness(.82);
+}
+.clock.done .hand{opacity:.35}
+.clock.done .clock-dot{background:#777}
 
+/* caption */
 .caption{
-  margin:18px auto 0;max-width:480px;min-height:74px;padding:16px 18px;border-radius:17px;
-  background:rgba(246,239,229,.72);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.38)
+  width:min(92vw,720px);
+  margin:0 auto 40px;
+  padding:22px 20px;
+  border-radius:25px;
+  background:rgba(248,238,224,.85);
+  box-shadow:0 12px 30px rgba(77,51,37,.1);
 }
-.caption h2{font:500 20px Georgia,serif;margin:0 0 5px}
-.caption p{margin:0;color:#6d645f;font-size:14px;line-height:1.45}
-.done-text{font-size:12px;font-weight:800;color:#5d735b;margin-top:7px}
+.caption h2{
+  margin:0 0 8px;
+  font-size:27px;
+  font-weight:400;
+}
+.caption p{
+  margin:0;
+  font-family:system-ui,sans-serif;
+  color:#6f625c;
+  font-size:16px;
+  line-height:1.5;
+}
+.done-text{
+  margin-top:10px!important;
+  min-height:24px;
+  color:#775b79!important;
+  font-weight:600;
+}
 
-.envelope-area{display:none;margin:24px auto 0;max-width:470px}.envelope-area.show{display:block;animation:rise .55s ease both}
-.almost{font:500 22px Georgia,serif;margin-bottom:17px}
-.envelope{
-  width:220px;height:136px;margin:auto;position:relative;cursor:pointer;background:#eadbc5;border-radius:6px;
-  box-shadow:0 12px 24px rgba(78,52,34,.18)
+/* final night */
+.scene.night{
+  background:
+    linear-gradient(to bottom,#5c5b64 0 25%,#655044 25% 100%);
 }
-.envelope:before{
-  content:"";position:absolute;inset:0;background:#d6c19f;clip-path:polygon(0 0,50% 56%,100% 0);
-  transform-origin:top;transition:.65s
+.scene.night:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:8;
+  background:rgba(30,29,38,.34);
+  pointer-events:none;
+  animation:nightFade 1.2s both;
 }
-.envelope.open:before{transform:rotateX(175deg)}
-.wax{position:absolute;z-index:2;left:50%;top:48%;transform:translate(-50%,-50%);width:47px;height:47px;border-radius:50%;background:var(--purple);display:grid;place-items:center;color:white;font-size:22px;box-shadow:0 3px 8px rgba(67,42,71,.25)}
-.letter{display:none;width:min(445px,95%);margin:19px auto 0;padding:26px 22px;background:#faf4e9;border-radius:5px;box-shadow:0 11px 24px rgba(75,49,33,.14)}
-.letter.show{display:block;animation:rise .5s ease both}.letter h3{font:500 23px Georgia,serif;margin:0 0 8px}.letter p{font:15px/1.55 Georgia,serif;color:#625954;margin:7px 0}
-.accept{margin-top:9px;border:0;border-radius:999px;background:var(--purple);color:white;padding:12px 18px;font-weight:700;cursor:pointer}
-.delivered{display:none;margin-top:12px;color:var(--purple);font:bold 12px "Courier New",monospace}.delivered.show{display:block}
-.final{display:none;max-width:450px;margin:26px auto 0}.final.show{display:block;animation:rise .65s ease both}
-.final h2{font:500 27px Georgia,serif;margin:0 0 10px}.final p{font:16px/1.65 Georgia,serif;color:#554d49;margin:0}.purple{font-size:24px;margin-top:10px}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes nightFade{
+  from{opacity:0}
+  to{opacity:1}
+}
+.scene.night .window{
+  filter:brightness(.75) saturate(.7);
+}
+.scene.night .laptop,
+.scene.night .phone,
+.scene.night .stress,
+.scene.night .clock{
+  filter:brightness(.6);
+}
 
-@media(max-width:520px){
-  main{padding-top:24px}.scene{height:430px}
-  .window{left:14px;width:112px;height:72px}.lamp{right:4px;top:50px;transform:scale(.9)}
-  .laptop{width:208px;top:117px}.screen{height:113px}
-  .phone{left:20px;bottom:72px;transform:scale(.9);transform-origin:left bottom}
-  .stress{right:11px;bottom:76px;transform:scale(.9);transform-origin:right bottom}
-  .clock{bottom:18px;transform:translateX(-50%) scale(.92)}
+.goodnight{
+  position:absolute;
+  inset:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(12px);
+  transition:opacity 1.2s ease,transform 1.2s ease;
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.goodnight.show{
+  opacity:1;
+  transform:none;
+}
+.goodnight-inner{
+  max-width:520px;
+  padding:30px 25px;
+  border-radius:28px;
+  background:rgba(42,38,47,.78);
+  backdrop-filter:blur(5px);
+  color:#f8efe6;
+  box-shadow:0 15px 45px rgba(0,0,0,.2);
+}
+.goodnight .moon{
+  font-size:42px;
+  margin-bottom:8px;
+}
+.goodnight h2{
+  margin:0 0 15px;
+  font-size:32px;
+  font-weight:400;
+}
+.goodnight p{
+  font-family:system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  margin:10px 0;
+  color:#eee3dc;
+}
+.goodnight .love{
+  margin-top:19px;
+  font-size:17px;
+}
 
-/* Mobile laptop fix: keep screen and keyboard as one object */
-@media (max-width: 600px){
+/* mobile */
+@media(max-width:600px){
+  header{
+    padding:25px 16px 12px;
+  }
+  h1{
+    font-size:42px;
+  }
+  .intro{
+    font-size:16px;
+  }
+  .scene{
+    height:590px;
+    border-radius:30px;
+  }
+  .window{
+    width:130px;
+    height:98px;
+    left:20px;
+    top:28px;
+    border-width:9px;
+  }
+  .lamp{
+    right:14px;
+    top:65px;
+    transform:scale(.82);
+    transform-origin:top right;
+  }
+  .phone{
+    left:20px;
+    bottom:72px;
+    transform:scale(.9);
+    transform-origin:left bottom;
+  }
+  .stress{
+    right:18px;
+    bottom:80px;
+    transform:scale(.9);
+    transform-origin:right bottom;
+  }
+  .clock{
+    bottom:18px;
+    transform:translateX(-50%) scale(.92);
+  }
+  .goodnight h2{
+    font-size:27px;
+  }
+  .goodnight-inner{
+    padding:25px 19px;
+  }
+}
+
+/* Mobile laptop fix: compact screen + keyboard kept together */
+@media (max-width:600px){
   .laptop{
-    left:50% !important;
-    top:auto !important;
-    bottom:245px !important;
-    width:282px !important;
-    height:202px !important;
-    transform:translateX(-50%) !important;
-    transform-origin:center bottom !important;
+    left:50%!important;
+    top:117px!important;
+    bottom:auto!important;
+    width:208px!important;
+    height:135px!important;
+    transform:translateX(-50%)!important;
   }
   .laptop.active:hover{
-    transform:translateX(-50%) !important;
+    transform:translateX(-50%)!important;
   }
   .laptop .screen{
-    left:0 !important;
-    top:0 !important;
-    width:282px !important;
-    height:178px !important;
+    left:10px!important;
+    right:10px!important;
+    top:0!important;
+    width:auto!important;
+    height:113px!important;
   }
   .laptop .keyboard{
-    left:-19px !important;
-    top:176px !important;
-    bottom:auto !important;
-    width:320px !important;
+    left:0!important;
+    right:0!important;
+    top:111px!important;
+    bottom:auto!important;
+    width:auto!important;
+    height:19px!important;
   }
 }
-
 </style>
 </head>
-<body>
-<main>
-  <h1>Close the day</h1>
-  <p class="intro">Before you go to sleep... it looks like a few pieces of today are still awake.</p>
-  <p class="hint">Tap the highlighted objects to put the day to rest.</p>
 
-  <section class="scene" id="scene" aria-label="Cozy evening desk">
-    <div class="wall-line"></div><div class="desk-grain"></div>
-    <div class="window"><div class="moon"></div></div>
-    <button class="lamp lamp-button" id="lamp" type="button" aria-label="Turn off the lamp" aria-disabled="true">
-      <div class="glow"></div><div class="shade"></div><div class="stem"></div><div class="base"></div>
+<body>
+
+<header>
+  <h1>Close the day</h1>
+  <p class="intro">
+    Before you go to sleep... it looks like a few pieces of today are still awake.
+  </p>
+  <div class="hint">Tap the highlighted objects to put the day to rest.</div>
+</header>
+
+<main>
+  <div class="scene" id="scene">
+
+    <div class="window">
+      <div class="window-bar"></div>
+    </div>
+
+    <button class="object lamp lamp-button" id="lamp"
+            type="button"
+            aria-label="Turn off the lamp"
+            aria-disabled="true">
+      <div class="glow"></div>
+      <div class="shade"></div>
+      <div class="stem"></div>
+      <div class="base"></div>
     </button>
 
-    <button class="object laptop active" id="laptop" type="button" aria-label="Close the laptop">
-      <div class="screen"><div class="screen-inner">WORK MODE<small>still running...</small></div></div>
+    <button class="object laptop" id="laptop"
+            type="button"
+            aria-label="Close the laptop"
+            aria-disabled="false">
+      <div class="screen">
+        <b>WORK MODE</b>
+        <small>still running...</small>
+      </div>
       <div class="keyboard"></div>
     </button>
 
-    <button class="object phone" id="phone" type="button" aria-label="Switch the phone from messages to reels" aria-disabled="true">
+    <button class="object phone" id="phone"
+            type="button"
+            aria-label="Switch the phone from messages to reels"
+            aria-disabled="true">
       <div class="phone-body">
         <div class="phone-speaker"></div>
+
         <div class="phone-screen inbox-screen" id="phoneScreen">
           <div class="inbox-head">MESSAGES</div>
-          <div class="msg-line"><span class="avatar">W</span><span><b>Work</b><small>Can you check...</small></span></div>
-          <div class="msg-line"><span class="avatar">✉</span><span><b>Inbox</b><small>7 unread</small></span></div>
-          <div class="msg-line"><span class="avatar">•</span><span><b>Tomorrow</b><small>something important</small></span></div>
+
+          <div class="msg-line">
+            <span class="avatar">W</span>
+            <span>
+              <b>Work</b>
+              <small>Can you check...</small>
+            </span>
+          </div>
+
+          <div class="msg-line">
+            <span class="avatar">✉</span>
+            <span>
+              <b>Inbox</b>
+              <small>7 unread</small>
+            </span>
+          </div>
+
+          <div class="msg-line">
+            <span class="avatar">•</span>
+            <span>
+              <b>Tomorrow</b>
+              <small>something important</small>
+            </span>
+          </div>
         </div>
       </div>
     </button>
 
-    <button class="object stress" id="stress" type="button" aria-label="Throw stress away" aria-disabled="true">
-      <div class="ball">STRESS</div><div class="bin"></div>
+    <button class="object stress" id="stress"
+            type="button"
+            aria-label="Throw away stress"
+            aria-disabled="true">
+      <div class="stress-paper">STRESS</div>
+      <div class="bin"></div>
     </button>
 
-    <button class="object clock" id="clock" type="button" aria-label="Stop checking the time" aria-disabled="true">
+    <button class="object clock" id="clock"
+            type="button"
+            aria-label="Stop checking the time"
+            aria-disabled="true">
       <div class="clock-body">
-        <div class="clock-face"><span class="hand hour"></span><span class="hand minute"></span><span class="clock-dot"></span></div>
+        <div class="clock-face">
+          <span class="hand hour"></span>
+          <span class="hand minute"></span>
+          <span class="clock-dot"></span>
+        </div>
         <div class="clock-feet"></div>
       </div>
     </button>
 
-    <div class="goodnight-visual" id="goodnightVisual" aria-live="polite">
-      <div class="moonmark">🌙</div>
-      <h2>Sweet dreams, my dear Joana</h2>
-      <p>May your mind finally become quiet, your body relax, and your sleep be deep and peaceful.</p>
-      <p class="affection">A very warm hug for the night 🤗<br>and lots of goodnight kisses 😘💜</p>
+    <div class="goodnight" id="goodnightVisual">
+      <div class="goodnight-inner">
+        <div class="moon">🌙</div>
+
+        <h2>Sweet dreams, my dear Joana</h2>
+
+        <p>
+          May your mind finally become quiet, your body relax,
+          and your sleep be deep and peaceful.
+        </p>
+
+        <p class="love">
+          A very warm hug for the night 🤗<br>
+          and lots of goodnight kisses 😘💜
+        </p>
+      </div>
     </div>
-  </section>
 
-  <section class="caption" id="caption" aria-live="polite">
-    <h2 id="captionTitle">First things first 💻</h2>
-    <p id="captionText">Close the laptop. That's enough work for today.</p>
-    <div class="done-text" id="doneText"></div>
-  </section>
+  </div>
 
+  <section class="caption" id="caption">
+    <h2 id="captionTitle"></h2>
+    <p id="captionText"></p>
+    <p class="done-text" id="doneText"></p>
+  </section>
 </main>
 
 <script>
 (()=>{
-  const $=id=>document.getElementById(id);
-  const ids=["laptop","phone","stress","clock","lamp"];
-  const copy=[
-    ["First things first 💻","Close the laptop. That's enough work for today.","Laptop closed ✓"],
-    ["The phone is still in serious mode 📱","Enough messages and useful things for today. Time to let your brain rest for a bit. 😌","Reels mode activated ✓"],
-    ["This definitely doesn't need to come to bed 🗑️","Tap the crumpled stress and send it where it belongs.","Good riddance ✓"],
-    ["No more checking what time it is ⏰","Tap the clock. It can stop keeping track for tonight.","Time officially ignored ✓"],
-    ["And finally... the light 🌙","Turn off the lamp and let the day end properly.",""]
+  const $ = id => document.getElementById(id);
+
+  const ids = [
+    "laptop",
+    "phone",
+    "stress",
+    "clock",
+    "lamp"
   ];
-  let index=0;
+
+  const copy = [
+    [
+      "First things first 💻",
+      "Close the laptop. That's enough work for today.",
+      "Laptop closed ✓"
+    ],
+    [
+      "The phone is still in serious mode 📱",
+      "Enough messages and useful things for today. Time to let your brain rest for a bit. 😌",
+      "Reels mode activated ✓"
+    ],
+    [
+      "This definitely doesn't need to come to bed 🗑️",
+      "Tap the crumpled stress and send it where it belongs.",
+      "Good riddance ✓"
+    ],
+    [
+      "No more checking what time it is ⏰",
+      "Tap the clock. It can stop keeping track for tonight.",
+      "Time officially ignored ✓"
+    ],
+    [
+      "And finally... the light 🌙",
+      "Turn off the lamp and let the day end properly.",
+      ""
+    ]
+  ];
+
+  let index = 0;
 
   function setActive(i){
     ids.forEach((id,j)=>{
-      const el=$(id);
-      el.classList.toggle("active",j===i);
-      el.setAttribute("aria-disabled",j===i ? "false" : "true");
+      const el = $(id);
+
+      el.classList.toggle("active",j === i);
+      el.setAttribute(
+        "aria-disabled",
+        j === i ? "false" : "true"
+      );
     });
-    $("captionTitle").textContent=copy[i][0];
-    $("captionText").textContent=copy[i][1];
-    $("doneText").textContent="";
+
+    $("captionTitle").textContent = copy[i][0];
+    $("captionText").textContent = copy[i][1];
+    $("doneText").textContent = "";
   }
 
   ids.forEach((id,i)=>{
     $(id).addEventListener("click",()=>{
-      if(i!==index) return;
 
-      if(id==="lamp"){
+      if(i !== index) return;
+
+      if(id === "lamp"){
         $("lamp").classList.add("off");
         $("lamp").classList.remove("active");
+
         $("scene").classList.add("night");
-        $("caption").style.display="none";
-        setTimeout(()=>$("goodnightVisual").classList.add("show"),500);
+        $("caption").style.display = "none";
+
+        setTimeout(()=>{
+          $("goodnightVisual").classList.add("show");
+        },500);
+
         return;
       }
 
-      if(id==="phone"){
+      if(id === "phone"){
         $("phone").classList.add("reels");
+
         $("phoneScreen").innerHTML =
-          '<div class="reels-view"><span class="big-heart">♥</span><b>REELS</b><small>something completely unimportant 😌</small></div>';
-      } else {
+          '<div class="reels-view">' +
+          '<span class="big-heart">♥</span>' +
+          '<b>REELS</b>' +
+          '<small>something completely unimportant 😌</small>' +
+          '</div>';
+
+      }else{
         $(id).classList.add("done");
       }
+
       $(id).classList.remove("active");
-      $("doneText").textContent=copy[i][2];
+
+      $("doneText").textContent = copy[i][2];
+
       index++;
-      setTimeout(()=>setActive(index),750);
+
+      setTimeout(()=>{
+        setActive(index);
+      },750);
     });
   });
 
   setActive(0);
 })();
 </script>
+
 </body>
 </html>
