@@ -6,73 +6,72 @@
 <title>Close the day</title>
 
 <style>
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-html,body{
-  margin:0;
-  min-height:100%;
-  font-family:Georgia,serif;
+html, body {
+  margin: 0;
+  min-height: 100%;
 }
 
-body{
-  background:linear-gradient(#ead7b8,#c99d78);
-  color:#51453f;
-  text-align:center;
-  overflow-x:hidden;
+body {
+  font-family: Georgia, serif;
+  background: linear-gradient(#ead7b8, #c99d78);
+  color: #51453f;
+  text-align: center;
+  overflow-x: hidden;
 }
 
-button{
-  appearance:none;
-  -webkit-appearance:none;
-  border:0;
-  padding:0;
-  margin:0;
-  background:transparent;
-  color:inherit;
-  font:inherit;
-  text-align:inherit;
-  box-shadow:none;
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  box-shadow: none;
 }
 
-/* ---------------- HEADER ---------------- */
+/* HEADER */
 
-header{
-  padding:32px 20px 18px;
+header {
+  padding: 30px 18px 18px;
 }
 
-h1{
-  margin:0 0 10px;
-  font-size:clamp(42px,8vw,62px);
-  font-weight:400;
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(42px, 8vw, 62px);
+  font-weight: 400;
 }
 
-.intro{
-  margin:0 auto;
-  max-width:620px;
-  font-family:system-ui,sans-serif;
-  font-size:18px;
-  line-height:1.45;
-  color:#70645e;
+.intro {
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.45;
+  color: #70645e;
 }
 
-.hint{
-  margin-top:12px;
-  font-family:system-ui,sans-serif;
-  font-size:14px;
-  color:#8b7770;
+.hint {
+  margin-top: 14px;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  color: #8b7770;
 }
 
-/* ---------------- SCENE ---------------- */
+/* SCENE */
 
-.scene{
-  position:relative;
-  width:min(94vw,760px);
-  height:670px;
-  margin:12px auto 28px;
-  border-radius:38px;
-  overflow:hidden;
+.scene {
+  position: relative;
+  width: min(94vw, 760px);
+  height: 670px;
+  margin: 12px auto 28px;
+  overflow: hidden;
+  border-radius: 38px;
 
   background:
     linear-gradient(
@@ -85,22 +84,19 @@ h1{
     inset 0 0 0 1px rgba(105,71,50,.12),
     0 18px 45px rgba(85,55,38,.13);
 
-  transition:
-    background 1.2s ease,
-    filter 1.2s ease;
+  transition: background 1s ease;
 }
 
 /* wood texture */
 
-.scene:after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  top:25%;
-  bottom:0;
-  pointer-events:none;
-  opacity:.12;
+.scene::after {
+  content: "";
+  position: absolute;
+  inset: 25% 0 0 0;
+  z-index: 1;
+  pointer-events: none;
+
+  opacity: .11;
 
   background:
     repeating-linear-gradient(
@@ -111,54 +107,53 @@ h1{
     );
 }
 
-/* ---------------- WINDOW ---------------- */
+/* WINDOW */
 
-.window{
-  position:absolute;
-  left:28px;
-  top:28px;
-  width:180px;
-  height:126px;
+.window {
+  position: absolute;
+  z-index: 2;
 
-  border:12px solid #f4ead9;
-  border-radius:22px;
-  overflow:hidden;
+  left: 28px;
+  top: 28px;
 
-  background:
-    linear-gradient(
-      #8f9da5,
-      #718c82
-    );
+  width: 180px;
+  height: 126px;
 
-  box-shadow:
-    0 8px 16px rgba(75,50,35,.13);
+  overflow: hidden;
+
+  border: 12px solid #f4ead9;
+  border-radius: 22px;
+
+  background: linear-gradient(#8f9da5, #718c82);
+
+  box-shadow: 0 8px 16px rgba(75,50,35,.13);
 }
 
-.window:before{
-  content:"";
-  position:absolute;
+.window::before {
+  content: "";
+  position: absolute;
 
-  width:34px;
-  height:34px;
+  width: 34px;
+  height: 34px;
 
-  border-radius:50%;
-  background:#f4e2a4;
+  right: 30px;
+  top: 20px;
 
-  top:20px;
-  right:30px;
+  border-radius: 50%;
+  background: #f4e2a4;
 
-  box-shadow:
-    0 0 20px rgba(250,226,163,.35);
+  box-shadow: 0 0 20px rgba(250,226,163,.35);
 }
 
-.window:after{
-  content:"";
-  position:absolute;
+.window::after {
+  content: "";
+  position: absolute;
 
-  left:-5px;
-  right:-5px;
-  bottom:-1px;
-  height:55px;
+  left: -5px;
+  right: -5px;
+  bottom: -1px;
+
+  height: 55px;
 
   background:
     linear-gradient(
@@ -175,233 +170,94 @@ h1{
     );
 }
 
-.window-bar{
-  position:absolute;
+.window-bar {
+  position: absolute;
+  z-index: 3;
 
-  left:50%;
-  top:0;
-  bottom:0;
+  left: 50%;
+  top: 0;
+  bottom: 0;
 
-  width:6px;
+  width: 6px;
 
-  background:#f4ead9;
+  transform: translateX(-50%);
 
-  transform:translateX(-50%);
-  z-index:2;
+  background: #f4ead9;
 }
 
-/* ---------------- COMMON OBJECTS ---------------- */
+/* OBJECTS */
 
-.object{
-  position:absolute;
-  z-index:4;
+.object {
+  position: absolute;
+  z-index: 5;
 
-  cursor:default;
+  cursor: default;
 
   transition:
-    transform .45s ease,
-    opacity .45s ease,
-    filter .45s ease;
+    transform .4s ease,
+    filter .4s ease,
+    opacity .4s ease;
 }
 
-.object.active{
-  cursor:pointer;
+.object.active {
+  cursor: pointer;
 
   filter:
     drop-shadow(
-      0 0 8px rgba(118,78,126,.48)
+      0 0 9px rgba(118,78,126,.55)
     );
 }
 
-.object.active:after{
-  content:"TAP";
+.object.active::after {
+  content: "TAP";
+  position: absolute;
 
-  position:absolute;
-
-  color:#9b668f;
+  color: #9b668f;
 
   font:
-    bold 11px
+    700 11px
     system-ui,
     sans-serif;
 
-  letter-spacing:.12em;
+  letter-spacing: .12em;
 
-  animation:
-    pulse 1.2s infinite;
+  animation: pulse 1.1s infinite;
 }
 
-@keyframes pulse{
-  50%{
-    opacity:.35;
+@keyframes pulse {
+  50% {
+    opacity: .3;
   }
 }
 
-@media(hover:hover){
+/* LAPTOP */
 
-  .object.active:hover{
-    transform:
-      translateY(-4px)
-      scale(1.02);
-  }
+.laptop {
+  left: 50%;
+  top: 170px;
 
+  width: 300px;
+  height: 205px;
+
+  transform: translateX(-50%);
 }
 
-/* ---------------- LAMP ---------------- */
+.laptop-screen {
+  position: absolute;
 
-.lamp{
-  position:absolute;
+  left: 10px;
+  right: 10px;
+  top: 0;
 
-  right:44px;
-  top:58px;
+  height: 174px;
 
-  width:105px;
-  height:190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  pointer-events:none;
-}
-
-.lamp-button{
-  pointer-events:auto;
-  z-index:6;
-}
-
-.lamp .glow{
-  position:absolute;
-
-  width:180px;
-  height:180px;
-
-  border-radius:50%;
-
-  left:50%;
-  top:7px;
-
-  transform:translateX(-50%);
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,225,155,.42),
-      rgba(255,225,155,0) 70%
-    );
-
-  transition:
-    opacity 1s ease;
-
-  pointer-events:none;
-}
-
-.lamp .shade{
-  position:absolute;
-
-  top:18px;
-  left:12px;
-
-  width:82px;
-  height:74px;
-
-  background:#e6bd7d;
-
-  clip-path:
-    polygon(
-      18% 0,
-      82% 0,
-      100% 100%,
-      0 100%
-    );
-
-  border-radius:7px;
-
-  transition:
-    filter .8s ease;
-
-  pointer-events:none;
-}
-
-.lamp .stem{
-  position:absolute;
-
-  width:8px;
-  height:92px;
-
-  left:49px;
-  top:86px;
-
-  border-radius:8px;
-
-  background:#71584c;
-
-  pointer-events:none;
-}
-
-.lamp .base{
-  position:absolute;
-
-  left:18px;
-  bottom:0;
-
-  width:72px;
-  height:17px;
-
-  border-radius:50%;
-
-  background:#71584c;
-
-  pointer-events:none;
-}
-
-.lamp.off .glow{
-  opacity:0;
-}
-
-.lamp.off .shade{
-  filter:
-    brightness(.55)
-    saturate(.55);
-}
-
-/* lamp TAP */
-
-.lamp.active:after{
-  right:105px;
-  top:72px;
-}
-
-/* ---------------- LAPTOP ---------------- */
-
-.laptop{
-  left:50%;
-  top:164px;
-
-  width:300px;
-  height:208px;
-
-  transform:
-    translateX(-50%);
-}
-
-.laptop.active:hover{
-  transform:
-    translateX(-50%)
-    translateY(-4px)
-    scale(1.02);
-}
-
-.laptop .screen{
-  position:absolute;
-
-  left:10px;
-  right:10px;
-  top:0;
-
-  height:174px;
-
-  border:
-    12px solid #515156;
-
-  border-radius:
-    16px 16px 5px 5px;
+  border: 12px solid #515156;
+  border-radius: 16px 16px 5px 5px;
 
   background:
     linear-gradient(
@@ -410,49 +266,38 @@ h1{
       #2f3e43
     );
 
+  color: white;
+
   box-shadow:
     0 8px 16px rgba(62,42,32,.2);
 
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-  justify-content:center;
-
-  color:#fff;
-
-  font-family:
-    "Courier New",
-    monospace;
+  font-family: "Courier New", monospace;
 }
 
-.laptop .screen b{
-  font-size:18px;
-  letter-spacing:.04em;
+.laptop-screen strong {
+  font-size: 18px;
+  letter-spacing: .05em;
 }
 
-.laptop .screen small{
-  margin-top:8px;
+.laptop-screen span {
+  margin-top: 9px;
 
-  font-size:11px;
+  font-size: 11px;
+  letter-spacing: .1em;
 
-  letter-spacing:.08em;
-
-  opacity:.7;
+  opacity: .7;
 }
 
-.laptop .keyboard{
-  position:absolute;
+.keyboard {
+  position: absolute;
 
-  left:-18px;
-  right:-18px;
+  left: -18px;
+  right: -18px;
+  top: 172px;
 
-  top:172px;
+  height: 26px;
 
-  height:26px;
-
-  background:#ddd5ca;
+  background: #ddd5ca;
 
   clip-path:
     polygon(
@@ -461,121 +306,102 @@ h1{
       100% 100%,
       0 100%
     );
-
-  box-shadow:
-    0 5px 8px rgba(62,42,32,.14);
 }
 
-.laptop.active:after{
-  left:50%;
-  top:210px;
+.laptop.active::after {
+  left: 50%;
+  top: 212px;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 }
 
-.laptop.done .screen{
-  transform-origin:bottom;
+.laptop.closed .laptop-screen {
+  transform-origin: bottom;
 
   animation:
     closeLaptop .65s forwards;
 }
 
-@keyframes closeLaptop{
-
-  to{
+@keyframes closeLaptop {
+  to {
     transform:
       perspective(350px)
       rotateX(-88deg);
   }
-
 }
 
-/* ---------------- PHONE ---------------- */
+/* PHONE */
 
-.phone{
-  left:35px;
-  bottom:120px;
+.phone {
+  left: 35px;
+  bottom: 120px;
 
-  width:86px;
-  height:132px;
+  width: 86px;
+  height: 132px;
 }
 
-.phone-body{
-  position:absolute;
-  inset:0;
+.phone-body {
+  position: absolute;
+  inset: 0;
 
-  border-radius:17px;
+  padding: 9px 6px 7px;
 
-  background:#4e4c50;
+  border: 4px solid #3f3d40;
+  border-radius: 17px;
 
-  border:
-    4px solid #3f3d40;
+  background: #4e4c50;
 
   box-shadow:
     0 6px 12px rgba(66,44,31,.18);
-
-  padding:
-    9px 6px 7px;
 }
 
-.phone-speaker{
-  width:25px;
-  height:3px;
+.phone-speaker {
+  width: 25px;
+  height: 3px;
 
-  border-radius:3px;
+  margin: 0 auto 6px;
 
-  background:#777277;
+  border-radius: 3px;
 
-  margin:
-    0 auto 6px;
+  background: #777277;
 }
 
-.phone-screen{
-  height:100px;
+.phone-screen {
+  height: 100px;
+  overflow: hidden;
 
-  border-radius:10px;
+  border-radius: 10px;
 
-  overflow:hidden;
+  background: #f1ece6;
+  color: #544d49;
 
-  transition:
-    .55s ease;
+  padding: 7px 6px;
+
+  text-align: left;
 }
 
-.inbox-screen{
-  background:#f1ece6;
-  color:#544d49;
+.inbox-title {
+  margin-bottom: 5px;
 
-  padding:
-    7px 6px;
+  text-align: center;
 
-  text-align:left;
-}
+  color: #776d67;
 
-.inbox-head{
   font:
-    bold 8px
+    700 8px
     "Courier New",
     monospace;
 
-  letter-spacing:.08em;
-
-  color:#776d67;
-
-  margin-bottom:5px;
-
-  text-align:center;
+  letter-spacing: .08em;
 }
 
-.msg-line{
-  display:flex;
+.message {
+  display: flex;
+  align-items: center;
 
-  align-items:center;
+  gap: 5px;
 
-  gap:5px;
-
-  padding:
-    4px 1px;
+  padding: 4px 1px;
 
   border-top:
     1px solid rgba(90,75,65,.09);
@@ -586,60 +412,53 @@ h1{
     sans-serif;
 }
 
-.msg-line:first-of-type{
-  border-top:0;
+.message:first-of-type {
+  border-top: 0;
 }
 
-.msg-line b{
-  display:block;
+.avatar {
+  width: 17px;
+  height: 17px;
 
-  font-size:7px;
+  flex: 0 0 17px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #d6c8bc;
+
+  font-size: 7px;
 }
 
-.msg-line small{
-  display:block;
-
-  font-size:6px;
-
-  color:#91857e;
-
-  white-space:nowrap;
+.message strong {
+  display: block;
+  font-size: 7px;
 }
 
-.avatar{
-  flex:
-    0 0 17px;
+.message small {
+  display: block;
 
-  width:17px;
-  height:17px;
+  font-size: 6px;
 
-  border-radius:50%;
+  color: #91857e;
 
-  display:grid;
-
-  place-items:center;
-
-  background:#d6c8bc;
-  color:#625954;
-
-  font:
-    bold 7px
-    system-ui,
-    sans-serif;
+  white-space: nowrap;
 }
 
-/* phone TAP */
+.phone.active::after {
+  left: 102px;
+  top: 48px;
 
-.phone.active:after{
-  left:100px;
-  top:49px;
-
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
-/* reels */
+/* REELS */
 
-.phone.reels .phone-screen{
+.phone.reels .phone-screen {
+  padding: 0;
+
   background:
     linear-gradient(
       155deg,
@@ -647,23 +466,18 @@ h1{
       #c5968c
     );
 
-  color:white;
+  color: white;
 
-  padding:0;
-
-  text-align:center;
+  text-align: center;
 }
 
-.reels-view{
-  height:100%;
+.reels-content {
+  height: 100%;
 
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  justify-content:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   font:
     700 10px/1.25
@@ -671,73 +485,69 @@ h1{
     monospace;
 }
 
-.reels-view .big-heart{
-  font-size:24px;
+.reels-heart {
+  font-size: 25px;
 
-  margin-bottom:4px;
+  margin-bottom: 4px;
 }
 
-.reels-view small{
-  font-size:7px;
+.reels-content small {
+  margin-top: 5px;
 
-  opacity:.86;
+  font-size: 7px;
 
-  margin-top:4px;
+  opacity: .85;
 }
 
-.phone.reels:before{
-  content:"BRAIN BREAK ✓";
+.phone.reels::before {
+  content: "BRAIN BREAK ✓";
 
-  position:absolute;
+  position: absolute;
+  z-index: 10;
 
-  z-index:5;
+  left: 67px;
+  top: 36px;
 
-  left:67px;
-  top:36px;
+  padding: 6px 8px;
 
-  white-space:nowrap;
+  white-space: nowrap;
 
-  padding:
-    6px 8px;
+  border-radius: 8px;
 
-  border-radius:8px;
-
-  background:#f2e6d5;
-  color:#70537b;
-
-  font:
-    bold 9px
-    "Courier New",
-    monospace;
+  background: #f2e6d5;
+  color: #70537b;
 
   box-shadow:
     0 4px 9px rgba(70,45,30,.14);
-}
-
-/* ---------------- STRESS ---------------- */
-
-.stress{
-  right:34px;
-  bottom:130px;
-
-  width:95px;
-  height:95px;
-}
-
-.stress-paper{
-  position:absolute;
-  inset:0;
-
-  display:grid;
-
-  place-items:center;
-
-  background:#efe6da;
-
-  color:#5d514a;
 
   font:
-    bold 10px
+    700 9px
+    "Courier New",
+    monospace;
+}
+
+/* STRESS */
+
+.stress {
+  right: 34px;
+  bottom: 130px;
+
+  width: 95px;
+  height: 95px;
+}
+
+.stress-paper {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  background: #efe6da;
+  color: #5d514a;
+
+  font:
+    700 10px
     "Courier New",
     monospace;
 
@@ -764,318 +574,371 @@ h1{
       14% 10%,
       35% 14%
     );
-
-  box-shadow:
-    0 5px 10px rgba(70,45,30,.14);
 }
 
-.bin{
-  position:absolute;
+.bin {
+  position: absolute;
 
-  right:-1px;
-  bottom:-37px;
+  right: -1px;
+  bottom: -37px;
 
-  width:55px;
-  height:54px;
-
-  background:#75665d;
+  width: 55px;
+  height: 54px;
 
   border-radius:
     6px 6px 13px 13px;
 
-  opacity:.78;
+  background: #75665d;
+
+  opacity: .78;
 }
 
-.bin:before{
-  content:"";
+.bin::before {
+  content: "";
+  position: absolute;
 
-  position:absolute;
+  left: -8px;
+  top: -6px;
 
-  left:-8px;
-  top:-6px;
+  width: 70px;
+  height: 8px;
 
-  width:70px;
-  height:8px;
+  border-radius: 8px;
 
-  border-radius:8px;
-
-  background:#685b54;
+  background: #685b54;
 }
 
-/* stress TAP */
+.stress.active::after {
+  right: 108px;
+  top: 36px;
 
-.stress.active:after{
-  right:105px;
-  left:auto;
-  top:36px;
-
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
-.stress.done .stress-paper{
+.stress.thrown .stress-paper {
   animation:
-    trash .7s forwards;
+    throwStress .7s forwards;
 }
 
-@keyframes trash{
-
-  to{
+@keyframes throwStress {
+  to {
     transform:
       translate(47px,58px)
       rotate(35deg)
       scale(.2);
 
-    opacity:0;
+    opacity: 0;
   }
-
 }
 
-/* ---------------- CLOCK ---------------- */
+/* CLOCK */
 
-.clock{
-  left:50%;
-  bottom:70px;
+.clock {
+  left: 50%;
+  bottom: 72px;
 
-  transform:
-    translateX(-50%);
+  width: 100px;
+  height: 84px;
 
-  width:100px;
-  height:84px;
+  transform: translateX(-50%);
 }
 
-.clock.active:hover{
-  transform:
-    translateX(-50%)
-    translateY(-4px)
-    scale(1.02)!important;
-}
+.clock-face {
+  position: absolute;
 
-.clock-body{
-  position:absolute;
+  left: 20px;
+  top: 0;
 
-  inset:0;
-}
+  width: 62px;
+  height: 62px;
 
-.clock-face{
-  position:absolute;
+  border: 5px solid #6d625c;
+  border-radius: 50%;
 
-  left:20px;
-  top:0;
-
-  width:62px;
-  height:62px;
-
-  border-radius:50%;
-
-  background:#eee2cf;
-
-  border:
-    5px solid #6d625c;
+  background: #eee2cf;
 
   box-shadow:
     0 5px 11px rgba(75,49,32,.15);
 }
 
-.clock-face:before{
-  content:"12";
+.clock-face::before {
+  content: "12";
 
-  position:absolute;
+  position: absolute;
 
-  left:50%;
-  top:3px;
+  top: 3px;
+  left: 50%;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
-  font:
-    bold 7px
-    Georgia,
-    serif;
-
-  color:#746a64;
+  font-size: 7px;
 }
 
-.clock-face:after{
-  content:"6";
+.clock-face::after {
+  content: "6";
 
-  position:absolute;
+  position: absolute;
 
-  left:50%;
-  bottom:2px;
+  bottom: 2px;
+  left: 50%;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
-  font:
-    bold 7px
-    Georgia,
-    serif;
-
-  color:#746a64;
+  font-size: 7px;
 }
 
-.hand{
-  position:absolute;
+.hand {
+  position: absolute;
 
-  left:50%;
-  bottom:50%;
+  left: 50%;
+  bottom: 50%;
 
-  width:2px;
+  width: 2px;
 
-  background:#5f5550;
+  transform-origin: bottom;
 
-  transform-origin:bottom;
-
-  border-radius:2px;
+  background: #5f5550;
 }
 
-.hand.hour{
-  height:17px;
+.hand.hour {
+  height: 17px;
 
   transform:
     translateX(-50%)
     rotate(310deg);
 }
 
-.hand.minute{
-  height:22px;
+.hand.minute {
+  height: 22px;
 
   transform:
     translateX(-50%)
     rotate(25deg);
 }
 
-.clock-dot{
-  position:absolute;
+.clock-dot {
+  position: absolute;
 
-  left:50%;
-  top:50%;
+  left: 50%;
+  top: 50%;
 
-  width:6px;
-  height:6px;
-
-  border-radius:50%;
-
-  background:#70537b;
+  width: 6px;
+  height: 6px;
 
   transform:
     translate(-50%,-50%);
+
+  border-radius: 50%;
+
+  background: #70537b;
 }
 
-.clock-feet:before,
-.clock-feet:after{
-  content:"";
+.clock-foot-left,
+.clock-foot-right {
+  position: absolute;
 
-  position:absolute;
+  top: 58px;
 
-  top:58px;
-
-  width:17px;
-  height:12px;
+  width: 17px;
+  height: 12px;
 
   border-bottom:
     5px solid #6d625c;
 
-  border-radius:50%;
+  border-radius: 50%;
 }
 
-.clock-feet:before{
-  left:17px;
+.clock-foot-left {
+  left: 17px;
 
   transform:
     rotate(-25deg);
 }
 
-.clock-feet:after{
-  right:15px;
+.clock-foot-right {
+  right: 15px;
 
   transform:
     rotate(25deg);
 }
 
-/* clock TAP */
+.clock.active::after {
+  left: 50%;
+  top: -29px;
 
-.clock.active:after{
-  left:50%;
-  top:-27px;
+  transform: translateX(-50%);
 
-  transform:
-    translateX(-50%);
-
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
-.clock.done .clock-face{
-  background:#b4aaa0;
+.clock.stopped .clock-face {
+  background: #b4aaa0;
 
-  filter:
-    brightness(.82);
+  filter: brightness(.82);
 }
 
-.clock.done .hand{
-  opacity:.35;
+.clock.stopped .hand {
+  opacity: .3;
 }
 
-.clock.done .clock-dot{
-  background:#777;
+/* LAMP */
+
+.lamp {
+  right: 44px;
+  top: 58px;
+
+  width: 105px;
+  height: 190px;
 }
 
-/* ---------------- CAPTION ---------------- */
+.lamp-glow {
+  position: absolute;
 
-.caption{
-  width:min(92vw,720px);
+  left: 50%;
+  top: 7px;
 
-  margin:
-    0 auto 40px;
+  width: 180px;
+  height: 180px;
 
-  padding:
-    22px 20px;
+  transform: translateX(-50%);
 
-  border-radius:25px;
+  border-radius: 50%;
 
   background:
-    rgba(248,238,224,.85);
+    radial-gradient(
+      circle,
+      rgba(255,225,155,.42),
+      rgba(255,225,155,0) 70%
+    );
+
+  pointer-events: none;
+
+  transition:
+    opacity 1s ease;
+}
+
+.lamp-shade {
+  position: absolute;
+
+  top: 18px;
+  left: 12px;
+
+  width: 82px;
+  height: 74px;
+
+  background: #e6bd7d;
+
+  clip-path:
+    polygon(
+      18% 0,
+      82% 0,
+      100% 100%,
+      0 100%
+    );
+
+  pointer-events: none;
+}
+
+.lamp-stem {
+  position: absolute;
+
+  left: 49px;
+  top: 86px;
+
+  width: 8px;
+  height: 92px;
+
+  border-radius: 8px;
+
+  background: #71584c;
+
+  pointer-events: none;
+}
+
+.lamp-base {
+  position: absolute;
+
+  left: 18px;
+  bottom: 0;
+
+  width: 72px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  background: #71584c;
+
+  pointer-events: none;
+}
+
+.lamp.active::after {
+  right: 108px;
+  top: 72px;
+
+  white-space: nowrap;
+}
+
+.lamp.off .lamp-glow {
+  opacity: 0;
+}
+
+.lamp.off .lamp-shade {
+  filter:
+    brightness(.55)
+    saturate(.55);
+}
+
+/* INFO BOX */
+
+.caption {
+  width: min(92vw,720px);
+
+  min-height: 145px;
+
+  margin: 0 auto 40px;
+
+  padding: 22px 20px;
+
+  border-radius: 25px;
+
+  background:
+    rgba(248,238,224,.88);
 
   box-shadow:
     0 12px 30px rgba(77,51,37,.1);
 }
 
-.caption h2{
-  margin:
-    0 0 8px;
+.caption h2 {
+  margin: 0 0 8px;
 
-  font-size:27px;
-
-  font-weight:400;
+  font-size: 27px;
+  font-weight: 400;
 }
 
-.caption p{
-  margin:0;
+.caption p {
+  margin: 0;
 
-  font-family:
+  color: #6f625c;
+
+  font:
+    16px/1.5
     system-ui,
     sans-serif;
-
-  color:#6f625c;
-
-  font-size:16px;
-
-  line-height:1.5;
 }
 
-.done-text{
-  margin-top:10px!important;
+.done-text {
+  min-height: 25px;
 
-  min-height:24px;
+  margin-top: 10px !important;
 
-  color:#775b79!important;
+  color: #775b79 !important;
 
-  font-weight:600;
+  font-weight: 600 !important;
 }
 
-/* ---------------- NIGHT ---------------- */
+/* FINAL NIGHT */
 
-.scene.night{
+.scene.night {
   background:
     linear-gradient(
       to bottom,
@@ -1084,316 +947,229 @@ h1{
     );
 }
 
-.scene.night:before{
-  content:"";
+.scene.night::before {
+  content: "";
 
-  position:absolute;
+  position: absolute;
+  inset: 0;
 
-  inset:0;
+  z-index: 20;
 
-  z-index:8;
+  pointer-events: none;
 
   background:
     rgba(30,29,38,.34);
 
-  pointer-events:none;
-
   animation:
-    nightFade 1.2s both;
+    nightFade 1s forwards;
 }
 
-@keyframes nightFade{
-
-  from{
-    opacity:0;
+@keyframes nightFade {
+  from {
+    opacity: 0;
   }
 
-  to{
-    opacity:1;
+  to {
+    opacity: 1;
   }
-
 }
 
-.scene.night .window{
-  filter:
-    brightness(.75)
-    saturate(.7);
-}
+.goodnight {
+  position: absolute;
+  inset: 0;
 
-.scene.night .laptop,
-.scene.night .phone,
-.scene.night .stress,
-.scene.night .clock{
-  filter:
-    brightness(.6);
-}
+  z-index: 30;
 
-/* ---------------- GOODNIGHT ---------------- */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.goodnight{
-  position:absolute;
+  padding: 28px;
 
-  inset:0;
+  opacity: 0;
 
-  z-index:20;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:28px;
-
-  opacity:0;
-
-  pointer-events:none;
+  pointer-events: none;
 
   transform:
     translateY(12px);
 
   transition:
-    opacity 1.2s ease,
-    transform 1.2s ease;
+    opacity 1s ease,
+    transform 1s ease;
 }
 
-.goodnight.show{
-  opacity:1;
+.goodnight.show {
+  opacity: 1;
 
-  transform:none;
+  transform: none;
 }
 
-.goodnight-inner{
-  max-width:520px;
+.goodnight-card {
+  max-width: 520px;
 
-  padding:
-    30px 25px;
+  padding: 30px 25px;
 
-  border-radius:28px;
+  border-radius: 28px;
 
   background:
-    rgba(42,38,47,.78);
+    rgba(42,38,47,.8);
 
-  backdrop-filter:
-    blur(5px);
-
-  color:#f8efe6;
+  color: #f8efe6;
 
   box-shadow:
     0 15px 45px rgba(0,0,0,.2);
 }
 
-.goodnight .moon{
-  font-size:42px;
-
-  margin-bottom:8px;
+.goodnight-card .moon {
+  font-size: 42px;
 }
 
-.goodnight h2{
+.goodnight-card h2 {
   margin:
-    0 0 15px;
+    8px 0 15px;
 
-  font-size:32px;
-
-  font-weight:400;
+  font-size: 32px;
+  font-weight: 400;
 }
 
-.goodnight p{
-  font-family:
+.goodnight-card p {
+  color: #eee3dc;
+
+  font:
+    16px/1.55
     system-ui,
     sans-serif;
-
-  font-size:16px;
-
-  line-height:1.55;
-
-  margin:
-    10px 0;
-
-  color:#eee3dc;
 }
 
-.goodnight .love{
-  margin-top:19px;
-
-  font-size:17px;
+.goodnight-card .love {
+  margin-top: 18px;
 }
 
-/* ==================================================
-   MOBILE
-   ================================================== */
+/* MOBILE */
 
-@media(max-width:600px){
+@media(max-width:600px) {
 
-  header{
+  header {
     padding:
       25px 16px 12px;
   }
 
-  h1{
-    font-size:42px;
+  h1 {
+    font-size: 42px;
   }
 
-  .intro{
-    font-size:16px;
+  .intro {
+    font-size: 16px;
   }
 
-  .scene{
-    height:590px;
-
-    border-radius:30px;
+  .scene {
+    height: 590px;
+    border-radius: 30px;
   }
 
-  .window{
-    width:130px;
-    height:98px;
+  .window {
+    left: 20px;
+    top: 28px;
 
-    left:20px;
-    top:28px;
+    width: 130px;
+    height: 98px;
 
-    border-width:9px;
+    border-width: 9px;
   }
 
-  /* lamp */
+  /* compact laptop */
 
-  .lamp{
-    right:14px;
-    top:65px;
+  .laptop {
+    top: 165px;
 
-    transform:
-      scale(.82);
-
-    transform-origin:
-      top right;
+    width: 208px;
+    height: 135px;
   }
 
-  .lamp.active:after{
-    right:112px;
-    top:70px;
+  .laptop-screen {
+    left: 10px;
+    right: 10px;
+
+    height: 113px;
+
+    border-width: 9px;
   }
 
-  /* laptop */
-
-  .laptop{
-    left:50%!important;
-
-    top:165px!important;
-
-    bottom:auto!important;
-
-    width:208px!important;
-    height:135px!important;
-
-    transform:
-      translateX(-50%)!important;
+  .laptop-screen strong {
+    font-size: 14px;
   }
 
-  .laptop.active:hover{
-    transform:
-      translateX(-50%)!important;
+  .laptop-screen span {
+    font-size: 8px;
   }
 
-  .laptop .screen{
-    left:10px!important;
-    right:10px!important;
+  .keyboard {
+    left: 0;
+    right: 0;
+    top: 111px;
 
-    top:0!important;
-
-    width:auto!important;
-    height:113px!important;
+    height: 19px;
   }
 
-  .laptop .keyboard{
-    left:0!important;
-    right:0!important;
-
-    top:111px!important;
-    bottom:auto!important;
-
-    width:auto!important;
-    height:19px!important;
+  .laptop.active::after {
+    top: 145px;
   }
 
-  .laptop.active:after{
-    left:50%!important;
+  /* bottom objects higher */
 
-    top:145px!important;
+  .phone {
+    left: 20px;
+    bottom: 125px;
 
-    transform:
-      translateX(-50%)!important;
+    transform: scale(.9);
+    transform-origin: left bottom;
   }
 
-  /* phone moved upward */
+  .stress {
+    right: 18px;
+    bottom: 130px;
 
-  .phone{
-    left:20px;
-
-    bottom:125px;
-
-    transform:
-      scale(.9);
-
-    transform-origin:
-      left bottom;
+    transform: scale(.9);
+    transform-origin: right bottom;
   }
 
-  .phone.active:after{
-    left:103px;
-    top:44px;
-  }
-
-  /* stress moved upward */
-
-  .stress{
-    right:18px;
-
-    bottom:130px;
-
-    transform:
-      scale(.9);
-
-    transform-origin:
-      right bottom;
-  }
-
-  .stress.active:after{
-    right:105px;
-    top:34px;
-  }
-
-  /* clock moved upward */
-
-  .clock{
-    bottom:72px;
+  .clock {
+    bottom: 75px;
 
     transform:
       translateX(-50%)
       scale(.92);
   }
 
-  .clock.active:hover{
-    transform:
-      translateX(-50%)
-      scale(.92)!important;
+  .lamp {
+    right: 14px;
+    top: 65px;
+
+    transform: scale(.82);
+    transform-origin: top right;
   }
 
-  .clock.active:after{
-    left:50%;
-    top:-30px;
-
-    transform:
-      translateX(-50%);
+  .phone.active::after {
+    left: 106px;
+    top: 45px;
   }
 
-  /* final */
-
-  .goodnight h2{
-    font-size:27px;
+  .stress.active::after {
+    right: 108px;
+    top: 35px;
   }
 
-  .goodnight-inner{
-    padding:
-      25px 19px;
+  .clock.active::after {
+    top: -32px;
+  }
+
+  .lamp.active::after {
+    right: 112px;
+    top: 70px;
+  }
+
+  .goodnight-card h2 {
+    font-size: 27px;
   }
 
 }
@@ -1404,10 +1180,7 @@ h1{
 <body>
 
 <header>
-
-  <h1>
-    Close the day
-  </h1>
+  <h1>Close the day</h1>
 
   <p class="intro">
     Before you go to sleep... it looks like a few pieces
@@ -1417,95 +1190,55 @@ h1{
   <div class="hint">
     Tap the highlighted objects to put the day to rest.
   </div>
-
 </header>
 
 <main>
 
-<div
-  class="scene"
-  id="scene"
->
-
-  <!-- WINDOW -->
+<div class="scene" id="scene">
 
   <div class="window">
     <div class="window-bar"></div>
   </div>
 
 
-  <!-- LAMP -->
-
-  <button
-    class="object lamp lamp-button"
-    id="lamp"
-    type="button"
-    aria-label="Turn off the lamp"
-    aria-disabled="true"
-  >
-
-    <div class="glow"></div>
-
-    <div class="shade"></div>
-
-    <div class="stem"></div>
-
-    <div class="base"></div>
-
-  </button>
-
-
-  <!-- LAPTOP -->
-
   <button
     class="object laptop"
     id="laptop"
     type="button"
-    aria-label="Close the laptop"
-    aria-disabled="false"
   >
+    <div class="laptop-screen">
 
-    <div class="screen">
-
-      <b>
+      <strong>
         WORK MODE
-      </b>
+      </strong>
 
-      <small>
+      <span>
         still running...
-      </small>
+      </span>
 
     </div>
 
     <div class="keyboard"></div>
-
   </button>
 
-
-  <!-- PHONE -->
 
   <button
     class="object phone"
     id="phone"
     type="button"
-    aria-label="Switch the phone from messages to reels"
-    aria-disabled="true"
   >
 
     <div class="phone-body">
 
       <div class="phone-speaker"></div>
 
-      <div
-        class="phone-screen inbox-screen"
-        id="phoneScreen"
-      >
+      <div class="phone-screen" id="phoneScreen">
 
-        <div class="inbox-head">
+        <div class="inbox-title">
           MESSAGES
         </div>
 
-        <div class="msg-line">
+        <div class="message">
 
           <span class="avatar">
             W
@@ -1513,9 +1246,9 @@ h1{
 
           <span>
 
-            <b>
+            <strong>
               Work
-            </b>
+            </strong>
 
             <small>
               Can you check...
@@ -1526,7 +1259,7 @@ h1{
         </div>
 
 
-        <div class="msg-line">
+        <div class="message">
 
           <span class="avatar">
             ✉
@@ -1534,9 +1267,9 @@ h1{
 
           <span>
 
-            <b>
+            <strong>
               Inbox
-            </b>
+            </strong>
 
             <small>
               7 unread
@@ -1547,7 +1280,7 @@ h1{
         </div>
 
 
-        <div class="msg-line">
+        <div class="message">
 
           <span class="avatar">
             •
@@ -1555,9 +1288,9 @@ h1{
 
           <span>
 
-            <b>
+            <strong>
               Tomorrow
-            </b>
+            </strong>
 
             <small>
               something important
@@ -1574,14 +1307,10 @@ h1{
   </button>
 
 
-  <!-- STRESS -->
-
   <button
     class="object stress"
     id="stress"
     type="button"
-    aria-label="Throw away stress"
-    aria-disabled="true"
   >
 
     <div class="stress-paper">
@@ -1593,43 +1322,52 @@ h1{
   </button>
 
 
-  <!-- CLOCK -->
-
   <button
     class="object clock"
     id="clock"
     type="button"
-    aria-label="Stop checking the time"
-    aria-disabled="true"
   >
 
-    <div class="clock-body">
+    <div class="clock-face">
 
-      <div class="clock-face">
+      <span class="hand hour"></span>
 
-        <span class="hand hour"></span>
+      <span class="hand minute"></span>
 
-        <span class="hand minute"></span>
-
-        <span class="clock-dot"></span>
-
-      </div>
-
-      <div class="clock-feet"></div>
+      <span class="clock-dot"></span>
 
     </div>
+
+    <span class="clock-foot-left"></span>
+
+    <span class="clock-foot-right"></span>
 
   </button>
 
 
-  <!-- FINAL MESSAGE -->
+  <button
+    class="object lamp"
+    id="lamp"
+    type="button"
+  >
+
+    <div class="lamp-glow"></div>
+
+    <div class="lamp-shade"></div>
+
+    <div class="lamp-stem"></div>
+
+    <div class="lamp-base"></div>
+
+  </button>
+
 
   <div
     class="goodnight"
-    id="goodnightVisual"
+    id="goodnight"
   >
 
-    <div class="goodnight-inner">
+    <div class="goodnight-card">
 
       <div class="moon">
         🌙
@@ -1658,12 +1396,7 @@ h1{
 </div>
 
 
-<!-- TEXT UNDER SCENE -->
-
-<section
-  class="caption"
-  id="caption"
->
+<section class="caption" id="caption">
 
   <h2 id="captionTitle"></h2>
 
@@ -1681,8 +1414,292 @@ h1{
 
 <script>
 
-(()=>{
+document.addEventListener("DOMContentLoaded", function () {
 
-  const $ =
-    id =>
-      document.g
+  const laptop =
+    document.getElementById("laptop");
+
+  const phone =
+    document.getElementById("phone");
+
+  const stress =
+    document.getElementById("stress");
+
+  const clock =
+    document.getElementById("clock");
+
+  const lamp =
+    document.getElementById("lamp");
+
+  const scene =
+    document.getElementById("scene");
+
+  const goodnight =
+    document.getElementById("goodnight");
+
+  const caption =
+    document.getElementById("caption");
+
+  const captionTitle =
+    document.getElementById("captionTitle");
+
+  const captionText =
+    document.getElementById("captionText");
+
+  const doneText =
+    document.getElementById("doneText");
+
+  const phoneScreen =
+    document.getElementById("phoneScreen");
+
+
+  const steps = [
+
+    {
+      element: laptop,
+
+      title:
+        "First things first 💻",
+
+      text:
+        "Close the laptop. That's enough work for today.",
+
+      done:
+        "Laptop closed ✓",
+
+      action: function () {
+
+        laptop
+          .classList
+          .add("closed");
+
+      }
+    },
+
+
+    {
+      element: phone,
+
+      title:
+        "The phone is still in serious mode 📱",
+
+      text:
+        "Enough messages and useful things for today. Time to let your brain rest for a bit. 😌",
+
+      done:
+        "Reels mode activated ✓",
+
+      action: function () {
+
+        phone
+          .classList
+          .add("reels");
+
+
+        phoneScreen.innerHTML =
+          `
+          <div class="reels-content">
+
+            <div class="reels-heart">
+              ♥
+            </div>
+
+            <strong>
+              REELS
+            </strong>
+
+            <small>
+              something completely unimportant 😌
+            </small>
+
+          </div>
+          `;
+
+      }
+    },
+
+
+    {
+      element: stress,
+
+      title:
+        "This definitely doesn't need to come to bed 🗑️",
+
+      text:
+        "Tap the crumpled stress and send it where it belongs.",
+
+      done:
+        "Good riddance ✓",
+
+      action: function () {
+
+        stress
+          .classList
+          .add("thrown");
+
+      }
+    },
+
+
+    {
+      element: clock,
+
+      title:
+        "No more checking what time it is ⏰",
+
+      text:
+        "Tap the clock. It can stop keeping track for tonight.",
+
+      done:
+        "Time officially ignored ✓",
+
+      action: function () {
+
+        clock
+          .classList
+          .add("stopped");
+
+      }
+    },
+
+
+    {
+      element: lamp,
+
+      title:
+        "And finally... the light 🌙",
+
+      text:
+        "Turn off the lamp and let the day end properly.",
+
+      done:
+        "",
+
+      action: function () {
+
+        lamp
+          .classList
+          .add("off");
+
+
+        scene
+          .classList
+          .add("night");
+
+
+        caption.style.display =
+          "none";
+
+
+        setTimeout(
+          function () {
+
+            goodnight
+              .classList
+              .add("show");
+
+          },
+          500
+        );
+
+      }
+    }
+
+  ];
+
+
+  let currentStep = 0;
+
+
+  function showStep() {
+
+    steps.forEach(
+      function (step, index) {
+
+        step.element
+          .classList
+          .toggle(
+            "active",
+            index === currentStep
+          );
+
+      }
+    );
+
+
+    const step =
+      steps[currentStep];
+
+
+    captionTitle.textContent =
+      step.title;
+
+
+    captionText.textContent =
+      step.text;
+
+
+    doneText.textContent =
+      "";
+
+  }
+
+
+  steps.forEach(
+    function (step, index) {
+
+      step.element
+        .addEventListener(
+          "click",
+          function () {
+
+            if (
+              index !== currentStep
+            ) {
+              return;
+            }
+
+
+            step.element
+              .classList
+              .remove("active");
+
+
+            step.action();
+
+
+            doneText.textContent =
+              step.done;
+
+
+            if (
+              currentStep ===
+              steps.length - 1
+            ) {
+              return;
+            }
+
+
+            currentStep++;
+
+
+            setTimeout(
+              showStep,
+              700
+            );
+
+          }
+        );
+
+    }
+  );
+
+
+  showStep();
+
+});
+
+</script>
+
+</body>
+</html>
